@@ -2,7 +2,7 @@ import React from "react";
 
 const NavbarComponent = () => {
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+    <nav id="navbar" className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a
           href="https://flowbite.com/"

@@ -10,7 +10,7 @@ const customTheme = {
     root: {
       base: "absolute top-10 z-50 block pt-2",
       inline: "relative top-0 z-auto",
-      inner: "inline-block rounded-lg bg-white p-4 shadow-lg dark:bg-gray-700",
+      inner: "inline-block rounded-lg bg-white p-5 shadow-lg dark:bg-gray-700",
     },
     header: {
       base: "",
@@ -34,7 +34,7 @@ const customTheme = {
       button: {
         base: "w-full rounded-lg px-5 py-2 text-center text-sm font-medium",
         today:
-          "bg-red-600 text-white hover:bg-red-700 dark:bg-cyan-600 dark:hover:bg-cyan-700 active:bg-red-500",
+          "bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 active:bg-red-500",
         clear:
           "border border-gray-300 bg-white text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 active:bg-gray-500 dark:text-white dark:hover:bg-gray-600",
       },
@@ -61,7 +61,7 @@ const customTheme = {
         base: "grid w-64 grid-cols-4",
         item: {
           base: "block flex-1 cursor-pointer rounded-lg border-0 text-center text-sm font-semibold leading-9 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600",
-          selected: "bg-cyan-700 text-white hover:bg-cyan-600",
+          selected: "bg-red-600 text-white hover:bg-red-500",
           disabled: "text-gray-500",
         },
       },
@@ -81,7 +81,7 @@ const customTheme = {
         base: "grid w-64 grid-cols-4",
         item: {
           base: "block flex-1 cursor-pointer rounded-lg border-0 text-center text-sm font-semibold leading-9  text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-600",
-          selected: "bg-cyan-700 text-white hover:bg-cyan-600",
+          selected: "bg-red-600 text-white hover:bg-red-500",
           disabled: "text-gray-500",
         },
       },

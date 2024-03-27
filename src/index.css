@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media print {
+    
+ #navbar,
+ #footer,
+ #print-btn{
+    display: none;
+ }   
+
+ #table{
+    border-radius: 0rem;
+    overflow: auto;
+ }
+
+ #print-content{
+    margin-top: 0;
+    padding: 0rem;
+    /* border-radius: 0%;? */
+ }
+
+ #address{
+    padding: 0;
+    display: flex;
+    font-size: 1px;
+ }
+
+ /* tabel */
+    #tabel-head th{
+        border: 1px black solid;
+        background-color: red;
+
+    }
+
+    #tr td{
+        font-size: 1rem;
+        color: black;
+        border: 1px black solid;
+        padding-block: 1px;
+    }
+
+
+    #tr{
+        padding: 0rem;
+    }
+
+    #customerInfo li{
+        gap: 1rem;
+    }
+
+    input::placeholder{
+        opacity: 0;
+    }
+}
+
