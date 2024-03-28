@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+
 @media print {
     
  #navbar,
@@ -12,14 +22,18 @@
 
  #table{
     border-radius: 0rem;
+    background-color: antiquewhite;
     overflow: auto;
  }
 
  #print-content{
     margin-top: 0;
     padding: 0rem;
+    width: 100%;
+    box-shadow: none;
     /* border-radius: 0%;? */
  }
+
 
  #address{
     padding: 0;
@@ -30,15 +44,23 @@
  /* tabel */
     #tabel-head th{
         border: 1px black solid;
-        background-color: red;
+        font-size: 9px;
+        padding: 5px;
 
     }
+
+
 
     #tr td{
         font-size: 1rem;
         color: black;
         border: 1px black solid;
         padding-block: 1px;
+    }
+
+    #tr td input {
+        padding: 0;
+        font-size: 12px;
     }
 
 
@@ -50,8 +72,28 @@
         gap: 1rem;
     }
 
-    input::placeholder{
+    input::placeholder ,textarea::placeholder{
         opacity: 0;
+    }
+
+     label{
+        font-size:12px;
+    }
+    .grip{
+        display: none;
+    }
+
+    .footer {
+        width:157px;
+
+    }
+
+    .footer span p{
+        border: 1px solid black;
+        font-size: 11px;
+        padding: 2px;
+
+        
     }
 }
 

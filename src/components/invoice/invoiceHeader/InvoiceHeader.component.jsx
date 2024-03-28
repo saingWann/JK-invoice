@@ -4,14 +4,14 @@ import DatepickerComponent from "../datepicker/Datepicker.component";
 const InvoiceHeaderComponent = () => {
   return (
     <>
-      <p className="lg:text-7xl text-5xl font-bold text-center text-red-600">
+      <p className="lg:text-7xl text-6xl font-bold text-center text-red-600">
         JK
       </p>
 
-      <div className="lg:my-10 my-5 flex  justify-between items-start ">
+      <div className="lg:mt-10 lg:mb-5 my-5 flex  justify-between items-start ">
         <ul
           id="customerInfo"
-          className="text-sm font-semibold w-1/2 flex flex-col gap-1"
+          className="text-sm font-semibold w-1/2 flex gap-1 flex-col "
         >
           <li className="flex gap-8 items-center ">
             <label htmlFor="customerName">Name</label>
@@ -38,8 +38,8 @@ const InvoiceHeaderComponent = () => {
             <input
               placeholder="address"
               type="text"
-              name="customerPhone"
-              id="customerPhone"
+              name="customerAddress"
+              id="customerAddress"
               className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm"
             />
           </li>
