@@ -2,22 +2,11 @@ import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Grip } from "lucide-react";
 
-import TableRowComponent from "./TableRow.component";
-
 const TableComponent = () => {
-  const rowIds = [
-    "row1",
-    "row2",
-    "row3",
-    "row4",
-    "row5",
-    "row6",
-    "row7",
-    "row8",
-    "row9",
-    "row10",
-  ];
+  const rowIds = ["row1", "row2", "row3"];
   const [tableRowsOrder, setTableRowsOrder] = useState(rowIds);
+  const [isChange, setIsChange] = useState(false);
+
   const dragEnded = (result) => {
     if (!result.destination) return;
     const items = Array.from(tableRowsOrder);
@@ -25,6 +14,50 @@ const TableComponent = () => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     setTableRowsOrder(items);
+  };
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const calculateTotalInBaht = (rowId) => {
+    const unit = document.querySelector(`#unit_${rowId}`);
+    const unitPrice = document.querySelector(`#unit_price_${rowId}`);
+    if (unit.value && unitPrice.value) {
+      const amount = document.querySelector(`#amount_${rowId}`);
+
+      const unitValue = unit.value.match(/(\d+)/);
+      const unitPriceValue = unitPrice.value.match(/(\d+)/);
+
+      // console.log(unitPriceValue[0], unitValue[0]);
+
+      const totalAmount = unitValue[0] * unitPriceValue[0];
+      console.log(totalAmount);
+      amount.value = numberWithCommas(totalAmount) + " THB";
+      // console.log({ unitValue, unitPriceValue });
+      setIsChange(!isChange);
+    }
+    return;
+  };
+
+  const calculateTotalInMMK = (rowId) => {
+    const unit = document.querySelector(`#unit_${rowId}`);
+    const unitPrice = document.querySelector(`#unit_price_${rowId}`);
+    if (unit.value && unitPrice.value) {
+      const amount = document.querySelector(`#amount_${rowId}`);
+
+      const unitValue = unit.value.match(/(\d+)/);
+      const unitPriceValue = unitPrice.value.match(/(\d+)/);
+
+      // console.log(unitPriceValue[0], unitValue[0]);
+
+      const totalAmount = unitValue[0] * unitPriceValue[0];
+      console.log(totalAmount);
+      amount.value = numberWithCommas(totalAmount) + " MMK";
+      // console.log({ unitValue, unitPriceValue });
+      setIsChange(!isChange);
+    }
+    return;
   };
 
   return (
@@ -75,6 +108,183 @@ const TableComponent = () => {
             {(provided) => (
               <tbody {...provided.droppableProps} ref={provided.innerRef}>
                 {tableRowsOrder.map((rowId, index) => {
+                  // first row
+                  if (index === 0) {
+                    return (
+                      <Draggable key={rowId} draggableId={rowId} index={index}>
+                        {(provided) => (
+                          <tr
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={{
+                              ...provided.draggableProps.style,
+                              flexWrap: "nowrap",
+                            }}
+                            id="tr"
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                          >
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                id={`number_${rowId}`}
+                                name={`number_${rowId}`}
+                                placeholder={`no`}
+                                type="text"
+                                value={1}
+                                readOnly
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                id={`descripiton_${rowId}`}
+                                name={`descripiton_${rowId}`}
+                                placeholder={`descripiton`}
+                                type="text"
+                                value="kg charge"
+                                readOnly
+                                className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td className=" py-4 font-medium text-black  ">
+                              <input
+                                onChange={() => calculateTotalInBaht(rowId)}
+                                id={`unit_${rowId}`}
+                                name={`unit_${rowId}`}
+                                placeholder="unit"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                onChange={() => calculateTotalInBaht(rowId)}
+                                id={`unit_price_${rowId}`}
+                                name={`unit_price_${rowId}`}
+                                placeholder="unit price"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
+                              text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black relative overflow-y-hidden"
+                            >
+                              <input
+                                id={`amount_${rowId}`}
+                                name={`amount_${rowId}`}
+                                placeholder="amount"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
+                              text-center"
+                              />
+                              <Grip className="grip absolute right-0 top-6 opacity-30" />
+                            </td>
+                          </tr>
+                        )}
+                      </Draggable>
+                    );
+                  }
+
+                  // second row
+                  if (index === 1) {
+                    return (
+                      <Draggable key={rowId} draggableId={rowId} index={index}>
+                        {(provided) => (
+                          <tr
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={{
+                              ...provided.draggableProps.style,
+                              flexWrap: "nowrap",
+                            }}
+                            id="tr"
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                          >
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                id={`number_${rowId}`}
+                                name={`number_${rowId}`}
+                                placeholder={`no`}
+                                type="text"
+                                value={2}
+                                readOnly
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                id={`descripiton_${rowId}`}
+                                name={`descripiton_${rowId}`}
+                                placeholder={`descripiton`}
+                                type="text"
+                                value="exchange rate"
+                                readOnly
+                                className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td className=" py-4 font-medium text-black  ">
+                              <input
+                                onChange={() => calculateTotalInMMK(rowId)}
+                                id={`unit_${rowId}`}
+                                name={`unit_${rowId}`}
+                                placeholder="unit"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black  "
+                            >
+                              <input
+                                onChange={() => calculateTotalInMMK(rowId)}
+                                id={`unit_price_${rowId}`}
+                                name={`unit_price_${rowId}`}
+                                placeholder="unit price"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
+                              text-center"
+                              />
+                            </td>
+                            <td
+                              scope="row"
+                              className=" py-4 font-medium text-black relative overflow-y-hidden"
+                            >
+                              <input
+                                id={`amount_${rowId}`}
+                                name={`amount_${rowId}`}
+                                placeholder="amount"
+                                type="text"
+                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
+                              text-center"
+                              />
+                              <Grip className="grip absolute right-0 top-6 opacity-30" />
+                            </td>
+                          </tr>
+                        )}
+                      </Draggable>
+                    );
+                  }
+
+                  // else row
                   return (
                     <Draggable key={rowId} draggableId={rowId} index={index}>
                       {(provided) => (
@@ -96,9 +306,9 @@ const TableComponent = () => {
                             <input
                               id={`number_${rowId}`}
                               name={`number_${rowId}`}
-                              type={`number_${rowId}`}
-                              placeholder="no"
-                              className="max-w-20 bg-transparent rounded-lg border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:text-gray-400 text-center"
+                              placeholder={`no`}
+                              type="text"
+                              className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
                             />
                           </td>
                           <td
@@ -108,13 +318,14 @@ const TableComponent = () => {
                             <input
                               id={`descripiton_${rowId}`}
                               name={`descripiton_${rowId}`}
-                              placeholder={`descripiton_${rowId}`}
+                              placeholder={`descripiton`}
                               type="text"
-                              className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+                              className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
                             />
                           </td>
                           <td className=" py-4 font-medium text-black  ">
                             <input
+                              onChange={() => calculateTotalInMMK(rowId)}
                               id={`unit_${rowId}`}
                               name={`unit_${rowId}`}
                               placeholder="unit"
@@ -127,12 +338,13 @@ const TableComponent = () => {
                             className=" py-4 font-medium text-black  "
                           >
                             <input
+                              onChange={() => calculateTotalInMMK(rowId)}
                               id={`unit_price_${rowId}`}
                               name={`unit_price_${rowId}`}
                               placeholder="unit price"
                               type="text"
                               className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
+                            text-center"
                             />
                           </td>
                           <td
@@ -145,21 +357,10 @@ const TableComponent = () => {
                               placeholder="amount"
                               type="text"
                               className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
+                            text-center"
                             />
                             <Grip className="grip absolute right-0 top-6 opacity-30" />
                           </td>
-                          {/* <td
-                            scope="row"
-                            className=" py-4 font-medium text-black flex relative"
-                          >
-                            <input
-                              placeholder="amount"
-                              type="text"
-                              className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
-                            />
-                          </td> */}
                         </tr>
                       )}
                     </Draggable>

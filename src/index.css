@@ -14,47 +14,57 @@
 
 @media print {
     
+ 
  #navbar,
  #footer,
  #print-btn{
     display: none;
  }   
 
+
  #table{
     border-radius: 0rem;
-    background-color: antiquewhite;
-    overflow: auto;
+    overflow: hidden;
+    page-break-inside: avoid;
+
  }
 
  #print-content{
-    margin-top: 0;
+    /* margin-top: 0; */
     padding: 0rem;
-    width: 100%;
     box-shadow: none;
-    /* border-radius: 0%;? */
+    width: 595px; /* A5 size width in pixels (half of A4) */
+    height: 800px; /* A5 size height in pixels (same as A4) */
+    margin-block: auto;
+    margin: 0 auto;
+    page-break-inside:avoid; /* Force page break after each invoice */
+    box-sizing: border-box;
+    overflow: hidden;
  }
 
 
  #address{
     padding: 0;
     display: flex;
-    font-size: 1px;
+    /* font-size: 100px; */
  }
 
  /* tabel */
     #tabel-head th{
-        border: 1px black solid;
-        font-size: 9px;
-        padding: 5px;
+        /* border: 1px black solid; */
+        font-size: 12px;
+        padding: 10px;
 
     }
 
-
-
+    #dropdown{
+        display: none;
+    }
+    
     #tr td{
         font-size: 1rem;
         color: black;
-        border: 1px black solid;
+        /* border: 1px black solid; */
         padding-block: 1px;
     }
 
@@ -84,16 +94,38 @@
     }
 
     .footer {
-        width:157px;
+        /* margin-top: 0px; */
+        width:48mm;
 
     }
 
     .footer span p{
-        border: 1px solid black;
-        font-size: 11px;
-        padding: 2px;
+        font-size: 12px;
+        text-align: left;
+        padding: 10px 16px 10px 16px;
+       /* border: 1px solid black; */
 
+    }
+
+    .footer span input{
+        font-size: 12px;
+        padding: 10px 16px 10px 16px;
+       /* border: 1px solid black; */
+        border-radius: 0px;
+
+    }
+
+    #note{
+        font-size: 11px;
         
+    }
+
+    
+    .footer span {
+        /* border: 0px; */
+        font-size: 11px;
+        text-align: left;
+       
     }
 }
 

@@ -4,9 +4,7 @@ import DatepickerComponent from "../datepicker/Datepicker.component";
 const InvoiceHeaderComponent = () => {
   return (
     <>
-      <p className="lg:text-7xl text-6xl font-bold text-center text-red-600">
-        JK
-      </p>
+      <p className="text-7xl font-bold text-center text-red-600">JK</p>
 
       <div className="lg:mt-10 lg:mb-5 my-5 flex  justify-between items-start ">
         <ul

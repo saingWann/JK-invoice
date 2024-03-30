@@ -1,51 +1,50 @@
-"use client";
-
-import { Dropdown } from "flowbite-react";
-
-function VoucherDropdownComponent() {
-  const customTheme = {
-    arrowIcon: "ml-2 h-4 w-4",
-    content: "py-1 focus:outline-none",
-    floating: {
-      animation: "transition-opacity",
-      arrow: {
-        base: "absolute z-10 h-2 w-2 rotate-45",
-        style: {
-          dark: "bg-gray-900 dark:bg-gray-700",
-          light: "bg-white",
-          auto: "bg-white dark:bg-gray-700",
-        },
-        placement: "-4px",
-      },
-      base: "z-10 w-fit divide-y divide-gray-100 rounded shadow focus:outline-none",
-      content: "py-1 text-sm text-gray-700 dark:text-gray-200",
-      divider: "my-1 h-px bg-gray-100 dark:bg-gray-600",
-      header: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200",
-      hidden: "invisible opacity-0",
-      item: {
-        container: "",
-        base: "flex w-full cursor-pointer items-center justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
-        icon: "mr-2 h-4 w-4",
-      },
-      style: {
-        dark: "bg-gray-900 text-white dark:bg-gray-700",
-        light: "border border-gray-200 bg-white text-gray-900",
-        auto: "border border-gray-200 bg-white text-gray-900 dark:border-none dark:bg-gray-700 dark:text-white",
-      },
-      target: "w-fit",
-    },
-    inlineWrapper: "flex items-center",
+import React, { useState } from "react";
+import { ChevronDown } from "lucide-react";
+const VoucherDropdownComponent = () => {
+  const voucherTypes = [
+    "TH - MM",
+    "MM - TH",
+    "MM - SG",
+    "Air Cargo",
+    "Car Rental",
+  ];
+  const [open, setOpen] = useState(false);
+  const toggle = () => {
+    setOpen(!open);
   };
+  const [change, isChange] = useState(false);
   return (
-    <Dropdown theme={customTheme} label="Select Voucher">
-      <Dropdown.Item onClick={() => alert("Dashboard!")}>
-        Dashboard
-      </Dropdown.Item>
-      <Dropdown.Item onClick={() => alert("Settings!")}>Settings</Dropdown.Item>
-      <Dropdown.Item onClick={() => alert("Earnings!")}>Earnings</Dropdown.Item>
-      <Dropdown.Item onClick={() => alert("Sign out!")}>Sign out</Dropdown.Item>
-    </Dropdown>
+    <div>
+      <div id="dropdown" className="relative flex w-full justify-center mt-12">
+        <button
+          onClick={toggle}
+          className=" border-2 font-semibold px-4 py-2 rounded-lg flex gap-3 items-center"
+        >
+          <p>Select Voucher</p>
+          <ChevronDown
+            className={` transition-all duration-500 ${
+              open ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </button>
+        <ul
+          className={`bg-white/80 text-sm w-1/3 font-bold p-3 rounded-lg shadow-md absolute top-12 left-50  transition-all duration-300 origin-top z-10 overflow-hidden border backdrop-blur-sm ${
+            open ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          {voucherTypes.map((voucher, index) => (
+            <li
+              key={index}
+              onClick={toggle}
+              className="cursor-pointer hover:bg-gray-100 p-3  rounded-lg active:bg-gray-200"
+            >
+              <a href="#">{voucher} </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
-}
+};
 
 export default VoucherDropdownComponent;

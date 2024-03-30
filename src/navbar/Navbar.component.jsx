@@ -90,9 +90,6 @@ function NavbarComponent() {
             <Navbar.Toggle />
           </div>
 
-          <div>
-            <VoucherDropdownComponent />
-          </div>
           {/* <Navbar.Collapse>
           <Navbar.Link href="#" active>
             Home

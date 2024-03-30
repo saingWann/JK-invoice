@@ -2,8 +2,8 @@ import React from "react";
 
 const AddressComponent = () => {
   return (
-    <ul id="address" className=" hidden mt-5  flex-col gap-5 px-10">
-      <li className="flex gap-10 font-bold text-[10px]">
+    <ul id="address" className=" hidden mt-12 flex-col gap-5 px-10">
+      <li className="flex gap-10 font-bold text-[12px]">
         <p>Bangkok</p>
         <p>
           Supamongkol Ville Village, House No. 9/17, Hathai Rat Road 72, Beng
@@ -11,7 +11,7 @@ const AddressComponent = () => {
           12150. +666 3234 1228
         </p>
       </li>
-      <li className="flex gap-10 font-bold text-[10px]">
+      <li className="flex gap-10 font-bold text-[12px]">
         <p>Yangon</p>
         <p>
           No. (61/B), Thuta(2)Street, (4) Quarter, south Okkalapa Township,

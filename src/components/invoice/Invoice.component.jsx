@@ -16,8 +16,8 @@ const InvoiceComponent = () => {
         <InvoiceHeaderComponent />
         <TableComponent />
         <InvoiceFooterComponent />
+        <AddressComponent />
       </div>
-      <AddressComponent />
 
       <div className="w-3/4 mx-auto flex justify-end my-10">
         <PrintBtnComponent />
