@@ -17,7 +17,9 @@
  
  #navbar,
  #footer,
- #print-btn{
+ #print-btn,
+ #dropdown,
+ #addRowBtn{
     display: none;
  }   
 
@@ -46,6 +48,7 @@
  #address{
     padding: 0;
     display: flex;
+    
     /* font-size: 100px; */
  }
 
@@ -57,10 +60,7 @@
 
     }
 
-    #dropdown{
-        display: none;
-    }
-    
+  
     #tr td{
         font-size: 1rem;
         color: black;

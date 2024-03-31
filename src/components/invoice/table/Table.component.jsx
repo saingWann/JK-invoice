@@ -1,45 +1,33 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Grip } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addRow, fillRow, reorderList } from "../../../state/TabelRowSlice";
+import KgChargeRowComponent from "./KgChargeRowComponentKgChargeRow.component";
+import ExchangeRowComponent from "./ExchangeRow.component";
+import DeliveryComponent from "./DeliveryRow.component";
 
 const TableComponent = () => {
-  const rowIds = ["row1", "row2", "row3"];
-  const [tableRowsOrder, setTableRowsOrder] = useState(rowIds);
+  const tableRows = useSelector((state) => state.addRow);
+  // console.log(tableRows);
+  const dispatch = useDispatch();
+
   const [isChange, setIsChange] = useState(false);
 
+  // reorder list function
   const dragEnded = (result) => {
+    // console.log(result);
     if (!result.destination) return;
-    const items = Array.from(tableRowsOrder);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setTableRowsOrder(items);
+    dispatch(reorderList(result));
   };
 
+  // add coma to long number
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  const calculateTotalInBaht = (rowId) => {
-    const unit = document.querySelector(`#unit_${rowId}`);
-    const unitPrice = document.querySelector(`#unit_price_${rowId}`);
-    if (unit.value && unitPrice.value) {
-      const amount = document.querySelector(`#amount_${rowId}`);
-
-      const unitValue = unit.value.match(/(\d+)/);
-      const unitPriceValue = unitPrice.value.match(/(\d+)/);
-
-      // console.log(unitPriceValue[0], unitValue[0]);
-
-      const totalAmount = unitValue[0] * unitPriceValue[0];
-      console.log(totalAmount);
-      amount.value = numberWithCommas(totalAmount) + " THB";
-      // console.log({ unitValue, unitPriceValue });
-      setIsChange(!isChange);
-    }
-    return;
-  };
-
+  // calculate total in myanmar kyat
   const calculateTotalInMMK = (rowId) => {
     const unit = document.querySelector(`#unit_${rowId}`);
     const unitPrice = document.querySelector(`#unit_price_${rowId}`);
@@ -107,180 +95,39 @@ const TableComponent = () => {
           <Droppable droppableId="rows">
             {(provided) => (
               <tbody {...provided.droppableProps} ref={provided.innerRef}>
-                {tableRowsOrder.map((rowId, index) => {
+                {tableRows.map((rowId, index) => {
                   // first row
                   if (index === 0) {
                     return (
-                      <Draggable key={rowId} draggableId={rowId} index={index}>
-                        {(provided) => (
-                          <tr
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{
-                              ...provided.draggableProps.style,
-                              flexWrap: "nowrap",
-                            }}
-                            id="tr"
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 active:bg-gray-100"
-                          >
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                id={`number_${rowId}`}
-                                name={`number_${rowId}`}
-                                placeholder={`no`}
-                                type="text"
-                                value={1}
-                                readOnly
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                id={`descripiton_${rowId}`}
-                                name={`descripiton_${rowId}`}
-                                placeholder={`descripiton`}
-                                type="text"
-                                value="kg charge"
-                                readOnly
-                                className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td className=" py-4 font-medium text-black  ">
-                              <input
-                                onChange={() => calculateTotalInBaht(rowId)}
-                                id={`unit_${rowId}`}
-                                name={`unit_${rowId}`}
-                                placeholder="unit"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                onChange={() => calculateTotalInBaht(rowId)}
-                                id={`unit_price_${rowId}`}
-                                name={`unit_price_${rowId}`}
-                                placeholder="unit price"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black relative overflow-y-hidden"
-                            >
-                              <input
-                                id={`amount_${rowId}`}
-                                name={`amount_${rowId}`}
-                                placeholder="amount"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
-                              />
-                              <Grip className="grip absolute right-0 top-6 opacity-30" />
-                            </td>
-                          </tr>
-                        )}
-                      </Draggable>
+                      <KgChargeRowComponent
+                        key={rowId}
+                        placeholder="kg charge"
+                        rowId={rowId}
+                        rowNo={1}
+                      />
                     );
                   }
 
                   // second row
                   if (index === 1) {
                     return (
-                      <Draggable key={rowId} draggableId={rowId} index={index}>
-                        {(provided) => (
-                          <tr
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{
-                              ...provided.draggableProps.style,
-                              flexWrap: "nowrap",
-                            }}
-                            id="tr"
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 active:bg-gray-100"
-                          >
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                id={`number_${rowId}`}
-                                name={`number_${rowId}`}
-                                placeholder={`no`}
-                                type="text"
-                                value={2}
-                                readOnly
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                id={`descripiton_${rowId}`}
-                                name={`descripiton_${rowId}`}
-                                placeholder={`descripiton`}
-                                type="text"
-                                value="exchange rate"
-                                readOnly
-                                className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td className=" py-4 font-medium text-black  ">
-                              <input
-                                onChange={() => calculateTotalInMMK(rowId)}
-                                id={`unit_${rowId}`}
-                                name={`unit_${rowId}`}
-                                placeholder="unit"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black  "
-                            >
-                              <input
-                                onChange={() => calculateTotalInMMK(rowId)}
-                                id={`unit_price_${rowId}`}
-                                name={`unit_price_${rowId}`}
-                                placeholder="unit price"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
-                              />
-                            </td>
-                            <td
-                              scope="row"
-                              className=" py-4 font-medium text-black relative overflow-y-hidden"
-                            >
-                              <input
-                                id={`amount_${rowId}`}
-                                name={`amount_${rowId}`}
-                                placeholder="amount"
-                                type="text"
-                                className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-                              text-center"
-                              />
-                              <Grip className="grip absolute right-0 top-6 opacity-30" />
-                            </td>
-                          </tr>
-                        )}
-                      </Draggable>
+                      <ExchangeRowComponent
+                        key={rowId}
+                        rowNo={2}
+                        placeholder="exchange rate"
+                        rowId={rowId}
+                      />
+                    );
+                  }
+                  // third row
+                  if (index === 2) {
+                    return (
+                      <DeliveryComponent
+                        key={rowId}
+                        rowNo={3}
+                        placeholder="Delivery"
+                        rowId={rowId}
+                      />
                     );
                   }
 
@@ -371,7 +218,31 @@ const TableComponent = () => {
             )}
           </Droppable>
         </DragDropContext>
+
+        {/* add new table row */}
       </table>
+      <div className="w-full flex gap-5">
+        <button
+          id="addRowBtn"
+          onClick={() => {
+            dispatch(addRow());
+          }}
+          className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
+        >
+          add new row
+        </button>
+        <button
+          id="addRowBtn"
+          onClick={() => {
+            dispatch(fillRow());
+          }}
+          className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
+            tableRows.length === 10 && "hidden"
+          }`}
+        >
+          fill rows
+        </button>
+      </div>
     </div>
   );
 };

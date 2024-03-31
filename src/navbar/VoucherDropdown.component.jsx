@@ -12,7 +12,7 @@ const VoucherDropdownComponent = () => {
   const toggle = () => {
     setOpen(!open);
   };
-  const [change, isChange] = useState(false);
+
   return (
     <div>
       <div id="dropdown" className="relative flex w-full justify-center mt-12">

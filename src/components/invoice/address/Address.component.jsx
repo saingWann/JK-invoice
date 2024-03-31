@@ -2,7 +2,7 @@ import React from "react";
 
 const AddressComponent = () => {
   return (
-    <ul id="address" className=" hidden mt-12 flex-col gap-5 px-10">
+    <ul id="address" className="hidden mt-16 flex-col gap-5 px-10 ">
       <li className="flex gap-10 font-bold text-[12px]">
         <p>Bangkok</p>
         <p>
