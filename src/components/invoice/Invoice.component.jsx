@@ -5,8 +5,13 @@ import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
 import AddressComponent from "./address/Address.component";
 import InvoiceFooterComponent from "../../invoiceFooter/InvoiceFooter.component";
+import { useDispatch } from "react-redux";
+import { addRow, fillRow } from "../../state/TabelRowSlice";
+import { useSelector } from "react-redux";
 
 const InvoiceComponent = () => {
+  const dispatch = useDispatch();
+  const tableRows = useSelector((state) => state.addRow);
   return (
     <Container>
       <div
@@ -16,6 +21,28 @@ const InvoiceComponent = () => {
         <InvoiceHeaderComponent />
         <TableComponent />
         <InvoiceFooterComponent />
+        <div className="w-full flex gap-5">
+          <button
+            id="addRowBtn"
+            onClick={() => {
+              dispatch(addRow());
+            }}
+            className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
+          >
+            add new row
+          </button>
+          <button
+            id="addRowBtn"
+            onClick={() => {
+              dispatch(fillRow());
+            }}
+            className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
+              tableRows.length === 10 && "hidden"
+            }`}
+          >
+            fill rows
+          </button>
+        </div>
         <AddressComponent />
       </div>
 

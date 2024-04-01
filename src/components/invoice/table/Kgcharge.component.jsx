@@ -1,48 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  calcuteTotalTHB,
+  handleUnit,
+  setCost,
+} from "../../../state/calculateAmountSlice";
 
 const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
-  const [inputValue, setInputValue] = useState({
-    quantity: "",
-    quantityPrice: "",
-    amount: "",
-  });
-
-  const handleQuantity = (e) => {
-    let newQuantity = e.target.value;
-    setInputValue({ ...inputValue, quantity: newQuantity });
-  };
-
-  const handleQuantityPrice = (e) => {
-    const newQuantityPrice = e.target.value;
-    console.log(newQuantityPrice);
-    setInputValue({ ...inputValue, quantityPrice: newQuantityPrice });
-  };
-
-  const handleKgUnit = () => {
-    if (inputValue.quantity) {
-      setInputValue({ ...inputValue, quantity: inputValue.quantity + " KG" });
-    }
-  };
-  const handleThbUnit = () => {
-    if (inputValue.quantityPrice) {
-      setInputValue({
-        ...inputValue,
-        quantityPrice: inputValue.quantityPrice + " THB",
-      });
-    }
-  };
-
-  const calculatePriceInTHB = () => {
-    if (inputValue.quantity && inputValue.quantityPrice) {
-      const quantity = inputValue.quantity.match(/(\d+)/);
-      const quantityPrice = inputValue.quantityPrice.match(/(\d+)/);
-      console.log(quantity, quantityPrice);
-      setInputValue({
-        ...inputValue,
-        amount: quantity[0] * quantityPrice[0] + " THB",
-      });
-    }
-  };
+  const { kg, pricePerKg, totalAmountInTHB } = useSelector(
+    (state) => state.cost
+  );
+  const dispatch = useDispatch();
 
   return (
     <tr
@@ -54,6 +23,7 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
           id={`number_${rowId}`}
           name={`number_${rowId}`}
           placeholder={`no`}
+          disabled={true}
           type="text"
           value={rowNo}
           readOnly
@@ -65,6 +35,7 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
           id={`descripiton_${rowId}`}
           name={`descripiton_${rowId}`}
           placeholder={`descripiton`}
+          disabled={true}
           type="text"
           value={placeholder}
           readOnly
@@ -73,21 +44,32 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
       </td>
       <td className=" py-4 font-medium text-black  ">
         <input
-          onChange={(e) => handleQuantity(e)}
-          onBlur={handleKgUnit}
+          value={kg}
+          onChange={(e) => {
+            console.log(e.target.value);
+            dispatch(setCost({ type: "kg", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(calcuteTotalTHB());
+            dispatch(handleUnit("kg"));
+          }}
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
           placeholder="unit"
-          value={inputValue.quantity}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          onChange={(e) => handleQuantityPrice(e)}
-          onBlur={handleThbUnit}
-          value={inputValue.quantityPrice}
+          value={pricePerKg}
+          onChange={(e) => {
+            dispatch(setCost({ type: "pricePerKg", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(calcuteTotalTHB());
+            dispatch(handleUnit("pricePerKg"));
+          }}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
           placeholder="unit price"
@@ -101,12 +83,11 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
         className=" py-4 font-medium text-black relative overflow-y-hidden"
       >
         <input
+          value={totalAmountInTHB}
+          readOnly
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
-          onFocus={calculatePriceInTHB}
-          readOnly
-          value={inputValue.amount}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
           text-center"

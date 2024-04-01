@@ -1,20 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  calculateGrandBalance,
+  handleUnit,
+  setCost,
+} from "../../../state/calculateAmountSlice";
 
 const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
-  const [deliveryFee, setDeliveryFee] = useState("");
-
-  const handleDeliveryFee = (e) => {
-    const delivery = e.target.value;
-    setDeliveryFee(delivery);
-  };
-
-  const handleUnit = () => {
-    // console.log(deliveryFee);
-    if (deliveryFee) {
-      setDeliveryFee(deliveryFee + " MMK");
-    }
-  };
-
+  const { deliveryFee, totalAmountInMMK } = useSelector((state) => state.cost);
+  const dispatch = useDispatch();
   return (
     <tr
       id="tr"
@@ -24,6 +19,7 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           id={`number_${rowId}`}
           name={`number_${rowId}`}
+          disabled={true}
           placeholder={`no`}
           type="text"
           value={rowNo}
@@ -35,6 +31,7 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           id={`descripiton_${rowId}`}
           name={`descripiton_${rowId}`}
+          disabled={true}
           placeholder={`descripiton`}
           type="text"
           value={placeholder}
@@ -46,8 +43,8 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
-          placeholder="unit"
           type="text"
+          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
@@ -55,10 +52,10 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
-          placeholder="unit price"
           type="text"
+          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-          text-center"
+          text-center "
         />
       </td>
       <td
@@ -69,9 +66,15 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
-          onBlur={handleUnit}
-          onChange={(e) => handleDeliveryFee(e)}
           value={deliveryFee}
+          onChange={(e) =>
+            dispatch(setCost({ type: "deliveryFee", value: e.target.value }))
+          }
+          onBlur={() => {
+            dispatch(calculateGrandBalance());
+            dispatch(handleUnit("deliveryFee"));
+            dispatch(setCost({ type: "total", value: totalAmountInMMK }));
+          }}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
           text-center"

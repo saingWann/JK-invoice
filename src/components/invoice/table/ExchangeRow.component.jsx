@@ -1,64 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  calculateGrandBalance,
+  calcuteTotalMMK,
+  handleUnit,
+  setCost,
+} from "../../../state/calculateAmountSlice";
 
 const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
-  const [inputValue, setInputValue] = useState({
-    quantity: "",
-    quantityPrice: "",
-    amount: "",
-    totalTHB: "",
-    totalMMK: "",
-  });
-
-  const handleQuantity = (e) => {
-    let newQuantity = e.target.value;
-    setInputValue({ ...inputValue, quantity: newQuantity });
-  };
-
-  const handleQuantityPrice = (e) => {
-    const newQuantityPrice = e.target.value;
-    console.log(newQuantityPrice);
-    setInputValue({ ...inputValue, quantityPrice: newQuantityPrice });
-  };
-
-  const handleTHBUnit = () => {
-    if (inputValue.quantity) {
-      setInputValue({ ...inputValue, quantity: inputValue.quantity + " THB" });
-    }
-    if (inputValue.totalTHB) {
-      setInputValue({ ...inputValue, quantity: inputValue.totalTHB + " THB" });
-    }
-  };
-  const handleMMKUnit = () => {
-    if (inputValue.quantityPrice) {
-      setInputValue({
-        ...inputValue,
-        quantityPrice: inputValue.quantityPrice + " MMK",
-      });
-    }
-  };
-
-  const calculatePriceInMMK = () => {
-    if (inputValue.quantity && inputValue.quantityPrice) {
-      const quantity = inputValue.quantity.match(/(\d+)/);
-      const quantityPrice = inputValue.quantityPrice.match(/(\d+)/);
-      console.log(quantity, quantityPrice);
-      setInputValue({
-        ...inputValue,
-        amount: quantity[0] * quantityPrice[0] + " MMk",
-      });
-    }
-  };
-
-  const updateTotalTHB = (e) => {
-    setInputValue({ ...inputValue, totalTHB: e.target.value });
-  };
-
-  const updateTotalMMk = (e) => {
-    setInputValue({
-      ...inputValue,
-      totalMMK: inputValue.quantityPrice * inputValue.totalTHB,
-    });
-  };
+  const { THB, exchangeRateMMK, totalAmountInMMK, totalAmountInTHB } =
+    useSelector((state) => state.cost);
+  const dispatch = useDispatch();
   return (
     <>
       <tr
@@ -70,6 +23,7 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
             id={`number_${rowId}`}
             name={`number_${rowId}`}
             placeholder={`no`}
+            disabled={true}
             type="text"
             value={rowNo}
             readOnly
@@ -81,6 +35,7 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
             id={`descripiton_${rowId}`}
             name={`descripiton_${rowId}`}
             placeholder={`descripiton`}
+            disabled={true}
             type="text"
             value={placeholder}
             readOnly
@@ -89,21 +44,28 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
         </td>
         <td className=" py-4 font-medium text-black  ">
           <input
-            onChange={(e) => handleQuantity(e)}
-            onBlur={handleTHBUnit}
+            value={THB}
+            readOnly
+            disabled={true}
             id={`unit_${rowId}`}
             name={`unit_${rowId}`}
             placeholder="unit"
-            value={inputValue.quantity}
             type="text"
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
           />
         </td>
         <td scope="row" className=" py-4 font-medium text-black  ">
           <input
-            onChange={(e) => handleQuantityPrice(e)}
-            onBlur={handleMMKUnit}
-            value={inputValue.quantityPrice}
+            value={exchangeRateMMK}
+            onChange={(e) => {
+              dispatch(
+                setCost({ type: "exchangeRateMMK", value: e.target.value })
+              );
+            }}
+            onBlur={() => {
+              dispatch(handleUnit("exchangeRateMMK"));
+              dispatch(calcuteTotalMMK());
+            }}
             id={`unit_price_${rowId}`}
             name={`unit_price_${rowId}`}
             placeholder="unit price"
@@ -119,10 +81,7 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
           <input
             id={`amount_${rowId}`}
             name={`amount_${rowId}`}
-            placeholder="amount"
-            onFocus={calculatePriceInMMK}
-            readOnly
-            value={inputValue.amount}
+            disabled={true}
             type="text"
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
               text-center"
@@ -139,7 +98,8 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
           <input
             placeholder={`no`}
             type="text"
-            value={rowNo}
+            disabled={true}
+            value={3}
             readOnly
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
           />
@@ -148,6 +108,7 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
           <input
             placeholder={`descripiton`}
             type="text"
+            disabled={true}
             value="total amount in mmk"
             readOnly
             className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
@@ -155,20 +116,21 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
         </td>
         <td className=" py-4 font-medium text-black  ">
           <input
-            onChange={(e) => updateTotalTHB(e)}
-            onBlur={handleTHBUnit}
+            value={totalAmountInTHB}
+            disabled={true}
+            readOnly
             id={`unit_${rowId}`}
             name={`unit_${rowId}`}
             placeholder="unit"
-            value={inputValue.totalTHB}
             type="text"
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
           />
         </td>
         <td scope="row" className=" py-4 font-medium text-black  ">
           <input
+            value={exchangeRateMMK}
+            disabled={true}
             readOnly
-            value={inputValue.quantityPrice}
             id={`unit_price_${rowId}`}
             name={`unit_price_${rowId}`}
             placeholder="unit price"
@@ -182,12 +144,12 @@ const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
           className=" py-4 font-medium text-black relative overflow-y-hidden"
         >
           <input
+            value={totalAmountInMMK}
             id={`amount_${rowId}`}
             name={`amount_${rowId}`}
+            disabled={true}
             placeholder="amount"
-            onBlur={updateTotalMMk}
             readOnly
-            value={inputValue.totalMMK}
             type="text"
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
               text-center"

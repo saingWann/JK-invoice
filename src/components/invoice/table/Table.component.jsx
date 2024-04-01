@@ -4,9 +4,9 @@ import { Grip } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addRow, fillRow, reorderList } from "../../../state/TabelRowSlice";
-import KgChargeRowComponent from "./KgChargeRowComponentKgChargeRow.component";
 import ExchangeRowComponent from "./ExchangeRow.component";
 import DeliveryComponent from "./DeliveryRow.component";
+import KgChargeRowComponent from "./Kgcharge.component";
 
 const TableComponent = () => {
   const tableRows = useSelector((state) => state.addRow);
@@ -124,7 +124,7 @@ const TableComponent = () => {
                     return (
                       <DeliveryComponent
                         key={rowId}
-                        rowNo={3}
+                        rowNo={4}
                         placeholder="Delivery"
                         rowId={rowId}
                       />
@@ -221,28 +221,6 @@ const TableComponent = () => {
 
         {/* add new table row */}
       </table>
-      <div className="w-full flex gap-5">
-        <button
-          id="addRowBtn"
-          onClick={() => {
-            dispatch(addRow());
-          }}
-          className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
-        >
-          add new row
-        </button>
-        <button
-          id="addRowBtn"
-          onClick={() => {
-            dispatch(fillRow());
-          }}
-          className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
-            tableRows.length === 10 && "hidden"
-          }`}
-        >
-          fill rows
-        </button>
-      </div>
     </div>
   );
 };
