@@ -1,5 +1,5 @@
 import React from "react";
-import TableComponent from "./table/Table.component";
+import TableComponent from "./TH-MM/TH-MM_Table";
 import Container from "../Container";
 import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = ['row1','row2','row3']
+const initialState = ['row1','row2','row3','row4']
 
 export const addNewTableRow = createSlice({
   name: 'tableRows',
@@ -13,7 +13,7 @@ export const addNewTableRow = createSlice({
       
     },
     fillRow: (state) => {
-      while(state.length <= 10) {
+      while(state.length < 10) {
         const newRow = `row${state.length +1}`
        state = [...state,newRow]
 

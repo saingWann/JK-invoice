@@ -10,6 +10,7 @@ import {
 const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
   const { deliveryFee, totalAmountInMMK } = useSelector((state) => state.cost);
   const dispatch = useDispatch();
+  const [desc, setDesc] = useState("Delivery Fee");
   return (
     <tr
       id="tr"
@@ -29,13 +30,9 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          id={`descripiton_${rowId}`}
-          name={`descripiton_${rowId}`}
-          disabled={true}
-          placeholder={`descripiton`}
+          onChange={(e) => setDesc(e.target.value)}
           type="text"
-          value={placeholder}
-          readOnly
+          value={desc}
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>

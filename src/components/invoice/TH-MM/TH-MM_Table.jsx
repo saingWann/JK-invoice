@@ -3,10 +3,11 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Grip } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addRow, fillRow, reorderList } from "../../../state/TabelRowSlice";
+import { reorderList } from "../../../state/TabelRowSlice";
 import ExchangeRowComponent from "./ExchangeRow.component";
 import DeliveryComponent from "./DeliveryRow.component";
 import KgChargeRowComponent from "./Kgcharge.component";
+import TotalAmountComponent from "./TotalAmount.component";
 
 const TableComponent = () => {
   const tableRows = useSelector((state) => state.addRow);
@@ -119,8 +120,18 @@ const TableComponent = () => {
                       />
                     );
                   }
-                  // third row
+
                   if (index === 2) {
+                    return (
+                      <TotalAmountComponent
+                        key={rowId}
+                        rowNo={rowId}
+                        placeholder="Total Amount"
+                      />
+                    );
+                  }
+                  // third row
+                  if (index === 3) {
                     return (
                       <DeliveryComponent
                         key={rowId}
