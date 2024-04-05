@@ -8,6 +8,7 @@ import InvoiceFooterComponent from "../../invoiceFooter/InvoiceFooter.component"
 import { useDispatch } from "react-redux";
 import { addRow, fillRow } from "../../state/TabelRowSlice";
 import { useSelector } from "react-redux";
+import MM_TH_Table from "./MM-TH/MM_TH_Table";
 
 const InvoiceComponent = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,8 @@ const InvoiceComponent = () => {
         id="print-content"
       >
         <InvoiceHeaderComponent />
-        <TableComponent />
+        {/* <TableComponent /> */}
+        <MM_TH_Table />
         <InvoiceFooterComponent />
         <div className="w-full flex gap-5">
           <button
