@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = ['row1','row2','row3','row4','row5']
+const initialState = ['row1','row2','row3','row4']
 
 export const addNewTableRow = createSlice({
   name: 'tableRows',

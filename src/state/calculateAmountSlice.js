@@ -48,14 +48,19 @@ const calculateAmountSlice = createSlice({
                     break
                 }
                 case 'total': {
-                    const kgChargeTotal = actions.payload.value.match(/(\d+)/)
-                    const deli = state.deliveryFee.match(/(\d+)/)
-                     
-                      const total = Number(kgChargeTotal[0]) + Number(deli[0])
+                    if(!state.deliveryFee){
+                        return
+                    }else{
 
-                      console.log(total)
-                    state = {...state,grandTotal:total + ' MMK'}
-                    break
+                        const kgChargeTotal = actions.payload.value.match(/(\d+)/)
+                        const deli = state.deliveryFee.match(/(\d+)/)
+                        
+                        const total = Number(kgChargeTotal[0]) + Number(deli[0])
+                        
+                        console.log(total)
+                        state = {...state,grandTotal:total + ' MMK'}
+                        break
+                    }
                 }
 
                 default : return state
@@ -84,6 +89,44 @@ const calculateAmountSlice = createSlice({
             }
         },
 
+        calculatePricePerKg: (state) => {
+            let inputKg = state.kg.match(/(\d+)/)
+            const inputKgvalue = Number(inputKg[0])
+
+
+            switch (true){
+
+                case (inputKgvalue <= 10) : {
+                    console.log(inputKgvalue)
+                    state = {...state,pricePerKg: '50 THB'}
+                    break;
+                }
+               
+                case (inputKgvalue > 10 && inputKgvalue <= 30) :{
+                    state = {...state,pricePerKg: '45 THB'}
+                    break;
+                }
+
+                case (inputKgvalue > 30 && inputKgvalue <= 50) : {
+                    state = {...state,pricePerKg: '40 THB'}
+                    break;
+                }
+                case (inputKgvalue > 50 && inputKgvalue <= 100) : {
+                    state = {...state,pricePerKg: '35 THB'}
+                    break;
+                }
+                case (inputKgvalue > 100 ) : {
+                    state = {...state,pricePerKg: '30 THB'}
+                    break;
+                }
+
+                default :{
+                    console.log(inputKgvalue)
+                    return state}
+            }
+            return state;
+        },
+
         calculateGrandBalance: (state) => {
             // console.log('grandBalanced')
             if(state.advanced === '' && state.grandTotal){
@@ -105,8 +148,13 @@ const calculateAmountSlice = createSlice({
             switch(actions.payload) {
 
                 case 'kg' : {
-                    state = {...state, kg: state.kg + ' KG'}
-                    break
+                    if(state.kg === ''){
+                        return
+                    }else {
+
+                        state = {...state, kg: state.kg + ' KG'}
+                        break
+                    }
                 }
 
                 case 'pricePerKg' :{
@@ -116,21 +164,36 @@ const calculateAmountSlice = createSlice({
                 }
 
                 case 'exchangeRateMMK' :{
-                    state = {...state, exchangeRateMMK: state.exchangeRateMMK + ' MMK'}
-                    break
+                    console.log(state.exchangeRateMMK)
+                    if(state.exchangeRateMMK === ''){
+                        return
+                    }else {
+
+                        state = {...state, exchangeRateMMK: state.exchangeRateMMK + ' MMK'}
+                        break
+                    }
                 }
 
                 case 'deliveryFee' : {
-                    state = {...state, deliveryFee: state.deliveryFee + ' MMK' }
-                    break
+                    if(state.deliveryFee === ''){
+                        return
+                    }else {
+                        
+                        state = {...state, deliveryFee: state.deliveryFee + ' MMK' }
+                        break
+                    }
                 }
                 case 'THB' : {
                     state = {...state, THB: state.THB + ' THB' }
                     break
                 }
                 case 'advanced' : {
-                    state = {...state, advanced: state.advanced + ' MMK' }
-                    break
+                    if(state.advanced){
+                        
+                        state = {...state, advanced: state.advanced + ' MMK' }
+                        break
+                    }
+                    return
                 }
             }
             return state
@@ -141,5 +204,5 @@ const calculateAmountSlice = createSlice({
     }
 })
 
-export const {setCost, handleUnit,calcuteTotalTHB,calcuteTotalMMK ,calculateGrandBalance} = calculateAmountSlice.actions
+export const {setCost, handleUnit,calcuteTotalTHB,calcuteTotalMMK ,calculateGrandBalance,calculatePricePerKg} = calculateAmountSlice.actions
 export default calculateAmountSlice.reducer 

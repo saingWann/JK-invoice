@@ -9,8 +9,7 @@ import {
 } from "../../../state/calculateAmountSlice";
 
 const ExchangeRowComponent = ({ rowId, rowNo, placeholder }) => {
-  const { THB, exchangeRateMMK, totalAmountInMMK, totalAmountInTHB } =
-    useSelector((state) => state.cost);
+  const { THB, exchangeRateMMK } = useSelector((state) => state.cost);
   const dispatch = useDispatch();
   return (
     <>

@@ -28,6 +28,7 @@
     border-radius: 0rem;
     overflow: hidden;
     page-break-inside: avoid;
+    box-shadow: none;
 
  }
 
@@ -95,12 +96,12 @@
 
     .footer {
         /* margin-top: 0px; */
-        width:48mm;
+        width:50mm;
 
     }
 
     .footer span p{
-        font-size: 12px;
+        font-size: 10px;
         text-align: left;
         padding: 10px 16px 10px 16px;
        /* border: 1px solid black; */
@@ -127,5 +128,14 @@
         text-align: left;
        
     }
+
+    
+#receiver-Info label,
+#receiver-Info > input , 
+#receiver-Info > textarea {
+    font-size: 10px;
+}
+
+
 }
 

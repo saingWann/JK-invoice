@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
+  calculatePricePerKg,
   calcuteTotalTHB,
   handleUnit,
   setCost,
@@ -50,8 +51,9 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
             dispatch(setCost({ type: "kg", value: e.target.value }));
           }}
           onBlur={() => {
-            dispatch(calcuteTotalTHB());
             dispatch(handleUnit("kg"));
+            dispatch(calculatePricePerKg());
+            dispatch(calcuteTotalTHB());
           }}
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
@@ -63,13 +65,8 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
           value={pricePerKg}
-          onChange={(e) => {
-            dispatch(setCost({ type: "pricePerKg", value: e.target.value }));
-          }}
-          onBlur={() => {
-            dispatch(calcuteTotalTHB());
-            dispatch(handleUnit("pricePerKg"));
-          }}
+          readOnly
+          disabled={true}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
           placeholder="unit price"
@@ -85,6 +82,7 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           value={totalAmountInTHB}
           readOnly
+          disabled={true}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"

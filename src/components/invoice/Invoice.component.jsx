@@ -20,8 +20,8 @@ const InvoiceComponent = () => {
         id="print-content"
       >
         <InvoiceHeaderComponent />
-        {/* <TableComponent /> */}
-        <MM_TH_Table />
+        <TableComponent />
+        {/* <MM_TH_Table /> */}
         <InvoiceFooterComponent />
         <div className="w-full flex gap-5">
           <button
