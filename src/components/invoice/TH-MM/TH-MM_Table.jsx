@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Grip } from "lucide-react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { reorderList } from "../../../state/TabelRowSlice";
 import ExchangeRowComponent from "./ExchangeRow.component";
 import DeliveryComponent from "./DeliveryRow.component";
@@ -66,13 +65,13 @@ const TableComponent = () => {
             </th>
             <th
               scope="col"
-              className="px-2 text-center py-3  text-white w-6/12 "
+              className="px-2 text-center py-3  text-white w-5/12 "
             >
               description
             </th>
             <th
               scope="col"
-              className="px-2 text-center py-3 w-1/12 text-white "
+              className="px-2 text-center py-3 w-2/12 text-white "
             >
               quantity
             </th>

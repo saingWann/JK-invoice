@@ -18,7 +18,7 @@ const InvoiceHeaderComponent = () => {
               type="text"
               name="customerName"
               id="customerName"
-              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm"
+              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm  uppercase"
             />
           </li>
           <li className="flex gap-8 items-center ">
@@ -28,7 +28,7 @@ const InvoiceHeaderComponent = () => {
               type="text"
               name="customerPhone"
               id="customerPhone"
-              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm"
+              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm uppercase"
             />
           </li>
           <li className="flex gap-5 items-center ">
@@ -38,7 +38,7 @@ const InvoiceHeaderComponent = () => {
               type="text"
               name="customerAddress"
               id="customerAddress"
-              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm"
+              className="placeholder:font-light rounded-lg border-none focus:ring-red-600 w-full text-sm uppercase"
             />
           </li>
         </ul>

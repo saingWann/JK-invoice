@@ -57,7 +57,6 @@ const calculateAmountSlice = createSlice({
                         
                         const total = Number(kgChargeTotal[0]) + Number(deli[0])
                         
-                        console.log(total)
                         state = {...state,grandTotal:total + ' MMK'}
                         break
                     }
@@ -73,12 +72,15 @@ const calculateAmountSlice = createSlice({
 
             if(state.pricePerKg &&state.kg ){
                 // console.log('trigger')
-                const kg = state.kg.match(/(\d+)/)
+                const kg = state.kg.match(/(\d+(\.\d+)?)/)
                 const pricePerKg = state.pricePerKg.match(/(\d+)/)
-                return {...state,totalAmountInTHB: (kg[0] * pricePerKg[0]) + ' THB'}
+
+                const total = Math.floor(kg[0] * pricePerKg[0])
+                return {...state,totalAmountInTHB: total + ' THB'}
             }
 
         },
+        
         calcuteTotalMMK:(state) => {
 
             if( state.exchangeRateMMK && state.totalAmountInTHB){
@@ -97,7 +99,6 @@ const calculateAmountSlice = createSlice({
             switch (true){
 
                 case (inputKgvalue <= 10) : {
-                    console.log(inputKgvalue)
                     state = {...state,pricePerKg: '50 THB'}
                     break;
                 }
@@ -129,16 +130,19 @@ const calculateAmountSlice = createSlice({
 
         calculateGrandBalance: (state) => {
             // console.log('grandBalanced')
-            if(state.advanced === '' && state.grandTotal){
+            if(state.grandTotal && state.deliveryFee && !state.advanced === ''){
+                
 
                 const deli = state.deliveryFee.match(/(\d+)/)
                 const total = state.grandTotal.match(/(\d+)/)
                 return state = {...state,balance: (Number(deli[0]) + Number(total[0]) ) + ' MMK'}
 
-            }else if(state.advanced && state.grandTotal) {
+            }else if(state.advanced) {
 
                 const grandBalance =state.grandTotal.match(/(\d+)/)[0] - state.advanced.match(/(\d+)/)[0] 
                 return state = {...state,balance: grandBalance + ' MMK'}
+            }else if(state.advanced === '') {
+                return state = {...state,grandBalance : state.grandTotal+ 'MMK'}
             }
             return state
         },
@@ -164,7 +168,6 @@ const calculateAmountSlice = createSlice({
                 }
 
                 case 'exchangeRateMMK' :{
-                    console.log(state.exchangeRateMMK)
                     if(state.exchangeRateMMK === ''){
                         return
                     }else {

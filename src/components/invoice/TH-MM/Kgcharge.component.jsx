@@ -47,7 +47,6 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           value={kg}
           onChange={(e) => {
-            console.log(e.target.value);
             dispatch(setCost({ type: "kg", value: e.target.value }));
           }}
           onBlur={() => {
