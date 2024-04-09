@@ -8,7 +8,7 @@ import DeliveryComponent from "./DeliveryRow.component";
 import KgChargeRowComponent from "./Kgcharge.component";
 import TotalAmountComponent from "./TotalAmount.component";
 
-const TableComponent = () => {
+const TH_MM_Table = () => {
   const tableRows = useSelector((state) => state.addRow);
   // console.log(tableRows);
   const dispatch = useDispatch();
@@ -235,4 +235,4 @@ const TableComponent = () => {
   );
 };
 
-export default TableComponent;
+export default TH_MM_Table;

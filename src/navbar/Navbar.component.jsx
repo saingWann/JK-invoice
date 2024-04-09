@@ -2,7 +2,6 @@
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import Container from "../components/Container";
-import VoucherDropdownComponent from "./VoucherDropdown.component";
 
 function NavbarComponent() {
   const customTheme = {
@@ -51,8 +50,6 @@ function NavbarComponent() {
       icon: "h-6 w-6 shrink-0",
     },
   };
-
-  const links = [""];
 
   return (
     <header className="bg-red-700">

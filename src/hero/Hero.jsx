@@ -1,12 +1,12 @@
 import React from "react";
-import VoucherDropdownComponent from "../navbar/VoucherDropdown.component";
 import Container from "../components/Container";
+import VOucherDropdownComponent from "../navbar/VoucherDropdown.component";
 
 const Hero = () => {
   return (
     <section>
       <Container>
-        <VoucherDropdownComponent />
+        <VOucherDropdownComponent />
       </Container>
     </section>
   );

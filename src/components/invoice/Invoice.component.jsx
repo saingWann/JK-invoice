@@ -1,5 +1,4 @@
 import React from "react";
-import TableComponent from "./TH-MM/TH-MM_Table";
 import Container from "../Container";
 import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
@@ -13,6 +12,7 @@ import MM_TH_Table from "./MM-TH/MM_TH_Table";
 const InvoiceComponent = () => {
   const dispatch = useDispatch();
   const tableRows = useSelector((state) => state.addRow);
+  const voucherType = useSelector((state) => state.voucherType);
   return (
     <Container>
       <div
@@ -20,8 +20,8 @@ const InvoiceComponent = () => {
         id="print-content"
       >
         <InvoiceHeaderComponent />
-        <TableComponent />
-        {/* <MM_TH_Table /> */}
+        {voucherType === "MYANMAR - THAI" && <MM_TH_Table />}
+        {/* {voucherType === "THAI - MYANMAR" && <TH_MM_Table />} */}
         <InvoiceFooterComponent />
         <div className="w-full flex gap-5">
           <button
