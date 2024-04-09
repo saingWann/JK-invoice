@@ -1,4 +1,5 @@
 import React from "react";
+import TableComponent from "./TH-MM/TH-MM_Table";
 import Container from "../Container";
 import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
@@ -8,20 +9,26 @@ import { useDispatch } from "react-redux";
 import { addRow, fillRow } from "../../state/TabelRowSlice";
 import { useSelector } from "react-redux";
 import MM_TH_Table from "./MM-TH/MM_TH_Table";
+import TH_MM_Table from "./TH-MM/TH-MM_Table";
 
 const InvoiceComponent = () => {
   const dispatch = useDispatch();
   const tableRows = useSelector((state) => state.addRow);
   const voucherType = useSelector((state) => state.voucherType);
+
   return (
     <Container>
       <div
-        className="shadow-md w-3/4 mx-auto p-5 lg:p-10 lg:mt-10"
+        className="shadow-md lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 "
         id="print-content"
       >
         <InvoiceHeaderComponent />
+        {/* <TableComponent /> */}
+
+        {voucherType === "THAI - MYANMAR" && <TH_MM_Table />}
+
         {voucherType === "MYANMAR - THAI" && <MM_TH_Table />}
-        {/* {voucherType === "THAI - MYANMAR" && <TH_MM_Table />} */}
+
         <InvoiceFooterComponent />
         <div className="w-full flex gap-5">
           <button
@@ -45,7 +52,12 @@ const InvoiceComponent = () => {
             fill rows
           </button>
         </div>
-        <AddressComponent />
+        {voucherType === "THAI - MYANMAR" && (
+          <AddressComponent marginTop="mt-24" />
+        )}
+        {voucherType === "MYANMAR - THAI" && (
+          <AddressComponent marginTop="mt-6" />
+        )}
       </div>
 
       <div className="w-3/4 mx-auto flex justify-end my-10">

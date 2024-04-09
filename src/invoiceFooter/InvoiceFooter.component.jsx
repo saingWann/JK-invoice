@@ -11,7 +11,7 @@ const InvoiceFooterComponent = () => {
   const { grandTotal, balance, advanced } = useSelector((state) => state.cost);
   const dispatch = useDispatch();
   return (
-    <div className="flex justify-between">
+    <div id="invoiceFooter" className="flex max-sm:flex-col justify-between">
       <div className="flex items-start mt-3 gap-3">
         <label htmlFor="note" className="font-bold">
           Note :
@@ -25,7 +25,7 @@ const InvoiceFooterComponent = () => {
           className="border-none outline-none resize-none p-0 focus:ring-red-600 rounded-lg text-sm"
         ></textarea>
       </div>
-      <div className="w-1/3 footer mt-1">
+      <div className="lg:w-1/3 md:w-1/2  footer mt-1">
         <span className="flex w-full items-center border-b ">
           <p className="font-bold w-1/2 uppercase text-sm   text-center ">
             total

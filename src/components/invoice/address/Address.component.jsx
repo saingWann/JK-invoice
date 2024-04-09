@@ -1,8 +1,8 @@
 import React from "react";
 
-const AddressComponent = () => {
+const AddressComponent = ({ marginTop }) => {
   return (
-    <ul id="address" className="hidden mt-4 flex-col gap-5 px-10 ">
+    <ul id="address" className={`hidden ${marginTop} flex-col gap-5 px-10 `}>
       <li className="flex gap-10  text-[12px]">
         <p>Bangkok</p>
         <p>

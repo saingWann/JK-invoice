@@ -7,6 +7,7 @@ import ExchangeRowComponent from "./ExchangeRow.component";
 import DeliveryComponent from "./DeliveryRow.component";
 import KgChargeRowComponent from "./Kgcharge.component";
 import TotalAmountComponent from "./TotalAmount.component";
+import PackageFeeComponent from "./PackageFee.component";
 
 const TH_MM_Table = () => {
   const tableRows = useSelector((state) => state.addRow);

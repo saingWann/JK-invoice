@@ -1,11 +1,11 @@
 export const types = [
   {
-    label: "MYANMAR - THAI",
-    value: "MYANMAR - THAI",
-  },
-  {
     label: "THAI - MYANMAR",
     value: "THAI - MYANMAR",
+  },
+  {
+    label: "MYANMAR - THAI",
+    value: "MYANMAR - THAI",
   },
   {
     label: "AIR CARGO",

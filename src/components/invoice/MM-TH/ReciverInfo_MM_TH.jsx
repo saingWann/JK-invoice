@@ -2,11 +2,11 @@ import React from "react";
 
 const ReciverInfo_MM_TH = ({ rowId, rowNo }) => {
   return (
-    <div className="my-6">
+    <div className="mb-3 mt-4">
       <div className="w-full">
-        <p className="font-bold capitalize mb-3">Reciver's Info</p>
+        <p className="font-bold text-sm capitalize mb-3">Reciver's Info</p>
         <form action="submit" className="border  rounded-lg py-3  ">
-          <div className="flex w-full mb-2">
+          <div className="flex  w-full mb-2">
             <span
               id="receiver-Info"
               className="w-1/2 flex gap-7 items-center px-3"

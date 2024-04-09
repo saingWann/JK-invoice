@@ -7,7 +7,10 @@ import { setVoucher } from "../state/voucherTypeState/selectVoucherSlice";
 export default function VOucherDropdownComponent() {
   const dispatch = useDispatch();
   return (
-    <div className="w-full flex justify-center  flex-row flex-wrap mt-4">
+    <div
+      id="voucherDropdown"
+      className="w-full flex justify-center  flex-row flex-wrap mt-4"
+    >
       <Select
         label="select vouchers"
         placeholder="Select voucher type"

@@ -6,10 +6,13 @@ const InvoiceHeaderComponent = () => {
     <>
       <p className="text-7xl font-bold text-center text-red-600">JK</p>
 
-      <div className="lg:mt-10 lg:mb-5 my-5 flex  justify-between items-start ">
+      <div
+        id="invoiceHeader"
+        className="lg:mt-10 lg:mb-5 my-5 flex max-sm:flex-col max-sm:gap-3 justify-between items-start "
+      >
         <ul
           id="customerInfo"
-          className="text-sm font-semibold w-1/2 flex gap-1 flex-col "
+          className="text-sm font-semibold lg:w-1/2 md:w-1/2  flex gap-1 flex-col "
         >
           <li className="flex gap-8 items-center ">
             <label htmlFor="customerName">Name</label>

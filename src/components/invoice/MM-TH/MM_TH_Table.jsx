@@ -5,6 +5,7 @@ import DeliveryFee_MM_TH from "./DeliveryFee.MM_TH";
 import TotalAmountInMMK_MM_TH from "./TotalAmountInMMK.MM_TH";
 import ExachgeRate_MM_TH from "./ExachgeRate_MM_TH";
 import ReciverInfo_MM_TH from "./ReciverInfo_MM_TH";
+import PackageFeeComponent from "../TH-MM/PackageFee.component";
 
 const MM_TH_Table = () => {
   const tableRows = useSelector((state) => state.addRow);
@@ -92,6 +93,17 @@ const MM_TH_Table = () => {
                   key={row}
                   rowId={row}
                   rowNo={4}
+                />
+              );
+            }
+            // fifth row
+            if (index === 4) {
+              return (
+                <PackageFeeComponent
+                  key={row}
+                  rowNo={5}
+                  placeholder="package fee"
+                  rowId={row}
                 />
               );
             }

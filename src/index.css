@@ -18,7 +18,7 @@
  #navbar,
  #footer,
  #print-btn,
- #dropdown,
+ #voucherDropdown,
  #addRowBtn{
     display: none;
  }   
@@ -38,8 +38,6 @@
     box-shadow: none;
     width: 595px; /* A5 size width in pixels (half of A4) */
     height: 800px; /* A5 size height in pixels (same as A4) */
-    margin-block: auto;
-    margin: 0 auto;
     page-break-inside:avoid; /* Force page break after each invoice */
     box-sizing: border-box;
     overflow: hidden;
@@ -49,9 +47,19 @@
  #address{
     padding: 0;
     display: flex;
+    /* margin-top: auto; */
     
-    /* font-size: 100px; */
  }
+
+#invoiceFooter{
+ flex-direction: row;
+}
+#invoiceHeader{
+    flex-direction: row;
+    /* margin-bottom: 0px; */
+}
+
+
 
  /* tabel */
     #tabel-head th{
@@ -63,7 +71,7 @@
 
   
     #tr td{
-        font-size: 1rem;
+        font-size: 12px;
         color: black;
         /* border: 1px black solid; */
         padding-block: 1px;
@@ -71,7 +79,7 @@
 
     #tr td input {
         padding: 0;
-        font-size: 10px;
+        font-size: 12px;
     }
 
 
