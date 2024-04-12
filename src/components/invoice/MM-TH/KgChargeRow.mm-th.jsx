@@ -1,6 +1,20 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  addUnitOnblur,
+  calculateKgPerPrice,
+  calculateTotalKgPrice,
+  updateData,
+} from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
+  const { weight, kgPerPrice, totalKgPrice } = useSelector(
+    (state) => state.mm_th_cost
+  );
+
+  const dispatch = useDispatch();
+
   return (
     <tr
       id="tr"
@@ -35,6 +49,15 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
           placeholder="unit"
+          value={weight}
+          onChange={(e) => {
+            dispatch(updateData({ type: "weight", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(addUnitOnblur("kg"));
+            dispatch(calculateKgPerPrice());
+            dispatch(calculateTotalKgPrice());
+          }}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
@@ -45,6 +68,9 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
           name={`unit_price_${rowId}`}
           placeholder="unit price"
           type="text"
+          readOnly
+          disabled={true}
+          value={kgPerPrice}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
         text-center"
         />
@@ -55,6 +81,8 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
       >
         <input
           readOnly
+          disabled={true}
+          value={totalKgPrice}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
