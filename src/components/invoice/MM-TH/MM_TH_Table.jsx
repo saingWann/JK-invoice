@@ -1,11 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import KgChargeRow_Mm_th from "./KgChargeRow.mm-th";
-import DeliveryFee_MM_TH from "./DeliveryFee.MM_TH";
-import TotalAmountInMMK_MM_TH from "./TotalAmountInMMK.MM_TH";
-import ExachgeRate_MM_TH from "./ExachgeRate_MM_TH";
 import ReciverInfo_MM_TH from "./ReciverInfo_MM_TH";
 import PackageFeeComponent from "./PackageFee.component";
+import PickUpFee_mm_thComponenet from "./PickUpFee_mm_th.componenet";
 
 const MM_TH_Table = () => {
   const tableRows = useSelector((state) => state.addRow);
@@ -66,8 +64,8 @@ const MM_TH_Table = () => {
 
             if (index === 1) {
               return (
-                <DeliveryFee_MM_TH
-                  placeholder="delivery fee"
+                <PickUpFee_mm_thComponenet
+                  placeholder="pick up fee"
                   key={row}
                   rowId={row}
                   rowNo={2}
@@ -77,20 +75,9 @@ const MM_TH_Table = () => {
 
             if (index === 2) {
               return (
-                <TotalAmountInMMK_MM_TH
-                  placeholder="total amount in mmk"
-                  key={row}
-                  rowId={row}
-                  rowNo={3}
-                />
-              );
-            }
-            // fifth row
-            if (index === 3) {
-              return (
                 <PackageFeeComponent
                   key={row}
-                  rowNo={4}
+                  rowNo={3}
                   placeholder="package fee"
                   rowId={row}
                 />

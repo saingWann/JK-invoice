@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const mm_th_data = {
     weight:'', kgPerPrice: '',
-    totalKgPrice: '', deliveryFeeMMK: '',deliveryFeeTHB: '',
-    exchagneRate:'', totalAmountInMMK: '',
+    totalKgPrice: '', pickupFee: '',deliveryFeeTHB: '',
     packageFee: '', receiverInfo: {
         name: '',
         phone: '',
@@ -22,21 +21,19 @@ const mm_th_calculateAmountSlice = createSlice({
                  break
                 }
 
-                case 'deliveryFeeTHB': {
-                 state = {...state,deliveryFeeTHB:actions.payload.value}
-                 break
-                }
-
-                case 'exchange': {
-                 state = {...state,exchagneRate:actions.payload.value}
-                 break
-                }
-
                 case 'packageFee': {
                  state = {...state,packageFee:actions.payload.value}
                  break
                 }
 
+                case 'pickupFee': {
+                 state = {...state,pickupFee:actions.payload.value}
+                 break
+                }
+                case 'advanced': {
+                 state = {...state,advanced:actions.payload.value}
+                 break
+                }
 
                 case 'receiverName': {
                     let rInfo = state.receiverInfo
@@ -65,124 +62,204 @@ const mm_th_calculateAmountSlice = createSlice({
         addUnitOnblur: (state,actions) => {
 
             switch(actions.payload) {
-
-                case 'kg' : {
-                    if(state.weight === ''){
+                case ('kg') : {
+                    if(state.weight === '') {
                         return
                     }else {
-
-                        state = {...state, weight: state.weight + ' KG'}
-                        break
+                                                
+                        state = {...state , weight: state.weight + ' KG'}
+                        break;
                     }
                 }
 
-                case 'pricePerKg' :{
-                    
-                   state = {...state, kgPerPrice: state.kgPerPrice + ' THB'}
-                   break
-                }
-
-                case 'exchangeRate' :{
-                    if(state.exchagneRate === ''){
+                case ('pickupFee') : {
+                    if(state.pickupFee === '') {
                         return
                     }else {
-
-                        state = {...state, exchagneRate: state.exchagneRate + ' MMK'}
-                        break
+                              
+                        const pickupFeeInNumberType = 
+                        parseInt(state.pickupFee)
+                        state = {...state, pickupFee: pickupFeeInNumberType.toLocaleString() + ' MMK'}
+                        break;
                     }
                 }
 
-                case 'deliveryFeeTHB' : {
-                    if(state.deliveryFeeTHB === ''){
+                case ('packageFee') : {
+                    if(state.packageFee === '') {
                         return
                     }else {
-                        
-                        state = {...state, deliveryFeeTHB: state.deliveryFeeTHB + ' THB' }
-                        break
+               
+                        const pickupFeeInNumberType = 
+                        parseInt(state.packageFee)
+                        state = {...state, packageFee: pickupFeeInNumberType.toLocaleString() + ' MMK'}
+                      
                     }
                 }
-              
-                case 'advanced' : {
-                    if(state.advanced){
-                        
-                        state = {...state, advanced: state.advanced + ' MMK' }
-                        break
+
+                case ('advanced') : {
+                    if(state.advanced === '') {
+                        return
+                    }else {
+                        const advancedInNumberType = 
+                        parseInt(state.advanced)
+                        state = {...state, advanced: advancedInNumberType.toLocaleString() + ' MMK'}
+                      
                     }
-                    return
                 }
+
+                default: {
+                    return state;
+                }
+
             }
-            return state
-
-
+            return state;
+    
         },
 
         calculateTotalKgPrice:(state) => {
-
-            if( state.weight > 3 ){
             
+            if(state.weight) {
+                
                 const kg = state.weight.match(/(\d+(\.\d+)?)/)
-
-                const price = state.kgPerPrice.match(/(\d+)/)
-
-                const total = kg[0] * price[0]
-                return {...state,totalKgPrice: total + ' MMK'}
-            } else {
-                console.log('hello')
-                return {...state,totalKgPrice: '20000 MMK'}
+                
+                console.log(parseFloat(kg[0]))
+                if( parseFloat(kg[0]) > 3 ){
+                    
+                    const priceNoWithNoComa = state.kgPerPrice.replace(/,/g, '');
+                    const price = priceNoWithNoComa.match(/(\d+)/)
+                    
+                    const total = kg[0] * price[0]
+                    
+                    return {...state,totalKgPrice: total.toLocaleString() + ' MMK'}
+                } else {
+                    
+                    
+                    return {...state,totalKgPrice: '20,000 MMK'}
+                }
             }
 
-        },
-
-        calculateDeliFeeMMK: (state) => {
-            if(state.deliveryFeeTHB && state.exchagneRate) {
-                const deli_THB = state.deliveryFeeTHB.match(/(\d+(\.\d+)?)/)
-
-                const exchange = state.exchagneRate.match(/(\d+(\.\d+)?)/)
-
-                const deliInMMK = deli_THB[0] * exchange[0]
-
-                return {...state,deliveryFeeMMK: deliInMMK + ' MMK'}
-            }
         },
 
         calculateKgPerPrice: (state) => {
 
-            let inputKg = state.weight.match(/(\d+)/)
-            const inputKgvalue = Number(inputKg[0])
-            
-            switch (true){
+            if(state.weight) {
 
-                case (inputKgvalue <= 3) : {
-             
-                    state = {...state,kgPerPrice: '20000 MMK'}
-                    break;
-                }
-               
-                case (inputKgvalue > 3 && inputKgvalue <= 10) :{
+                let inputKg = state.weight.match(/(\d+(\.\d+)?)/)
+                const inputKgvalue = Number(inputKg[0])
+
                 
-                    state = {...state,pricePerKg: '6000 MMK'}
-                    break;
-                }
-
-                case (inputKgvalue > 10 && inputKgvalue <= 50) : {
-                    state = {...state,pricePerKg: '5000 MMK'}
-                    break;
-                }
-                case (inputKgvalue > 50) : {
-                    state = {...state,pricePerKg: '4500 MMK'}
-                    break;
-                }
-               
-
-                default :{
+                switch (true){
+    
+                    case (inputKgvalue <= 3 ) : {
+                        console.log(inputKgvalue)
+                 
+                        state = {...state,kgPerPrice: '20,000 MMK'}
+                        break;
+                    }
                    
-                    return state}
-                }
-                return state;
+                    case (inputKgvalue > 3 && inputKgvalue <= 10) :{
+                        
+                        console.log(inputKgvalue)
+                        console.log('first')
+                    
+                        state = {...state,kgPerPrice: '6,000 MMK'}
+                        break;
+                    }
+    
+                    case (inputKgvalue > 10 && inputKgvalue <= 50) : {
+                        state = {...state,kgPerPrice: '5,000 MMK'}
+                        break;
+                    }
+                    case (inputKgvalue > 50) : {
+                        state = {...state,kgPerPrice: '4,500 MMK'}
+                        break;
+                    }
+                   
+    
+                    default :{
+                       
+                        return state}
+                    }
+                    return state;
+
+            }
+
+           
         },
+
+        calculateTotalAmount: (state) => {
+
+         if(!state.pickupFee && state.packageFee){
+                console.log('no pickup fee')
+                const packingNoWithNoComa = state.packageFee.replace(/,/g, '');
+                const packing = packingNoWithNoComa.match(/(\d+)/)
+
+                const totalPriceNoWithNoComa = state.totalKgPrice.replace(/,/g, '');
+                const totalPrice =totalPriceNoWithNoComa.match(/(\d+)/)
+                        
+                const totalAmountWithNoPackingFee = Number(packing[0]) + Number(totalPrice[0])
+                return state ={...state, grandTotal: 
+                    totalAmountWithNoPackingFee.toLocaleString() + ' MMK'}
+
+            }else if(state.pickupFee && !state.packageFee) {
+                console.log('no package fee')
+                const pickupNoWithNoComa = state.pickupFee.replace(/,/g, '');
+                const pickup = pickupNoWithNoComa.match(/(\d+)/)
+
+                const totalKgPriceNoWithNoComa = state.totalKgPrice.replace(/,/g, '');
+                const totalPrice = totalKgPriceNoWithNoComa.match(/(\d+)/)
+
+                const totalAmountWithNoPickupFee = Number(pickup[0]) + Number(totalPrice[0])
+                return state ={...state, grandTotal: 
+                    totalAmountWithNoPickupFee.toLocaleString() + ' MMK'}
+
+                
+                return state ={...state, grandTotal: 
+                Number(pickup[0]) + Number(totalPrice[0]) + ' MMK'}
+            } else if(state.pickupFee && state.packageFee) {
+
+                const pickupNoWithNoComa = state.pickupFee.replace(/,/g, '');
+                const pickup = pickupNoWithNoComa.match(/(\d+)/)
+
+                const packingNoWithNoComa = state.packageFee.replace(/,/g, '');
+                const packing = packingNoWithNoComa.match(/(\d+)/)
+
+                 const totalKgPriceNoWithNoComa = state.totalKgPrice.replace(/,/g, '');
+                const totalPrice = totalKgPriceNoWithNoComa.match(/(\d+)/)
+                
+
+
+                // console.log(pickup,packing,totalPrice)
+                const Gtotal = Number(pickup[0]) + Number(packing[0]) + Number(totalPrice[0])
+                
+                return state = {...state, grandTotal: Gtotal.toLocaleString() + ' MMK'}
+
+            }else {
+                console.log('nothing')
+                return state = {...state, grandTotal: state.totalKgPrice}
+            }
+        },
+
+        handleGrandBalance : (state) => {
+            if(state.advanced) {
+                const grandTotalWithNoComa = state.grandTotal.replace(/,/g, '');
+                const Gtotal = grandTotalWithNoComa.match(/(\d+)/)
+
+                const advancedWithNoComa = state.advanced.replace(/,/g, '')
+                const addvan = advancedWithNoComa.match(/(\d+)/)
+
+                const Gbalance = Number(Gtotal[0]) - Number(addvan[0])
+
+                return state = {...state, grandBalance: Gbalance.toLocaleString() + ' MMK'}
+
+            } else {
+                return state = {...state,grandBalance: state.grandTotal}
+            }
+        }
     }
+    
 })
 
-export const {updateData,calculateDeliFeeMMK,calculateKgPerPrice,calculateTotalKgPrice,addUnitOnblur} = mm_th_calculateAmountSlice.actions
+export const {updateData,calculateKgPerPrice,calculateTotalKgPrice,addUnitOnblur,calculateTotalAmount, handleGrandBalance} = mm_th_calculateAmountSlice.actions
 
 export default mm_th_calculateAmountSlice.reducer

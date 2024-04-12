@@ -1,6 +1,14 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addUnitOnblur,
+  calculateTotalAmount,
+  updateData,
+} from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
-const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
+const PickUpFee_mm_thComponenet = ({ rowId, rowNo, placeholder }) => {
+  const { pickupFee } = useSelector((state) => state.mm_th_cost);
+  const dispatch = useDispatch();
   return (
     <tr
       id="tr"
@@ -10,8 +18,8 @@ const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
         <input
           id={`number_${rowId}`}
           name={`number_${rowId}`}
-          placeholder={`no`}
           disabled={true}
+          placeholder={`no`}
           type="text"
           value={rowNo}
           readOnly
@@ -20,12 +28,9 @@ const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          id={`descripiton_${rowId}`}
-          name={`descripiton_${rowId}`}
-          placeholder={`descripiton`}
-          disabled={true}
           type="text"
           value={placeholder}
+          disabled={true}
           readOnly
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
@@ -34,8 +39,8 @@ const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
         <input
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
-          placeholder="unit"
           type="text"
+          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
@@ -43,10 +48,10 @@ const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
         <input
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
-          placeholder="unit price"
           type="text"
+          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-      text-center"
+        text-center "
         />
       </td>
       <td
@@ -54,17 +59,24 @@ const DeliveryFee_MM_TH = ({ rowId, rowNo, placeholder }) => {
         className=" py-4 font-medium text-black relative overflow-y-hidden"
       >
         <input
-          readOnly
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
+          value={pickupFee}
+          onChange={(e) => {
+            dispatch(updateData({ type: "pickupFee", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(addUnitOnblur("pickupFee"));
+            dispatch(calculateTotalAmount());
+          }}
           placeholder="amount"
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-      text-center"
+        text-center"
         />
       </td>
     </tr>
   );
 };
 
-export default DeliveryFee_MM_TH;
+export default PickUpFee_mm_thComponenet;

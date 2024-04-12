@@ -1,6 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  addUnitOnblur,
+  calculateTotalAmount,
+  updateData,
+} from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const PackageFeeComponent = ({ rowId, rowNo, placeholder }) => {
+  const { packageFee } = useSelector((state) => state.mm_th_cost);
+  const dispatch = useDispatch();
   return (
     <tr
       id="tr"
@@ -22,6 +31,7 @@ const PackageFeeComponent = ({ rowId, rowNo, placeholder }) => {
         <input
           type="text"
           value="package fee"
+          disabled={true}
           readOnly
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
@@ -53,6 +63,14 @@ const PackageFeeComponent = ({ rowId, rowNo, placeholder }) => {
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
+          value={packageFee}
+          onChange={(e) => {
+            dispatch(updateData({ type: "packageFee", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(addUnitOnblur("packageFee"));
+            dispatch(calculateTotalAmount());
+          }}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
           text-center"

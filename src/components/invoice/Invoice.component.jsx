@@ -10,6 +10,7 @@ import { addRow, fillRow } from "../../state/TabelRowSlice";
 import { useSelector } from "react-redux";
 import MM_TH_Table from "./MM-TH/MM_TH_Table";
 import TH_MM_Table from "./TH-MM/TH-MM_Table";
+import InvoiceFooterMMTHComponent from "./MM-TH/InvoiceFooterMMTH.component";
 
 const InvoiceComponent = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,11 @@ const InvoiceComponent = () => {
         {/* <TableComponent /> */}
 
         {voucherType === "THAI - MYANMAR" && <TH_MM_Table />}
+        {voucherType === "THAI - MYANMAR" && <InvoiceFooterComponent />}
 
         {voucherType === "MYANMAR - THAI" && <MM_TH_Table />}
+        {voucherType === "MYANMAR - THAI" && <InvoiceFooterMMTHComponent />}
 
-        <InvoiceFooterComponent />
         <div className="w-full flex gap-5">
           <button
             id="addRowBtn"
