@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const selectVoucherType = createSlice({
     name: 'voucherType',
-    initialState: 'MYANMAR - THAI',
+    initialState: 'THAI - MYANMAR',
     reducers: {
         setVoucher: (state,actions) => {
             return state = actions.payload

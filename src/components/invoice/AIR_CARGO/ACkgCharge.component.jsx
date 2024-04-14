@@ -1,17 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import {
-  calculateGrandBalance,
-  calculateGrandTotal,
-  handleUnit,
-  setCost,
-} from "../../../state/calculateAmountSlice";
+import React from "react";
 
-const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
-  const { deliveryFee, totalAmountInMMK } = useSelector((state) => state.cost);
-  const dispatch = useDispatch();
-  const [desc, setDesc] = useState("Delivery Fee");
+const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
   return (
     <tr
       id="tr"
@@ -21,8 +10,8 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         <input
           id={`number_${rowId}`}
           name={`number_${rowId}`}
-          disabled={true}
           placeholder={`no`}
+          disabled={true}
           type="text"
           value={rowNo}
           readOnly
@@ -31,29 +20,45 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          onChange={(e) => setDesc(e.target.value)}
+          id={`descripiton_${rowId}`}
+          name={`descripiton_${rowId}`}
+          placeholder={`descripiton`}
+          disabled={true}
           type="text"
-          value={desc}
+          value={placeholder}
+          readOnly
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
       <td className=" py-4 font-medium text-black  ">
         <input
+          value={kg}
+          onChange={(e) => {
+            dispatch(setCost({ type: "kg", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(handleUnit("kg"));
+            dispatch(calculatePricePerKg());
+            dispatch(calcuteTotalTHB());
+          }}
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
+          placeholder="unit"
           type="text"
-          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
+          value={pricePerKg}
+          readOnly
+          disabled={true}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
+          placeholder="unit price"
           type="text"
-          disabled={true}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-          text-center "
+              text-center"
         />
       </td>
       <td
@@ -61,25 +66,19 @@ const DeliveryComponent = ({ placeholder, rowId, rowNo }) => {
         className=" py-4 font-medium text-black relative overflow-y-hidden"
       >
         <input
+          value={totalAmountInTHB}
+          readOnly
+          disabled={true}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
-          value={deliveryFee}
-          onChange={(e) =>
-            dispatch(setCost({ type: "deliveryFee", value: e.target.value }))
-          }
-          onBlur={() => {
-            dispatch(calculateGrandTotal());
-            dispatch(handleUnit("deliveryFee"));
-            dispatch(setCost({ type: "total", value: totalAmountInMMK }));
-          }}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-          text-center"
+              text-center"
         />
       </td>
     </tr>
   );
 };
 
-export default DeliveryComponent;
+export default ACkgChargeComponent;

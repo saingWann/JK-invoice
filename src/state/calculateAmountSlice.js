@@ -47,20 +47,7 @@ const calculateAmountSlice = createSlice({
                     state = {...state,advanced:actions.payload.value}
                     break
                 }
-                case 'total': {
-                    if(!state.deliveryFee){
-                        return
-                    }else{
-
-                        const kgChargeTotal = actions.payload.value.match(/(\d+)/)
-                        const deli = state.deliveryFee.match(/(\d+)/)
-                        
-                        const total = Number(kgChargeTotal[0]) + Number(deli[0])
-                        
-                        state = {...state,grandTotal:total + ' MMK'}
-                        break
-                    }
-                }
+              
 
                 default : return state
 
@@ -70,13 +57,15 @@ const calculateAmountSlice = createSlice({
 
         calcuteTotalTHB:(state) => {
 
-            if(state.pricePerKg &&state.kg ){
-                // console.log('trigger')
+            if(state.pricePerKg && state.kg ){
+
                 const kg = state.kg.match(/(\d+(\.\d+)?)/)
                 const pricePerKg = state.pricePerKg.match(/(\d+)/)
 
                 const total = Math.floor(kg[0] * pricePerKg[0])
-                return {...state,totalAmountInTHB: total + ' THB'}
+                return {...state,totalAmountInTHB: total.toLocaleString() + ' THB'}
+            }else {
+                return
             }
 
         },
@@ -85,15 +74,21 @@ const calculateAmountSlice = createSlice({
 
             if( state.exchangeRateMMK && state.totalAmountInTHB){
                 const xchgRate = state.exchangeRateMMK.match(/(\d+)/)
-                const totalBaht = state.totalAmountInTHB.match(/(\d+)/)
+                const totalBahtWithNoComa = state.totalAmountInTHB.replace(/,/g, '')
+                const totalBaht = totalBahtWithNoComa.match(/(\d+)/)
 
-                return {...state,totalAmountInMMK: ( totalBaht[0]* xchgRate[0]) + ' MMK'}
+
+                const totalMMK = ( totalBaht[0] * xchgRate[0]) 
+                return {...state,totalAmountInMMK:totalMMK.toLocaleString()  + ' MMK'}
             }
+
         },
 
         calculatePricePerKg: (state) => {
-            let inputKg = state.kg.match(/(\d+)/)
-            const inputKgvalue = Number(inputKg[0])
+            
+            if(state.kg){
+                let inputKg = state.kg.match(/(\d+)/)
+                const inputKgvalue = Number(inputKg[0])
 
 
             switch (true){
@@ -125,26 +120,51 @@ const calculateAmountSlice = createSlice({
                     console.log(inputKgvalue)
                     return state}
             }
+        }
+
             return state;
         },
 
-        calculateGrandBalance: (state) => {
-            // console.log('grandBalanced')
-            if(state.grandTotal && state.deliveryFee && !state.advanced === ''){
+        calculateGrandTotal: (state) => {
+
+            if(state.deliveryFee){
                 
+                const deliWithNoComa = state.deliveryFee.replace(/,/g, '')
+                const deli = deliWithNoComa.match(/(\d+)/)
 
-                const deli = state.deliveryFee.match(/(\d+)/)
-                const total = state.grandTotal.match(/(\d+)/)
-                return state = {...state,balance: (Number(deli[0]) + Number(total[0]) ) + ' MMK'}
+                const totalWithNoComa = state.totalAmountInMMK.replace(/,/g, '')
+                const total = totalWithNoComa.match(/(\d+)/)
 
-            }else if(state.advanced) {
+                const Gtotal = Number(deli[0]) + Number(total[0])
 
-                const grandBalance =state.grandTotal.match(/(\d+)/)[0] - state.advanced.match(/(\d+)/)[0] 
-                return state = {...state,balance: grandBalance + ' MMK'}
-            }else if(state.advanced === '') {
-                return state = {...state,grandBalance : state.grandTotal+ 'MMK'}
+                return state = {...state, grandTotal:Gtotal.toLocaleString() + ' MMK'}
+
+            }else {
+
+                return state = {...state, grandTotal: 
+                    state.totalAmountInMMK }
+
             }
-            return state
+        },
+
+        calculateGrandBalance: (state) => {
+
+            if(state.advanced) {
+
+                const advancedWithNoComa = state.advanced.replace(/,/g, '')
+                const advan = advancedWithNoComa.match(/(\d+)/)
+                const totalWithNoComa = state.grandTotal.replace(/,/g, '')
+                const total = totalWithNoComa.match(/(\d+)/)
+
+                const grandBalance =  total[0] - advan[0]
+              
+
+                return state = {...state, balance: grandBalance.toLocaleString() + ' MMK'}
+                
+            }else {
+               
+                return state = {...state, balance: state.grandTotal }
+            }
         },
 
         handleUnit: (state,actions) => {
@@ -182,7 +202,7 @@ const calculateAmountSlice = createSlice({
                         return
                     }else {
                         
-                        state = {...state, deliveryFee: state.deliveryFee + ' MMK' }
+                        state = {...state, deliveryFee: Number(state.deliveryFee).toLocaleString() + ' MMK' }
                         break
                     }
                 }
@@ -193,7 +213,7 @@ const calculateAmountSlice = createSlice({
                 case 'advanced' : {
                     if(state.advanced){
                         
-                        state = {...state, advanced: state.advanced + ' MMK' }
+                        state = {...state, advanced: state.advanced.toLocaleString() + ' MMK' }
                         break
                     }
                     return
@@ -207,5 +227,5 @@ const calculateAmountSlice = createSlice({
     }
 })
 
-export const {setCost, handleUnit,calcuteTotalTHB,calcuteTotalMMK ,calculateGrandBalance,calculatePricePerKg} = calculateAmountSlice.actions
+export const {setCost, handleUnit,calcuteTotalTHB,calcuteTotalMMK ,calculateGrandBalance,calculatePricePerKg ,calculateGrandTotal} = calculateAmountSlice.actions
 export default calculateAmountSlice.reducer 

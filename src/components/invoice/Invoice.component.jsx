@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import MM_TH_Table from "./MM-TH/MM_TH_Table";
 import TH_MM_Table from "./TH-MM/TH-MM_Table";
 import InvoiceFooterMMTHComponent from "./MM-TH/InvoiceFooterMMTH.component";
+import InvoiceFooterTHMMComponent from "./TH-MM/InvoiceFooterTHMM.component";
 
 const InvoiceComponent = () => {
   const dispatch = useDispatch();
@@ -30,30 +31,33 @@ const InvoiceComponent = () => {
         {voucherType === "THAI - MYANMAR" && <InvoiceFooterComponent />}
 
         {voucherType === "MYANMAR - THAI" && <MM_TH_Table />}
-        {voucherType === "MYANMAR - THAI" && <InvoiceFooterMMTHComponent />}
+        {voucherType === "MYANMAR - THAI" && <InvoiceFooterTHMMComponent />}
 
-        <div className="w-full flex gap-5">
-          <button
-            id="addRowBtn"
-            onClick={() => {
-              dispatch(addRow());
-            }}
-            className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
-          >
-            add new row
-          </button>
-          <button
-            id="addRowBtn"
-            onClick={() => {
-              dispatch(fillRow());
-            }}
-            className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
-              tableRows.length === 10 && "hidden"
-            }`}
-          >
-            fill rows
-          </button>
-        </div>
+        {voucherType !== "MYANMAR - THAI" && (
+          <div className="w-full flex gap-5">
+            <button
+              id="addRowBtn"
+              onClick={() => {
+                dispatch(addRow());
+              }}
+              className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
+            >
+              add new row
+            </button>
+            <button
+              id="addRowBtn"
+              onClick={() => {
+                dispatch(fillRow());
+              }}
+              className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
+                tableRows.length === 10 && "hidden"
+              }`}
+            >
+              fill rows
+            </button>
+          </div>
+        )}
+
         {voucherType === "THAI - MYANMAR" && (
           <AddressComponent marginTop="mt-24" />
         )}
