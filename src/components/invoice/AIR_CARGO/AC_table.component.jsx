@@ -1,5 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import ACkgChargeComponent from "./ACkgCharge.component";
+import ACdeliveryFeeComponent from "./ACdeliveryFee.component";
+import ACexchangeRateComponent from "./ACexchangeRate.component";
+import ACtotalAmountMMKComponent from "./ACtotalAmountMMK.component";
+import ACrecieverInfoComponent from "./ACrecieverInfo.component";
+import ACpickupFeeComponent from "./ACpickupFee.component";
 
 const AC_tableComponent = () => {
   const tableRows = useSelector((state) => state.addRow);
@@ -21,13 +27,13 @@ const AC_tableComponent = () => {
             </th>
             <th
               scope="col"
-              className="px-2 text-center py-3  text-white w-6/12 "
+              className="px-2 text-center py-3  text-white w-5/12 "
             >
               description
             </th>
             <th
               scope="col"
-              className="px-2 text-center py-3 w-1/12 text-white "
+              className="px-2 text-center py-3 w-2/12 text-white "
             >
               quantity
             </th>
@@ -49,7 +55,7 @@ const AC_tableComponent = () => {
           {tableRows.map((row, index) => {
             if (index === 0) {
               return (
-                <KgChargeRow_Mm_th
+                <ACkgChargeComponent
                   placeholder="kg charge"
                   key={row}
                   rowId={row}
@@ -60,8 +66,8 @@ const AC_tableComponent = () => {
 
             if (index === 1) {
               return (
-                <PickUpFee_mm_thComponenet
-                  placeholder="pick up fee"
+                <ACdeliveryFeeComponent
+                  placeholder="delivery fee"
                   key={row}
                   rowId={row}
                   rowNo={2}
@@ -71,10 +77,32 @@ const AC_tableComponent = () => {
 
             if (index === 2) {
               return (
-                <PackageFeeComponent
+                <ACexchangeRateComponent
                   key={row}
                   rowNo={3}
-                  placeholder="package fee"
+                  placeholder="exchagne rate"
+                  rowId={row}
+                />
+              );
+            }
+
+            if (index === 3) {
+              return (
+                <ACtotalAmountMMKComponent
+                  key={row}
+                  rowNo={4}
+                  placeholder="total amount"
+                  rowId={row}
+                />
+              );
+            }
+
+            if (index === 4) {
+              return (
+                <ACpickupFeeComponent
+                  key={row}
+                  rowNo={5}
+                  placeholder="pick up fee"
                   rowId={row}
                 />
               );
@@ -82,7 +110,7 @@ const AC_tableComponent = () => {
           })}
         </tbody>
       </table>
-      <ReciverInfo_MM_TH />
+      <ACrecieverInfoComponent />
     </div>
   );
 };

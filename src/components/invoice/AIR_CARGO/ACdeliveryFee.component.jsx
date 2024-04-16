@@ -1,15 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  AC_handlePricePerWeight,
+  AC_handleTotalMMK,
   AC_handleUnitOnBlur,
   AC_updateData,
 } from "../../../state/ac-calculateAmount/ac_calculateAmount";
 
-const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
-  const { AC_weight, AC_pricePerWeight, AC_totalAmountOfWeight_THB } =
-    useSelector((state) => state.ac_cost);
+const ACdeliveryFeeComponent = ({ rowId, rowNo, placeholder }) => {
+  const { AC_deliFee } = useSelector((state) => state.ac_cost);
   const dispatch = useDispatch();
   return (
     <tr
@@ -42,32 +40,21 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
       </td>
       <td className=" py-4 font-medium text-black  ">
         <input
-          value={AC_weight}
-          onChange={(e) =>
-            dispatch(AC_updateData({ type: "weight", value: e.target.value }))
-          }
-          onBlur={() => {
-            dispatch(AC_handleUnitOnBlur("weight"));
-            dispatch(AC_handlePricePerWeight());
-          }}
+          disabled={true}
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
-          placeholder="unit"
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          value={AC_pricePerWeight}
-          readOnly
           disabled={true}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
-          placeholder="unit price"
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-              text-center"
+          text-center"
         />
       </td>
       <td
@@ -75,19 +62,24 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
         className=" py-4 font-medium text-black relative overflow-y-hidden"
       >
         <input
-          value={AC_totalAmountOfWeight_THB}
-          readOnly
-          disabled={true}
+          value={AC_deliFee}
+          onChange={(e) => {
+            dispatch(AC_updateData({ type: "deliFee", value: e.target.value }));
+          }}
+          onBlur={() => {
+            dispatch(AC_handleUnitOnBlur("deliFee"));
+            dispatch(AC_handleUnitOnBlur("allTHB"));
+          }}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-              text-center"
+          text-center"
         />
       </td>
     </tr>
   );
 };
 
-export default ACkgChargeComponent;
+export default ACdeliveryFeeComponent;
