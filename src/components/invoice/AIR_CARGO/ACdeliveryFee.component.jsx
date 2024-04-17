@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  AC_handleTotalMMK,
   AC_handleUnitOnBlur,
   AC_updateData,
 } from "../../../state/ac-calculateAmount/ac_calculateAmount";

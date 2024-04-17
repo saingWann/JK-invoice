@@ -1,6 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AC_calculateGrandBalance,
+  AC_handleUnitOnBlur,
+  AC_updateData,
+} from "../../../state/ac-calculateAmount/ac_calculateAmount";
 
 const ACinvoiceFooterComponent = () => {
+  const { AC_grandTotal, AC_advanced, AC_grandBalance } = useSelector(
+    (state) => state.ac_cost
+  );
+  const dispatch = useDispatch();
   return (
     <div id="invoiceFooter" className="flex max-sm:flex-col justify-between">
       <div className="flex items-start mt-3 gap-3">
@@ -22,6 +32,8 @@ const ACinvoiceFooterComponent = () => {
             total
           </p>
           <input
+            value={AC_grandTotal}
+            disabled={true}
             readOnly
             id="total"
             name="total"
@@ -35,6 +47,16 @@ const ACinvoiceFooterComponent = () => {
             advanced
           </p>
           <input
+            value={AC_advanced}
+            onChange={(e) =>
+              dispatch(
+                AC_updateData({ type: "advanced", value: e.target.value })
+              )
+            }
+            onBlur={() => {
+              dispatch(AC_handleUnitOnBlur("advanced"));
+              dispatch(AC_calculateGrandBalance());
+            }}
             id="advanced"
             name="advanced"
             type="text"
@@ -47,6 +69,8 @@ const ACinvoiceFooterComponent = () => {
             balance
           </p>
           <input
+            value={AC_grandBalance}
+            disabled={true}
             readOnly
             id="balance"
             name="balance"

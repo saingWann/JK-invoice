@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  AC_handleTotalMMK,
+  AC_calculateTotalAmountInMMK,
   AC_handleUnitOnBlur,
   AC_updateData,
 } from "../../../state/ac-calculateAmount/ac_calculateAmount";
@@ -61,7 +61,7 @@ const ACexchangeRateComponent = ({ rowId, rowNo, placeholder }) => {
             }
             onBlur={() => {
               dispatch(AC_handleUnitOnBlur("exchangeRate"));
-              dispatch(AC_handleTotalMMK());
+              dispatch(AC_calculateTotalAmountInMMK());
             }}
             id={`unit_price_${rowId}`}
             name={`unit_price_${rowId}`}

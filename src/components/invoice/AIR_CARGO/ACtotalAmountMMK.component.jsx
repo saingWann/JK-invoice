@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const ACtotalAmountMMKComponent = ({ rowId }) => {
-  const { AC_exchangeRate, AC_totalTHB } = useSelector(
+  const { AC_exchangeRate, AC_totalTHB, AC_totalAmountInMMK } = useSelector(
     (state) => state.ac_cost
   );
   const dispatch = useDispatch();
@@ -63,6 +63,7 @@ const ACtotalAmountMMKComponent = ({ rowId }) => {
           className=" py-4 font-medium text-black relative overflow-y-hidden"
         >
           <input
+            value={AC_totalAmountInMMK}
             id={`amount_${rowId}`}
             name={`amount_${rowId}`}
             disabled={true}

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  AC_calculateGrandTotal,
   AC_handleUnitOnBlur,
   AC_updateData,
 } from "../../../state/ac-calculateAmount/ac_calculateAmount";
@@ -8,6 +9,7 @@ import {
 const ACpickupFeeComponent = ({ rowId, rowNo, placeholder }) => {
   const { AC_pickupFee } = useSelector((state) => state.ac_cost);
   const dispatch = useDispatch();
+  const [desc, setDesc] = useState("pick up fee");
   return (
     <tr
       id="tr"
@@ -27,8 +29,8 @@ const ACpickupFeeComponent = ({ rowId, rowNo, placeholder }) => {
       </td>
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
-          value={placeholder}
-          disabled={true}
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
@@ -66,6 +68,7 @@ const ACpickupFeeComponent = ({ rowId, rowNo, placeholder }) => {
           }
           onBlur={() => {
             dispatch(AC_handleUnitOnBlur("pickupFee"));
+            dispatch(AC_calculateGrandTotal());
           }}
           placeholder="amount"
           type="text"
