@@ -27,11 +27,14 @@ const mm_th_calculateAmountSlice = createSlice({
                 }
 
                 case 'pickupFee': {
-                 state = {...state,pickupFee:actions.payload.value}
-                 break
+
+                    state = {...state,pickupFee:actions.payload.value}
+                    break
                 }
+
+
                 case 'advanced': {
-                 state = {...state,advanced:actions.payload.value}
+                 state = {...state,advanced: actions.payload.value}
                  break
                 }
 
@@ -39,16 +42,19 @@ const mm_th_calculateAmountSlice = createSlice({
                     let rInfo = state.receiverInfo
                     rInfo = {...rInfo, name: actions.payload.value}
                     state = {...state,receiverInfo : {...rInfo}}
+                    break;
                 }
                 case 'receiverPhone': {
                     let rInfo = state.receiverInfo
                     rInfo = {...rInfo, phone: actions.payload.value}
                     state = {...state,receiverInfo : {...rInfo}}
+                    break;
                 }
                 case 'receiverAddress': {
                     let rInfo = state.receiverInfo
                     rInfo = {...rInfo, address: actions.payload.value}
                     state = {...state,receiverInfo : {...rInfo}}
+                    break;
                 }
                 
 
@@ -89,10 +95,10 @@ const mm_th_calculateAmountSlice = createSlice({
                         return
                     }else {
                
-                        const pickupFeeInNumberType = 
+                        const packageFeeInNumberType = 
                         parseInt(state.packageFee)
-                        state = {...state, packageFee: pickupFeeInNumberType.toLocaleString() + ' MMK'}
-                      
+                        state = {...state, packageFee: packageFeeInNumberType.toLocaleString() + ' MMK'}
+                        break;
                     }
                 }
 
@@ -103,7 +109,7 @@ const mm_th_calculateAmountSlice = createSlice({
                         const advancedInNumberType = 
                         parseInt(state.advanced)
                         state = {...state, advanced: advancedInNumberType.toLocaleString() + ' MMK'}
-                      
+                      break;
                     }
                 }
 
@@ -122,7 +128,6 @@ const mm_th_calculateAmountSlice = createSlice({
                 
                 const kg = state.weight.match(/(\d+(\.\d+)?)/)
                 
-                console.log(parseFloat(kg[0]))
                 if( parseFloat(kg[0]) > 3 ){
                     
                     const priceNoWithNoComa = state.kgPerPrice.replace(/,/g, '');
@@ -151,16 +156,12 @@ const mm_th_calculateAmountSlice = createSlice({
                 switch (true){
     
                     case (inputKgvalue <= 3 ) : {
-                        console.log(inputKgvalue)
                  
                         state = {...state,kgPerPrice: '20,000 MMK'}
                         break;
                     }
                    
                     case (inputKgvalue > 3 && inputKgvalue <= 10) :{
-                        
-                        console.log(inputKgvalue)
-                        console.log('first')
                     
                         state = {...state,kgPerPrice: '6,000 MMK'}
                         break;
@@ -189,8 +190,8 @@ const mm_th_calculateAmountSlice = createSlice({
 
         calculateTotalAmount: (state) => {
 
-         if(!state.pickupFee && state.packageFee){
-                console.log('no pickup fee')
+         if(!state.pickupFee && state.packageFee){ 
+
                 const packingNoWithNoComa = state.packageFee.replace(/,/g, '');
                 const packing = packingNoWithNoComa.match(/(\d+)/)
 
@@ -202,7 +203,7 @@ const mm_th_calculateAmountSlice = createSlice({
                     totalAmountWithNoPackingFee.toLocaleString() + ' MMK'}
 
             }else if(state.pickupFee && !state.packageFee) {
-                console.log('no package fee')
+
                 const pickupNoWithNoComa = state.pickupFee.replace(/,/g, '');
                 const pickup = pickupNoWithNoComa.match(/(\d+)/)
 
@@ -214,8 +215,7 @@ const mm_th_calculateAmountSlice = createSlice({
                     totalAmountWithNoPickupFee.toLocaleString() + ' MMK'}
 
                 
-                return state ={...state, grandTotal: 
-                Number(pickup[0]) + Number(totalPrice[0]) + ' MMK'}
+              
             } else if(state.pickupFee && state.packageFee) {
 
                 const pickupNoWithNoComa = state.pickupFee.replace(/,/g, '');
@@ -227,15 +227,11 @@ const mm_th_calculateAmountSlice = createSlice({
                  const totalKgPriceNoWithNoComa = state.totalKgPrice.replace(/,/g, '');
                 const totalPrice = totalKgPriceNoWithNoComa.match(/(\d+)/)
                 
-
-
-                // console.log(pickup,packing,totalPrice)
                 const Gtotal = Number(pickup[0]) + Number(packing[0]) + Number(totalPrice[0])
                 
                 return state = {...state, grandTotal: Gtotal.toLocaleString() + ' MMK'}
 
             }else {
-                console.log('nothing')
                 return state = {...state, grandTotal: state.totalKgPrice}
             }
         },

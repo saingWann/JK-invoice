@@ -37,7 +37,7 @@ const ACrecieverInfoComponent = () => {
             </span>
           </div>
           <div>
-            <span id="receiver-Info" className="flex items-top gap-3 px-3">
+            <span id="receiver-Info" className="flex items-center gap-3 px-3">
               <label htmlFor="receiver-address" className=" uppercase text-sm">
                 address
               </label>
@@ -45,7 +45,7 @@ const ACrecieverInfoComponent = () => {
                 id="receiver-address"
                 type="text"
                 placeholder="Receiver address"
-                className="border border-black/10 outline-none resize-none placeholder:text-xs placeholder:text-gray-400 placeholder:font-light  focus:ring-red-600 rounded-lg text-sm w-full font-semibold"
+                className="border border-black/10 outline-none resize-none placeholder:text-xs placeholder:text-gray-400 placeholder:font-light  focus:ring-red-600 rounded-lg text-sm w-full h- font-semibold"
               />
             </span>
           </div>

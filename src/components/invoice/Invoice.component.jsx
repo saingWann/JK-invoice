@@ -33,7 +33,7 @@ const InvoiceComponent = () => {
         {voucherType === "THAI - MYANMAR" && <InvoiceFooterComponent />}
 
         {voucherType === "MYANMAR - THAI" && <MM_TH_Table />}
-        {voucherType === "MYANMAR - THAI" && <InvoiceFooterTHMMComponent />}
+        {voucherType === "MYANMAR - THAI" && <InvoiceFooterMMTHComponent />}
 
         {voucherType === "AIR CARGO" && <AC_tableComponent />}
         {voucherType === "AIR CARGO" && <ACinvoiceFooterComponent />}
@@ -67,8 +67,9 @@ const InvoiceComponent = () => {
           <AddressComponent marginTop="mt-24" />
         )}
         {voucherType === "MYANMAR - THAI" && (
-          <AddressComponent marginTop="mt-6" />
+          <AddressComponent marginTop="mt-20" />
         )}
+        {voucherType === "AIR CARGO" && <AddressComponent marginTop="mt-8" />}
       </div>
 
       <div className="w-3/4 mx-auto flex justify-end my-10">

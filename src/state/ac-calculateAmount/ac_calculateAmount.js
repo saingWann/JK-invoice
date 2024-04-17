@@ -12,18 +12,15 @@ export const ac_calculateSlice = createSlice({
     initialState: acData,
     reducers: {
         AC_updateData : (state,actions) => {
-            console.log(actions)
             
             switch(actions.payload.type) {
 
                 case 'weight' : {
-                    console.log('weight')
                     state = {...state,AC_weight: actions.payload.value}
                     break;
                 }
 
                 case 'deliFee' : {
-                    console.log('deliFee')
 
                     state = {...state,AC_deliFee: actions.payload.value}
                     
@@ -31,18 +28,14 @@ export const ac_calculateSlice = createSlice({
                 }
 
                 case 'exchangeRate' : {
-                    console.log('exchangerate')
                     state = {...state,AC_exchangeRate: actions.payload.value}
                     break;
                 }
                 case 'pickupFee' : {
-                    console.log('pickupFee')
-
                     state = {...state,AC_pickupFee: actions.payload.value}
                     break;
                 }
                 case 'advanced' : {
-                    console.log('advanced')
 
                     state = {...state,AC_advanced: actions.payload.value}
                     break;
@@ -90,9 +83,7 @@ export const ac_calculateSlice = createSlice({
 
                 case 'pickupFee' : {
 
-                    console.log('hello')
                     if(state.AC_pickupFee) {
-                        console.log('hello')
 
                         const pickup = parseInt(state.AC_pickupFee)
 
@@ -103,9 +94,9 @@ export const ac_calculateSlice = createSlice({
                 }
 
                 case 'allTHB' : {
+
                     if(state.AC_deliFee && state.AC_totalAmountOfWeight_THB) {
 
-                        console.log('delifee include')
                         const totalTHBWithNoComa = state.AC_totalAmountOfWeight_THB.replace(/,/g,'')
                         const totalTHBinNumberType = Number(totalTHBWithNoComa.match(/(\d+)/)[0])
 
@@ -113,13 +104,11 @@ export const ac_calculateSlice = createSlice({
 
                         const allTHB = totalTHBinNumberType + deli
 
-                        console.log(allTHB,'hey hey ')
                         return state = {...state,AC_totalTHB: allTHB.toLocaleString() + ' THB'}
                         
 
                     }else {
-                        console.log('first')
-                        return state = {...state,AC_totalTHB: AC_totalAmountOfWeight_THB}
+                        return state = {...state,AC_totalTHB: state.AC_totalAmountOfWeight_THB}
                     }
                 }
             }
@@ -133,7 +122,6 @@ export const ac_calculateSlice = createSlice({
 
                 const weightInNumber = Number(weightWithNoComa.match(/(\d+)/)[0])
 
-                console.log(weightInNumber)
                 if(weightInNumber <= 3 ){
 
                     const totalTHB = weightInNumber * 200
@@ -160,11 +148,9 @@ export const ac_calculateSlice = createSlice({
 
         AC_calculateTotalAmountInMMK: (state) => {
 
-            console.log('okk')
-           
+          
             if( state.AC_totalTHB && state.AC_exchangeRate){
 
-                console.log('all good')
                 const allTHBwithNoComa = state.AC_totalTHB.replace(/,/g,'')
                 const allTHB = Number(allTHBwithNoComa.match(/(\d+)/)[0])
                 const exchangeRateWithNoComa = state.AC_exchangeRate.replace(/,/g,'')
@@ -172,16 +158,13 @@ export const ac_calculateSlice = createSlice({
 
                 const totalMMK = exchangeRate * allTHB
 
-                console.log(totalMMK)
-
                 return state = {...state,AC_totalAmountInMMK: totalMMK.toLocaleString() + ' MMK'}
 
             }
         },
 
         AC_calculateGrandTotal: (state) => {
-            if(state.AC_deliFee && state.AC_totalAmountInMMK) {
-                console.log('all good')
+            if(state.AC_pickupFee && state.AC_totalAmountInMMK) {
 
                 const pickupWithNoComa =state.AC_pickupFee.replace(/,/g,'')
                 const pickupFee = Number(pickupWithNoComa.match(/(\d+)/)[0]) 
@@ -205,8 +188,6 @@ export const ac_calculateSlice = createSlice({
                 const advanced = Number(advancedWithNoComa.match(/(\d+)/)[0]) 
 
                 const grandBalance = grandTotal - advanced
-
-                console.log(grandBalance)
 
                 return state = {...state,AC_grandBalance: grandBalance.toLocaleString() + ' MMK'}
 
