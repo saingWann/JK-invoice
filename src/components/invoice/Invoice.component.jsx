@@ -1,5 +1,4 @@
 import React from "react";
-import TableComponent from "./TH-MM/TH-MM_Table";
 import Container from "../Container";
 import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
@@ -11,7 +10,6 @@ import { useSelector } from "react-redux";
 import MM_TH_Table from "./MM-TH/MM_TH_Table";
 import TH_MM_Table from "./TH-MM/TH-MM_Table";
 import InvoiceFooterMMTHComponent from "./MM-TH/InvoiceFooterMMTH.component";
-import InvoiceFooterTHMMComponent from "./TH-MM/InvoiceFooterTHMM.component";
 import AC_tableComponent from "./AIR_CARGO/AC_table.component";
 import ACinvoiceFooterComponent from "./AIR_CARGO/ACinvoiceFooter.component";
 
