@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Checkbox } from "@nextui-org/react";
+import LoginForm from "./LoginForm";
 
 const LoginPageComponent = () => {
   const [showPassword, toggleShowPassword] = useState(false);
   return (
     <section className="h-[70vh]">
-      <form
+      <div
         action="submit"
         className="flex items-center justify-center flex-col h-full "
       >
@@ -20,8 +21,8 @@ const LoginPageComponent = () => {
         </p>
 
         {/* login card */}
-        <div className="p-10  bg-slate-50/50 backdrop-blur-sm rounded-xl shadow-lg flex flex-col gap-4 lg:w-1/5 md:w-1/3 w-full">
-          <div className="flex flex-col gap-2 relative">
+        <div className="lg:p-10 md:p-5 px-10 py-7  bg-slate-50/50 backdrop-blur-sm rounded-xl lg:shadow-lg flex flex-col gap-4 lg:w-1/5 md:w-1/3 w-full">
+          {/* <div className="flex flex-col gap-2 relative">
             <label htmlFor="username" className="font-semibold text-lg">
               Username
             </label>
@@ -60,9 +61,11 @@ const LoginPageComponent = () => {
 
           <button className="bg-red-600 text-white  px-4 py-2 rounded-lg hover:bg-red-500 active:bg-red-600 mt-4">
             Login
-          </button>
+          </button> */}
+
+          <LoginForm />
         </div>
-      </form>
+      </div>
     </section>
   );
 };
