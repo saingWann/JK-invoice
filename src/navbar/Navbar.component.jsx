@@ -8,13 +8,25 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
 } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../state/data/usersSlice";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = ["Profile", "Dashboard", "Log Out"];
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.allUsers);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("currentUserId");
+    navigate("/");
+    dispatch(setCurrentUser(null));
+  };
 
   return (
     <Navbar
@@ -40,27 +52,30 @@ export default function App() {
         <NavbarBrand>
           <p className="font-bold text-2xl text-inherit">JK.invoice</p>
         </NavbarBrand>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
+        {currentUser.userName ? (
+          <NavbarItem className="hidden lg:flex">
+            <button
+              className="px-4 py-2 font-semibold hover:text-slate-600"
+              onClick={() => navigate(`/profile/${currentUser.userName}`)}
+            >
+              {currentUser.userName}
+            </button>
+          </NavbarItem>
+        ) : null}
+
+        {currentUser.userName ? (
+          <NavbarItem className="hidden lg:flex">
+            <button
+              className="px-4 py-2 bg-slate-200 rounded-full font-semibold hover:bg-slate-100 active:bg-slate-200"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </NavbarItem>
+        ) : null}
       </NavbarContent>
 
       <NavbarMenu>

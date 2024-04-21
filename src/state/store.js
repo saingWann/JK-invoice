@@ -4,6 +4,7 @@ import calculateAmountSlice from './calculateAmountSlice'
 import selectVoucherSlice from './voucherTypeState/selectVoucherSlice'
 import mmThCalculateAmountSlice from './mm-th-calculateAmount/mm-th-calculate-amount-slice'
 import ac_calculateAmount from './ac-calculateAmount/ac_calculateAmount'
+import usersSlice from './data/usersSlice'
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         voucherType: selectVoucherSlice,
         mm_th_cost: mmThCalculateAmountSlice,
         ac_cost : ac_calculateAmount,
+        allUsers: usersSlice,
     }
 })

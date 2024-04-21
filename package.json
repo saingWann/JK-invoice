@@ -13,6 +13,7 @@
     "@nextui-org/react": "^2.2.10",
     "@reduxjs/toolkit": "^2.2.2",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.6.8",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.5",
     "formik": "^2.4.5",
