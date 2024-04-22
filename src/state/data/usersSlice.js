@@ -1,6 +1,5 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import { api } from '../../api/constant';
-import { user } from '@nextui-org/react';
 
 export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () => {
     const response = await api.get(`/users`);
