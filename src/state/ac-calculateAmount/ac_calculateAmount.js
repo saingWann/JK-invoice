@@ -72,14 +72,6 @@ export const ac_calculateSlice = createSlice({
                     }
                     
                 }
-                case 'advanced' : {
-
-                    if(state.AC_advanced) {
-                        state = {...state,AC_advanced: parseInt(state.AC_advanced).toLocaleString() + ' MMK'}
-                        break;
-                    }
-                    
-                }
 
                 case 'pickupFee' : {
 
@@ -92,6 +84,19 @@ export const ac_calculateSlice = createSlice({
                     }
                     
                 }
+                
+                case 'advanced' : {
+
+                    if(state.AC_advanced) {
+                        const advan = parseInt(state.AC_advanced)
+
+                        state = {...state,AC_advanced: advan.toLocaleString() + ' MMK'}
+                        break;
+                    }
+                    
+                }
+
+               
 
                 case 'allTHB' : {
 

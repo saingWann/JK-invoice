@@ -7,7 +7,7 @@ import {
 } from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const PickUpFee_mm_thComponenet = ({ rowId, rowNo, placeholder }) => {
-  const { pickupFee } = useSelector((state) => state.mm_th_cost);
+  const { MM_TH_pickupFee } = useSelector((state) => state.mm_th_cost);
   const dispatch = useDispatch();
   return (
     <tr
@@ -61,7 +61,7 @@ const PickUpFee_mm_thComponenet = ({ rowId, rowNo, placeholder }) => {
         <input
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
-          value={pickupFee}
+          value={MM_TH_pickupFee}
           onChange={(e) => {
             dispatch(updateData({ type: "pickupFee", value: e.target.value }));
           }}

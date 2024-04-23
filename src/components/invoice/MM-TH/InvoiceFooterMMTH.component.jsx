@@ -8,7 +8,7 @@ import {
 } from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const InvoiceFooterMMTHComponent = () => {
-  const { grandTotal, advanced, grandBalance } = useSelector(
+  const { MM_TH_grandTotal, MM_TH_advanced, MM_TH_grandBalance } = useSelector(
     (state) => state.mm_th_cost
   );
 
@@ -35,7 +35,7 @@ const InvoiceFooterMMTHComponent = () => {
             total
           </p>
           <input
-            value={grandTotal}
+            value={MM_TH_grandTotal}
             readOnly
             id="total"
             name="total"
@@ -49,7 +49,7 @@ const InvoiceFooterMMTHComponent = () => {
             advanced
           </p>
           <input
-            value={advanced}
+            value={MM_TH_advanced}
             onChange={(e) => {
               dispatch(updateData({ type: "advanced", value: e.target.value }));
             }}
@@ -70,7 +70,7 @@ const InvoiceFooterMMTHComponent = () => {
           </p>
           <input
             readOnly
-            value={grandBalance}
+            value={MM_TH_grandBalance}
             id="balance"
             name="balance"
             type="text"

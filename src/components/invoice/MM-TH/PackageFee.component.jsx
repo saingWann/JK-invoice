@@ -8,7 +8,7 @@ import {
 } from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const PackageFeeComponent = ({ rowId, rowNo, placeholder }) => {
-  const { packageFee } = useSelector((state) => state.mm_th_cost);
+  const { MM_TH_packageFee } = useSelector((state) => state.mm_th_cost);
   const dispatch = useDispatch();
   return (
     <tr
@@ -63,7 +63,7 @@ const PackageFeeComponent = ({ rowId, rowNo, placeholder }) => {
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"
-          value={packageFee}
+          value={MM_TH_packageFee}
           onChange={(e) => {
             dispatch(updateData({ type: "packageFee", value: e.target.value }));
           }}

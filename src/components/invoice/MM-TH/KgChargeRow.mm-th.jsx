@@ -9,7 +9,7 @@ import {
 } from "../../../state/mm-th-calculateAmount/mm-th-calculate-amount-slice";
 
 const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
-  const { weight, kgPerPrice, totalKgPrice } = useSelector(
+  const { MM_TH_weight, MM_TH_kgPerPrice, MM_TH_totalKgPrice } = useSelector(
     (state) => state.mm_th_cost
   );
 
@@ -49,7 +49,7 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
           id={`unit_${rowId}`}
           name={`unit_${rowId}`}
           placeholder="unit"
-          value={weight}
+          value={MM_TH_weight}
           onChange={(e) => {
             dispatch(updateData({ type: "weight", value: e.target.value }));
           }}
@@ -70,7 +70,7 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
           type="text"
           readOnly
           disabled={true}
-          value={kgPerPrice}
+          value={MM_TH_kgPerPrice}
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
         text-center"
         />
@@ -82,7 +82,7 @@ const KgChargeRow_Mm_th = ({ rowId, rowNo, placeholder }) => {
         <input
           readOnly
           disabled={true}
-          value={totalKgPrice}
+          value={MM_TH_totalKgPrice}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
           placeholder="amount"

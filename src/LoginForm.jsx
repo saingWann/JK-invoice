@@ -34,6 +34,7 @@ const LoginForm = ({ setIsToast }) => {
       localStorage.setItem("auth", JSON.stringify(userNow.token));
       navigate("/invoice");
       localStorage.setItem("currentUserId", userNow.id);
+      localStorage.setItem("currentUsername", userNow.userName);
       setIsToast(false);
       // console.log(currentUser);
     } else {

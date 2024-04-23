@@ -1,7 +1,14 @@
 import React from "react";
 import DatepickerComponent from "../datepicker/Datepicker.component";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCustomerInfo } from "../../../state/customerInfo/customerInfoSlice";
 
 const InvoiceHeaderComponent = () => {
+  const { customer_name, customer_phone, customer_address } = useSelector(
+    (state) => state.customerInfo
+  );
+
+  const dispatch = useDispatch();
   return (
     <>
       <p className="text-7xl font-bold text-center text-red-600">JK</p>
@@ -18,6 +25,12 @@ const InvoiceHeaderComponent = () => {
             <label htmlFor="customerName">Name</label>
             <input
               placeholder="customer name"
+              value={customer_name}
+              onChange={(e) =>
+                dispatch(
+                  updateCustomerInfo({ type: "name", value: e.target.value })
+                )
+              }
               type="text"
               name="customerName"
               id="customerName"
@@ -28,6 +41,12 @@ const InvoiceHeaderComponent = () => {
             <label htmlFor="customerPhone">Phone</label>
             <input
               placeholder="phone"
+              value={customer_phone}
+              onChange={(e) =>
+                dispatch(
+                  updateCustomerInfo({ type: "phone", value: e.target.value })
+                )
+              }
               type="text"
               name="customerPhone"
               id="customerPhone"
@@ -38,6 +57,12 @@ const InvoiceHeaderComponent = () => {
             <label htmlFor="customerPhone">Address</label>
             <input
               placeholder="address"
+              value={customer_address}
+              onChange={(e) =>
+                dispatch(
+                  updateCustomerInfo({ type: "address", value: e.target.value })
+                )
+              }
               type="text"
               name="customerAddress"
               id="customerAddress"

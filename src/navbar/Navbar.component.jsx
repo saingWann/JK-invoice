@@ -50,7 +50,12 @@ export default function App() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
-          <p className="font-bold text-2xl text-inherit">JK.invoice</p>
+          <Link
+            onClick={() => navigate("/invoice")}
+            className="font-bold text-2xl text-inherit text-red-600 cursor-pointer"
+          >
+            JK.invoice
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 

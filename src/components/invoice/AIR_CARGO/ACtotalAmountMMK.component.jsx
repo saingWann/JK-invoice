@@ -18,7 +18,7 @@ const ACtotalAmountMMKComponent = ({ rowId }) => {
             placeholder={`no`}
             type="text"
             disabled={true}
-            value={3}
+            value={4}
             readOnly
             className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
           />

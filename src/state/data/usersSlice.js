@@ -3,7 +3,6 @@ import { api } from '../../api/constant';
 
 export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () => {
     const response = await api.get(`/users`);
-    console.log(response.data)
     return response.data;
   });
 
@@ -14,7 +13,6 @@ export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () =>
     reducers:{
 
       setCurrentUser:(state,action) => {
-        console.log(action.payload)
         return state = {...state,currentUser: {...action.payload}
       }}
         
@@ -29,8 +27,6 @@ export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () =>
             state.allUsers = action.payload
 
             if(localStorage.getItem('auth')){
-              console.log('first')
-
               state.currentUser = state.allUsers.filter((user) => (user.token === JSON.parse(localStorage.getItem('auth'))))[0]
               
             }
