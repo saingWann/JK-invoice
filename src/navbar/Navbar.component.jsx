@@ -16,7 +16,7 @@ import { setCurrentUser } from "../state/data/usersSlice";
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ["Profile", "Dashboard", "Log Out"];
+  const menuItems = ["Home", "Dashboard", "Log Out"];
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.allUsers);
   const dispatch = useDispatch();
@@ -44,7 +44,12 @@ export default function App() {
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <p className="font-bold text-2xl text-inherit">JK.invoice</p>
+          <p
+            onClick={() => navigate("/invoice")}
+            className="font-bold text-2xl text-inherit"
+          >
+            JK.invoice
+          </p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -89,8 +94,16 @@ export default function App() {
             <Link
               className="w-full"
               color={index === menuItems.length - 1 ? "danger" : "foreground"}
-              href="#"
-              size="lg"
+              onClick={() => {
+                if (item === "Log Out") {
+                  handleLogout();
+                } else if (item === "Home") {
+                  navigate(`/invoice`);
+                } else {
+                  navigate(`/profile/${currentUser.userName}`);
+                }
+              }}
+              size="md"
             >
               {item}
             </Link>

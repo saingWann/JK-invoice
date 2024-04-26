@@ -32,15 +32,21 @@ const RecordsTable = () => {
               <th scope="col" className="px-6 py-3">
                 weight
               </th>
-              <th scope="col" className="px-6 py-3">
-                rate
-              </th>
+
               <th scope="col" className="px-6 py-3">
                 amount
               </th>
               <th scope="col" className="px-6 py-3">
                 type
               </th>
+              <th scope="col" className="px-6 py-3">
+                voucher No.
+              </th>
+              {localStorage.getItem("currentUsername") === "adminJK" && (
+                <th scope="col" className="px-6 py-3">
+                  issued by
+                </th>
+              )}
               <th scope="col" className="px-6 py-3">
                 date
               </th>
@@ -93,7 +99,7 @@ const RecordsTable = () => {
               currentUserRecords.map((record, i) => (
                 <tr
                   key={i}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-white border-b hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 "
                 >
                   <th
                     scope="row"
@@ -102,10 +108,29 @@ const RecordsTable = () => {
                     {record.customerName}
                   </th>
                   <td className="px-6 py-4">{record.kg}</td>
-                  <td className="px-6 py-4">{record.exchangeRate}</td>
-                  <td className="px-6 py-4">{record.totalMMK}</td>
-                  <td className="px-6 py-4">{record.type}</td>
-                  <td className="px-6 py-4 ">{record.issueTime}</td>
+
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {record.totalMMK}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{record.type}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {record.voucherNumber < 10
+                      ? record.voucherNumber > 10 && record.voucherNumber < 100
+                        ? record.voucherNumber > 100 &&
+                          record.voucherNumber < 1000
+                          ? String(record.voucherNumber).padStart(3, 0)
+                          : String(record.voucherNumber).padStart(2, 0)
+                        : String(record.voucherNumber).padStart(4, 0)
+                      : String(record.voucherNumber).padStart(4, 0)}
+                  </td>
+                  {localStorage.getItem("currentUsername") === "adminJK" && (
+                    <td scope="col" className="px-6 py-3">
+                      {record.userIssued}
+                    </td>
+                  )}
+                  <td className="px-6 py-4 whitespace-nowrap ">
+                    {record.issueTime}
+                  </td>
                 </tr>
               ))}
           </tbody>

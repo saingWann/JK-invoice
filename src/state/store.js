@@ -19,6 +19,6 @@ export const store = configureStore({
         ac_cost : ac_calculateAmount,
         allUsers: usersSlice,
         categories: CategoriesSlice,
-        allRecords: recordsSlice
+        allRecords: recordsSlice,
     }
 })

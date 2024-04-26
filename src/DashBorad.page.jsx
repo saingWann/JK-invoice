@@ -11,7 +11,7 @@ const DashBoradPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("dashboard render");
+    // console.log("dashboard render");
     dispatch(fetchRecords());
   }, []);
 
@@ -19,8 +19,8 @@ const DashBoradPage = () => {
     <Container>
       <section className="min-h-[60vh]">
         <div className="mt-10 border-b pb-3">
-          <p className="text-2xl uppercase">
-            {currentUser.userName}'s issued recordss
+          <p className="text-2xl uppercase max-sm:text-lg max-sm:font-bold lg:p-0 px-3">
+            {currentUser.userName}'s issued records
           </p>
         </div>
         <CategoriesDashboard />

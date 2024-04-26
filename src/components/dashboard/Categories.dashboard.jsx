@@ -25,18 +25,34 @@ const CategoriesDashboard = () => {
   };
 
   const renderBycategories = (cate) => {
-    if (cate === "ALL") {
-      console.log(cate);
+    const currentUser = localStorage.getItem("currentUsername");
 
-      const currentUser = localStorage.getItem("currentUsername");
-      console.log(currentUser);
+    if (cate === "ALL" && currentUser !== "adminJK") {
       const filterBycategory = allRecords.filter(
         (record) => record.userIssued === currentUser
       );
       filterBycategory.sort(
         (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
       );
-      console.log(filterBycategory);
+      // console.log(filterBycategory);
+      dispatch(upadateCurrentUserRecords(filterBycategory));
+    } else {
+      const filterBycategory = allRecords.filter(
+        (record) => record.type === cate && record.userIssued === currentUser
+      );
+      filterBycategory.sort(
+        (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
+      );
+      dispatch(upadateCurrentUserRecords(filterBycategory));
+      // console.log(filterBycategory);
+    }
+
+    if (cate === "ALL" && currentUser === "adminJK") {
+      const filterBycategory = [...allRecords];
+      filterBycategory.sort(
+        (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
+      );
+      // console.log(filterBycategory);
       dispatch(upadateCurrentUserRecords(filterBycategory));
     } else {
       const filterBycategory = allRecords.filter(
@@ -46,7 +62,7 @@ const CategoriesDashboard = () => {
         (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
       );
       dispatch(upadateCurrentUserRecords(filterBycategory));
-      console.log(filterBycategory);
+      // console.log(filterBycategory);
     }
   };
 

@@ -1,5 +1,8 @@
 import { useSelector } from "react-redux";
-import { uploadRecords } from "../../state/data/recordsSlice";
+import {
+  updateVoucherNumber,
+  uploadRecords,
+} from "../../state/data/recordsSlice";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 
@@ -24,6 +27,8 @@ const PrintBtnComponent = () => {
     (state) => state.customerInfo
   );
 
+  const { voucherNumber } = useSelector((state) => state.allRecords);
+
   const dispatch = useDispatch();
 
   const TH_MM_uploadData = () => {
@@ -39,8 +44,15 @@ const PrintBtnComponent = () => {
       totalMMK: balance,
       userId: currentUser.id,
       type: "TH-MM",
+      voucherNumber: voucherNumber,
     };
-    dispatch(uploadRecords(recordToUpload));
+    if (customer_name && exchangeRateMMK && kg) {
+      dispatch(uploadRecords(recordToUpload));
+      dispatch(updateVoucherNumber());
+      window.print();
+    } else {
+      alert("nnono");
+    }
   };
 
   const MM_TH_uploadData = () => {
@@ -57,8 +69,15 @@ const PrintBtnComponent = () => {
       totalMMK: MM_TH_grandBalance,
       userId: currentUser.userId,
       type: "MM-TH",
+      voucherNumber: voucherNumber,
     };
-    dispatch(uploadRecords(recordToUpload));
+    if (customer_name && MM_TH_weight) {
+      dispatch(uploadRecords(recordToUpload));
+      dispatch(updateVoucherNumber());
+      window.print();
+    } else {
+      alert("no no");
+    }
   };
   const AC_uploadData = () => {
     const date = moment().format("LLL");
@@ -72,9 +91,14 @@ const PrintBtnComponent = () => {
       totalMMK: AC_grandBalance,
       userId: currentUser.userId,
       type: "AIR CARGO",
+      voucherNumber: voucherNumber,
     };
 
-    dispatch(uploadRecords(recordToUpload));
+    if (customer_name && AC_exchangeRate && AC_weight) {
+      dispatch(uploadRecords(recordToUpload));
+      dispatch(updateVoucherNumber());
+      window.print();
+    }
   };
 
   const handlePrintBtn = () => {
@@ -96,7 +120,6 @@ const PrintBtnComponent = () => {
         return;
       }
     }
-    window.print();
   };
   return (
     <button
@@ -112,3 +135,16 @@ const PrintBtnComponent = () => {
 };
 
 export default PrintBtnComponent;
+
+// {voucherNumber && (
+//   <p className="absolute right-80 top-60 ">
+//     VoucherNo:{" "}
+//     {voucherNumber < 10
+//       ? voucherNumber > 10 && voucherNumber < 100
+//         ? voucherNumber > 100 && voucherNumber < 1000
+//           ? String(voucherNumber).padStart(3, 0)
+//           : String(voucherNumber).padStart(2, 0)
+//         : String(voucherNumber).padStart(4, 0)
+//       : String(voucherNumber).padStart(4, 0)}
+//   </p>
+// )}

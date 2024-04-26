@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import PrintBtnComponent from "../printBtn/PrintBtn.component";
 import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
@@ -17,13 +17,26 @@ const InvoiceComponent = () => {
   const dispatch = useDispatch();
   const tableRows = useSelector((state) => state.addRow);
   const voucherType = useSelector((state) => state.voucherType);
+  const { voucherNumber } = useSelector((state) => state.allRecords);
 
   return (
     <Container>
       <div
-        className="shadow-md lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 "
+        className="shadow-md relative lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 "
         id="print-content"
       >
+        {voucherNumber && (
+          <p className="absolute right-32 top-20 " id="voucherNumber">
+            VoucherNo:{" "}
+            {voucherNumber < 10
+              ? voucherNumber > 10 && voucherNumber < 100
+                ? voucherNumber > 100 && voucherNumber < 1000
+                  ? String(voucherNumber).padStart(3, 0)
+                  : String(voucherNumber).padStart(2, 0)
+                : String(voucherNumber).padStart(4, 0)
+              : String(voucherNumber).padStart(4, 0)}
+          </p>
+        )}
         <InvoiceHeaderComponent />
         {/* <TableComponent /> */}
 
@@ -36,7 +49,7 @@ const InvoiceComponent = () => {
         {voucherType === "AIR CARGO" && <AC_tableComponent />}
         {voucherType === "AIR CARGO" && <ACinvoiceFooterComponent />}
 
-        {voucherType !== "MYANMAR - THAI" && (
+        {voucherType === "THAI - MYANMAR" && (
           <div className="w-full flex gap-5">
             <button
               id="addRowBtn"

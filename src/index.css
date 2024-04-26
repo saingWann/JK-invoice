@@ -32,6 +32,12 @@
 
  }
 
+ #voucherNumber {
+    top: 40px;
+    right: 95px;
+    font-size: 14px;
+    
+ }
  #print-content{
     /* margin-top: 0; */
     padding: 0rem;
