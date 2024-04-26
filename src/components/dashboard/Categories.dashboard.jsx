@@ -15,9 +15,7 @@ const categoriesConstant = [
 
 const CategoriesDashboard = () => {
   const categories = useSelector((state) => state.categories);
-  const { allRecords, currentUserRecords } = useSelector(
-    (state) => state.allRecords
-  );
+  const { allRecords } = useSelector((state) => state.allRecords);
   const dispatch = useDispatch();
 
   const parseDate = (dateString) => {
@@ -27,27 +25,31 @@ const CategoriesDashboard = () => {
   const renderBycategories = (cate) => {
     const currentUser = localStorage.getItem("currentUsername");
 
-    if (cate === "ALL" && currentUser !== "adminJK") {
+    if (cate === "ALL") {
       const filterBycategory = allRecords.filter(
         (record) => record.userIssued === currentUser
       );
       filterBycategory.sort(
         (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
       );
-      // console.log(filterBycategory);
       dispatch(upadateCurrentUserRecords(filterBycategory));
+      console.log(filterBycategory);
     } else {
       const filterBycategory = allRecords.filter(
         (record) => record.type === cate && record.userIssued === currentUser
       );
+      // console.log(currentUser);
       filterBycategory.sort(
         (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
       );
       dispatch(upadateCurrentUserRecords(filterBycategory));
       // console.log(filterBycategory);
     }
+  };
 
-    if (cate === "ALL" && currentUser === "adminJK") {
+  const adminRenderByCategories = (cate) => {
+    if (cate === "ALL") {
+      console.log("admin");
       const filterBycategory = [...allRecords];
       filterBycategory.sort(
         (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
@@ -55,6 +57,7 @@ const CategoriesDashboard = () => {
       // console.log(filterBycategory);
       dispatch(upadateCurrentUserRecords(filterBycategory));
     } else {
+      console.log("admin elese");
       const filterBycategory = allRecords.filter(
         (record) => record.type === cate
       );
@@ -73,8 +76,15 @@ const CategoriesDashboard = () => {
           <button
             key={index}
             onClick={() => {
-              dispatch(setCategories(cate));
-              renderBycategories(cate.toUpperCase());
+              if (localStorage.getItem("currentUsername") === "adminJK") {
+                console.log("i am admin");
+                adminRenderByCategories(cate.toUpperCase());
+                dispatch(setCategories(cate));
+              } else {
+                console.log("i am normal staff");
+                renderBycategories(cate.toUpperCase());
+                dispatch(setCategories(cate));
+              }
             }}
             className={`px-4 py-2 border-e uppercase hover:bg-black/10 active:bg-black font-semibold text-sm max-sm:text-xs text-nowrap active:text-white ${
               cate === categories ? "bg-black text-white" : "bg-transparent"

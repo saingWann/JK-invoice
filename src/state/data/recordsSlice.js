@@ -21,6 +21,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
     reducers:{
 
       upadateCurrentUserRecords:(state,action) => {
+        // console.log(action.payload)
         return state = {...state,currentUserRecords:[...action.payload]}
       },
 
