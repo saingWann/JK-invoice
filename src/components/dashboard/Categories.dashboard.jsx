@@ -77,11 +77,11 @@ const CategoriesDashboard = () => {
             key={index}
             onClick={() => {
               if (localStorage.getItem("currentUsername") === "adminJK") {
-                console.log("i am admin");
+                // console.log("i am admin");
                 adminRenderByCategories(cate.toUpperCase());
                 dispatch(setCategories(cate));
               } else {
-                console.log("i am normal staff");
+                // console.log("i am normal staff");
                 renderBycategories(cate.toUpperCase());
                 dispatch(setCategories(cate));
               }

@@ -15,18 +15,50 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
   });
 
 
+  const typeArray = ['TH-MM', 'MM-TH', "AIR CARGO",'MM-SGA','CAR RENTAL'];
+
   const recordslice = createSlice({
     name: 'records',
-    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:null,loading:false,error:null},
+    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:null,loading:false,error:null,individualIncome: {
+      mm_th: 0,
+      th_mm: 0,
+      airCargo: 0,
+      mm_sga: 0,
+      carRental: 0
+    }},
     reducers:{
 
       upadateCurrentUserRecords:(state,action) => {
-        // console.log(action.payload)
+        // console.log(action.payload) x x
         return state = {...state,currentUserRecords:[...action.payload]}
       },
 
       updateVoucherNumber: (state) => {
         return state = {...state,voucherNumber: state.voucherNumber + 1}
+      },
+
+      calculateIndividualIncome: (state) => {
+       typeArray.map((type) => {
+        const filteredArray = state.allRecords.filter((record) => record.type === type);
+
+        const totalIncomeByType = filteredArray.reduce((prev, currentValue) => {
+          const numericValue = parseFloat(
+            currentValue.totalMMK.replace(/[^0-9.-]+/g, "")
+          );
+          return prev + (isNaN(numericValue) ? 0 : numericValue);
+        }, 0);
+    
+        // console.log(totalIncomeByType);
+
+        if(type === 'TH-MM'){
+          let newState = {...state.individualIncome}
+          newState = {...newState,th_mm: totalIncomeByType }
+          console.log(newState)
+          return state = {...state,individualIncome: {...newState}}
+        }
+
+
+       })
       }
    
         
@@ -85,6 +117,6 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
   })
 
-  export const {upadateCurrentUserRecords,updateVoucherNumber} = recordslice.actions
+  export const {upadateCurrentUserRecords,updateVoucherNumber,calculateIndividualIncome} = recordslice.actions
 
   export default recordslice.reducer;
