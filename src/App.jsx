@@ -7,7 +7,10 @@ import InvoicePageComponent from "./Invoice.page.component";
 import DashBoradPage from "./DashBorad.page";
 import { useDispatch } from "react-redux";
 import { fetchAllUsers } from "./state/data/usersSlice";
-import { fetchRecords } from "./state/data/recordsSlice";
+import {
+  calculateIndividualIncome,
+  fetchRecords,
+} from "./state/data/recordsSlice";
 
 const App = () => {
   const dispatch = useDispatch();

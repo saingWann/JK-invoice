@@ -42,14 +42,14 @@ const RecordsTable = () => {
               <th scope="col" className="px-6 py-3">
                 voucher No.
               </th>
+              <th scope="col" className="px-6 py-3">
+                date
+              </th>
               {localStorage.getItem("currentUsername") === "adminJK" && (
                 <th scope="col" className="px-6 py-3">
                   issued by
                 </th>
               )}
-              <th scope="col" className="px-6 py-3">
-                date
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -123,14 +123,15 @@ const RecordsTable = () => {
                         : String(record.voucherNumber).padStart(4, 0)
                       : String(record.voucherNumber).padStart(4, 0)}
                   </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap ">
+                    {record.issueTime}
+                  </td>
                   {localStorage.getItem("currentUsername") === "adminJK" && (
                     <td scope="col" className="px-6 py-3">
                       {record.userIssued}
                     </td>
                   )}
-                  <td className="px-6 py-4 whitespace-nowrap ">
-                    {record.issueTime}
-                  </td>
                 </tr>
               ))}
           </tbody>

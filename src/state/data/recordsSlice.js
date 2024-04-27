@@ -19,7 +19,13 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
   const recordslice = createSlice({
     name: 'records',
-    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:null,loading:false,error:null,individualIncome: {
+    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:null,loading:false,error:null,totalIncome: 0,individualIncome: {
+      mm_th: 0,
+      th_mm: 0,
+      airCargo: 0,
+      mm_sga: 0,
+      carRental: 0
+    } ,individualIncomePercentage: {
       mm_th: 0,
       th_mm: 0,
       airCargo: 0,
@@ -38,29 +44,62 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
       },
 
       calculateIndividualIncome: (state) => {
-       typeArray.map((type) => {
-        const filteredArray = state.allRecords.filter((record) => record.type === type);
+        let newState = {...state.individualIncome}
+        let newPercentState = {...state.individualIncomePercentage}
 
-        const totalIncomeByType = filteredArray.reduce((prev, currentValue) => {
-          const numericValue = parseFloat(
-            currentValue.totalMMK.replace(/[^0-9.-]+/g, "")
-          );
-          return prev + (isNaN(numericValue) ? 0 : numericValue);
-        }, 0);
-    
-        // console.log(totalIncomeByType);
+      if(state.allRecords.length !==0) {
+        typeArray.map((type) => {
+          const filteredArray = state.allRecords.filter((record) => record.type === type);
+  
+          const totalIncomeByType = filteredArray.reduce((prev, currentValue) => {
+            const numericValue = parseFloat(
+              currentValue.totalMMK.replace(/[^0-9.-]+/g, "")
+            );
+            return prev + (isNaN(numericValue) ? 0 : numericValue);
+          }, 0);
+      
+  
+          if(type === 'TH-MM'){
+            const percent = (100 * totalIncomeByType) / state.totalIncome
+            newState = {...newState,th_mm: totalIncomeByType }
+            newPercentState = {...newPercentState,th_mm: percent.toFixed(2)}
+            // console.log(percent.toFixed(2))
+            state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
-        if(type === 'TH-MM'){
-          let newState = {...state.individualIncome}
-          newState = {...newState,th_mm: totalIncomeByType }
-          console.log(newState)
-          return state = {...state,individualIncome: {...newState}}
-        }
+          }else if( type === 'MM-TH'){
+            const percent = (100 * totalIncomeByType) / state.totalIncome
+            newState = {...newState,mm_th: totalIncomeByType }
+             newPercentState = {...newPercentState,mm_th: percent.toFixed(2)}
+            // console.log(percent.toFixed(2))
+            state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
+          }else if( type === 'AIR CARGO'){
+            const percent = (100 * totalIncomeByType) / state.totalIncome
+            newState = {...newState,airCargo: totalIncomeByType }
+            newPercentState = {...newPercentState,airCargo: percent.toFixed(2)}
+            // console.log(percent.toFixed(2))
+            state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
-       })
+          }else if( type === 'MM-SGA'){
+            const percent = (100 * totalIncomeByType) / state.totalIncome
+            newState = {...newState,mm_sga: totalIncomeByType }
+            newPercentState = {...newPercentState,mm_sga: percent.toFixed(2)}
+            // console.log(percent.toFixed(2))
+            state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
+
+          }else if( type === 'CAR RENTAL'){
+            const percent = (100 * totalIncomeByType) / state.totalIncome
+            newState = {...newState,carRental: totalIncomeByType }
+             newPercentState = {...newPercentState,carRental: percent.toFixed(2)}
+            // console.log(percent.toFixed(2))
+            state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
+          }
+  
+        })
       }
-   
+      // console.log(state.individualIncome)
+      return state
+      }
         
     },
     extraReducers: (builder) => {
@@ -84,11 +123,10 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
               if(localStorage.getItem('currentUsername') === 'adminJK') {
 
-                console.log('hello')
+                // console.log('hello')
                 const fitlerWithCurrentUser = state.allRecords
-                console.log(fitlerWithCurrentUser)
+                // console.log(fitlerWithCurrentUser)
                 state.currentUserRecords = fitlerWithCurrentUser
-
 
                 // console.log(fitlerWithCurrentUser)
                 state.currentUserRecords = fitlerWithCurrentUser
@@ -99,7 +137,17 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
               }
             }
-          
+
+          const totalIncomeFromFetchData = state.allRecords.reduce((prev, currentValue) => {
+          const numericValue = parseFloat(
+            currentValue.totalMMK.replace(/[^0-9.-]+/g, "")
+          );
+          return prev + (isNaN(numericValue) ? 0 : numericValue);
+          }, 0);
+
+          console.log(totalIncomeFromFetchData)
+          state.totalIncome = totalIncomeFromFetchData
+
           })
           .addCase(fetchRecords.rejected, (state, action) => {
             

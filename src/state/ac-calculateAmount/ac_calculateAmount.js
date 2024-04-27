@@ -125,7 +125,7 @@ export const ac_calculateSlice = createSlice({
                 
                 const weightWithNoComa = state.AC_weight.replace(/,/g, '');
 
-                const weightInNumber = Number(weightWithNoComa.match(/(\d+)/)[0])
+                const weightInNumber = Number(weightWithNoComa.match(/(\d+(\.\d+)?)/)[0])
 
                 if(weightInNumber <= 3 ){
 
