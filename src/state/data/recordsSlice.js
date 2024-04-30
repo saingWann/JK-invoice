@@ -111,7 +111,8 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
             state.loading = false;
             state.allRecords = action.payload
-           
+          
+            // get the last voucher number
             if(action.payload.length !== 0) {
               state.voucherNumber = action.payload[action.payload.length - 1].voucherNumber + 1
               // console.log(state.voucherNumber)
@@ -145,7 +146,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           return prev + (isNaN(numericValue) ? 0 : numericValue);
           }, 0);
 
-          console.log(totalIncomeFromFetchData)
+          // console.log(totalIncomeFromFetchData)
           state.totalIncome = totalIncomeFromFetchData
 
           })

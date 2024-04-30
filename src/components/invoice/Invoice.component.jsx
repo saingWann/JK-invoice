@@ -22,8 +22,8 @@ const InvoiceComponent = () => {
   return (
     <Container>
       <div
-        className="shadow-md relative lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 "
-        id="print-content"
+        className="shadow-md relative lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 font-body"
+        id="print-content "
       >
         {voucherNumber && (
           <p className="absolute right-32 top-20 " id="voucherNumber">

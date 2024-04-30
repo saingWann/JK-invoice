@@ -26,7 +26,7 @@ const DashBoradPage = () => {
           <IncomeDashboard />
         )}
         <div className="mt-28 border-b pb-3">
-          <p className="text-2xl uppercase max-sm:text-lg max-sm:font-bold lg:p-0 px-3">
+          <p className="text-2xl font-body font-semibold uppercase max-sm:text-lg max-sm:font-bold lg:p-0 px-3">
             {currentUser.userName}'s issued records
           </p>
         </div>

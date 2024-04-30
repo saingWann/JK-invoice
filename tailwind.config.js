@@ -10,6 +10,11 @@ export default {
   ],
   theme: {
     extend: {},
+      
+    fontFamily:{
+      'body' : ['Poppins','san-serif'],
+      'main': ['"Julius Sans One"', "sans-serif"]
+    },
   },
   plugins: [
     require("flowbite/plugin"),
