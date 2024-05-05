@@ -85,6 +85,11 @@ const LoginForm = ({ setIsToast }) => {
             Show Password
           </Checkbox>
 
+          <div className="text-xs flex gap-1 font-bold mb-3 ">
+            <p>demo account:</p>
+            <p>adminJK - </p>
+            <p>adminJK11</p>
+          </div>
           <button
             type="submit"
             className="bg-red-600 text-white  px-4 py-2 rounded-lg hover:bg-red-500 active:bg-red-600 mt-4"

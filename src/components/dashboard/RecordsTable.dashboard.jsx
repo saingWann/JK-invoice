@@ -32,14 +32,14 @@ const RecordsTable = () => {
   return (
     <div className=" mx-auto font-body">
       <div className="relative overflow-x-auto shadow-md p-4 ">
-        <div className="flex gap-3 absolute right-4">
+        <div className="flex gap-3 absolute lg:right-4">
           {Array.from({ length: totalPages }, (_, i) => {
             return (
               <button
                 onClick={() => {
                   handlePageChange(i + 1);
                 }}
-                className={`shadow-md px-6 py-2 rounded-lg  hover:bg-black/20 active:bg-black/40 ${
+                className={`shadow-md lg:px-6 px-4 py-2 rounded-lg  hover:bg-black/20 active:bg-black/40 ${
                   currentPage === i + 1 && "bg-black text-white"
                 }`}
                 key={i}
@@ -50,7 +50,7 @@ const RecordsTable = () => {
           })}
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 p-4">
-          <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 uppercase">
+          <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 uppercase max-sm:mt-10">
             {categories} voucher records
             {currentUserRecords.length === 0 && (
               <p className="mt-1 w-2/3 text-red-500 text-sm font-normal dark:text-gray-400">

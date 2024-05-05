@@ -35,12 +35,15 @@ const IncomeDashboard = () => {
             amount={individualIncome.th_mm}
             color="red"
             percent={individualIncomePercentage.th_mm}
+            cate="th-mm"
           />
+
           <IncomeCardDashboard
             incomeType="myanmar-thai"
             amount={individualIncome.mm_th}
             color="sky"
             percent={individualIncomePercentage.mm_th}
+            cate="mm-th"
           />
 
           <IncomeCardDashboard
@@ -48,6 +51,7 @@ const IncomeDashboard = () => {
             amount={individualIncome.airCargo}
             color="emerald"
             percent={individualIncomePercentage.airCargo}
+            cate="air cargo"
           />
           <IncomeCardDashboard
             incomeType="myanmar-singapore"

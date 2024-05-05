@@ -51,7 +51,7 @@ const PrintBtnComponent = () => {
       dispatch(updateVoucherNumber());
       window.print();
     } else {
-      alert("nnono");
+      alert("please complete the process first to print");
     }
   };
 
@@ -76,7 +76,7 @@ const PrintBtnComponent = () => {
       dispatch(updateVoucherNumber());
       window.print();
     } else {
-      alert("no no");
+      alert("please complete the process first to print");
     }
   };
   const AC_uploadData = () => {
@@ -98,7 +98,7 @@ const PrintBtnComponent = () => {
       dispatch(uploadRecords(recordToUpload));
       dispatch(updateVoucherNumber());
       window.print();
-    }
+    } else alert("please complete the process first to print");
   };
 
   const handlePrintBtn = () => {

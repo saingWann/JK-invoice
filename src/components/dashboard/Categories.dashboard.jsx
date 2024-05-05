@@ -71,7 +71,7 @@ const CategoriesDashboard = () => {
 
   return (
     <section>
-      <div className="flex justify-start lg:mt-10 my-5 max-sm:overflow-x-auto ">
+      <div className="flex justify-start lg:mt-10 my-5 max-sm:overflow-x-auto max-sm:px-4 ">
         {categoriesConstant.map((cate, index) => (
           <button
             key={index}
