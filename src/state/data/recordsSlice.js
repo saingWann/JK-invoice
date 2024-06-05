@@ -21,7 +21,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
 
   const recordslice = createSlice({
     name: 'records',
-    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:null,loading:false,error:null,totalIncome: 0,individualIncome: {
+    initialState: {allRecords:[],currentUserRecords:[],voucherNumber:1,loading:false,error:null,totalIncome: 0,individualIncome: {
       mm_th: 0,
       th_mm: 0,
       airCargo: 0,
@@ -42,7 +42,9 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
       },
 
       updateVoucherNumber: (state) => {
-        return state = {...state,voucherNumber: state.voucherNumber + 1}
+        // console.log(state.voucherNumber)
+      return state = {...state,voucherNumber: state.voucherNumber + 1}
+       
       },
 
       calculateIndividualIncome: (state) => {
@@ -112,12 +114,14 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           .addCase(fetchRecords.fulfilled, (state, action) => {
 
             state.loading = false;
-            state.allRecords = action.payload.sort(
-              (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
-            );
+            state.allRecords = action.payload
           
-            if(action.payload.length !== 0) {
-              state.voucherNumber = action.payload[action.payload.length - 1].voucherNumber + 1
+            // console.log(state.allRecords)
+            // console.log(action.payload)
+
+            if(state.allRecords.length !== 0) {
+              state.voucherNumber = state.allRecords[state.allRecords.length - 1].voucherNumber + 1
+          
             }else {
               state.voucherNumber = 1
             }
@@ -159,6 +163,8 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           .addCase(uploadRecords.fulfilled, (state, action) => {
             state.loading = false;
             state.allRecords = [...state.allRecords,action.payload]
+            
+          
           
           })
         }

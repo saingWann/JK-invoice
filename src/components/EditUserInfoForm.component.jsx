@@ -37,7 +37,7 @@ const EditUserInfoFormComponent = ({
         initial={{ opacity: 0, y: 200 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -200 }}
-        className="xl:w-1/2 lg:w-1/2 w-full lg:p-10 max-md:-order-1"
+        className="xl:w-1/2 md:w-1/2 mx-auto lg:w-1/2 w-full lg:p-10 max-md:-order-1"
       >
         <p className="font-body font-bold text-3xl mb-5">Edit User Info</p>
         <Formik
@@ -71,9 +71,15 @@ const EditUserInfoFormComponent = ({
             />
 
             <SelectBoxForm label="Role" name="role">
-              <option value="">Select role</option>
-              <option value="staff">staff</option>
-              <option value="admin">admin</option>
+              <option id="role" value="">
+                Select role
+              </option>
+              <option id="role" value="staff">
+                staff
+              </option>
+              <option id="role" value="admin">
+                admin
+              </option>
             </SelectBoxForm>
 
             <TextInputForm

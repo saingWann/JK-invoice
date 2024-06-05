@@ -202,16 +202,3 @@ const PrintBtnComponent = () => {
 };
 
 export default PrintBtnComponent;
-
-// {voucherNumber && (
-//   <p className="absolute right-80 top-60 ">
-//     VoucherNo:{" "}
-//     {voucherNumber < 10
-//       ? voucherNumber > 10 && voucherNumber < 100
-//         ? voucherNumber > 100 && voucherNumber < 1000
-//           ? String(voucherNumber).padStart(3, 0)
-//           : String(voucherNumber).padStart(2, 0)
-//         : String(voucherNumber).padStart(4, 0)
-//       : String(voucherNumber).padStart(4, 0)}
-//   </p>
-// )}

@@ -158,7 +158,7 @@ const UserManagementComponent = () => {
         </div>
 
         <div className="flex lg:flex-row flex-col">
-          <div className="py-10 flex flex-col gap-3 lg:w-1/2 w-full ">
+          <div className="py-10 flex flex-col gap-3 lg:w-1/2 md:w-1/2 mx-auto w-full ">
             {allUsers?.map((user) => (
               <UserCardComponent1
                 setAddNew={setAddNew}
@@ -179,7 +179,7 @@ const UserManagementComponent = () => {
             />
           )}
           {currentUsetToEdit === null && !addNew && (
-            <div className="lg:w-1/2 w-full lg:p-10">
+            <div className="lg:w-1/2  w-full lg:p-10">
               <p className="font-body font-bold text-3xl mb-5">Welcome!</p>
               <p>
                 please select the user card to edit the existed user or click

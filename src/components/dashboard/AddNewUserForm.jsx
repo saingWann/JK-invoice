@@ -32,7 +32,7 @@ const AddNewUserForm = ({ setIsToast, setAddNew }) => {
         initial={{ opacity: 0, y: 200 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -200 }}
-        className="xl:w-1/2 lg:w-1/2 w-full lg:p-10 font-body  max-md:-order-1"
+        className="xl:w-1/2 lg:w-1/2 md:w-1/2 mx-auto w-full lg:p-10 font-body  max-md:-order-1"
       >
         <p className="font-body font-bold text-3xl mb-5">Add a new user</p>
         <Formik

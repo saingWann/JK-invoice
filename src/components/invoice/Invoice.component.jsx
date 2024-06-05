@@ -5,7 +5,7 @@ import InvoiceHeaderComponent from "./invoiceHeader/InvoiceHeader.component";
 import AddressComponent from "./address/Address.component";
 import InvoiceFooterComponent from "../../invoiceFooter/InvoiceFooter.component";
 import { useDispatch } from "react-redux";
-import { addRow, fillRow } from "../../state/TabelRowSlice";
+
 import { useSelector } from "react-redux";
 import MM_TH_Table from "./MM-TH/MM_TH_Table";
 import TH_MM_Table from "./TH-MM/TH-MM_Table";
@@ -14,8 +14,6 @@ import AC_tableComponent from "./AIR_CARGO/AC_table.component";
 import ACinvoiceFooterComponent from "./AIR_CARGO/ACinvoiceFooter.component";
 
 const InvoiceComponent = () => {
-  const dispatch = useDispatch();
-  const tableRows = useSelector((state) => state.addRow);
   const voucherType = useSelector((state) => state.voucherType);
   const { voucherNumber } = useSelector((state) => state.allRecords);
 
@@ -51,31 +49,6 @@ const InvoiceComponent = () => {
 
         {voucherType === "AIR CARGO" && <AC_tableComponent />}
         {voucherType === "AIR CARGO" && <ACinvoiceFooterComponent />}
-
-        {/* {voucherType === "THAI - MYANMAR" && (
-          <div className="w-full flex gap-5">
-            <button
-              id="addRowBtn"
-              onClick={() => {
-                dispatch(addRow());
-              }}
-              className="px-4 py-2 bg-green-600 text-white font-bold  hover:bg-green-500 active:bg-green-600 rounded-lg my-5 block "
-            >
-              add new row
-            </button>
-            <button
-              id="addRowBtn"
-              onClick={() => {
-                dispatch(fillRow());
-              }}
-              className={`px-4 py-2 bg-orange-500 text-white font-bold  hover:bg-orange-400 active:bg-orange-500 rounded-lg my-5 block ${
-                tableRows.length === 10 && "hidden"
-              }`}
-            >
-              fill rows
-            </button>
-          </div>
-        )} */}
 
         {voucherType === "THAI - MYANMAR" && (
           <AddressComponent marginTop="mt-24" />

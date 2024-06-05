@@ -81,6 +81,7 @@ const CategoriesDashboard = () => {
   };
 
   const filteredWithUsername = (userName) => {
+    console.log(userName);
     if (userName === "All") {
       const filterByUsername = [...allRecords];
       filterByUsername.sort(
