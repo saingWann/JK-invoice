@@ -24,9 +24,9 @@ const CategoriesDashboard = () => {
 
   useEffect(() => {
     const users = allUsers.map((user) => {
-      return { key: user.userName, label: user.userName };
+      return { key: user.userName.toUpperCase(), label: user.userName };
     });
-    setUsersArray([{ key: "all", label: "All" }, ...users]);
+    setUsersArray([{ key: "ALL", label: "All" }, ...users]);
   }, [allUsers]);
 
   const parseDate = (dateString) => {
@@ -136,7 +136,7 @@ const CategoriesDashboard = () => {
               <SelectItem
                 onClick={() => filteredWithUsername(usersArray.label)}
               >
-                {usersArray.label}
+                {usersArray.key}
               </SelectItem>
             )}
           </Select>
