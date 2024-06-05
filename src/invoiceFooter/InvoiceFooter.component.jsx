@@ -11,8 +11,11 @@ const InvoiceFooterComponent = () => {
   const { grandTotal, balance, advanced } = useSelector((state) => state.cost);
   const dispatch = useDispatch();
   return (
-    <div id="invoiceFooter" className="flex max-sm:flex-col justify-between">
-      <div className="flex items-start mt-3 gap-3">
+    <div
+      id="invoiceFooter"
+      className="flex mt-3 max-sm:flex-col justify-between"
+    >
+      <div className="flex items-start  gap-3">
         <label htmlFor="note" className="font-bold">
           Note :
         </label>

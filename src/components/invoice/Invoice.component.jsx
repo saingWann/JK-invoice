@@ -26,15 +26,18 @@ const InvoiceComponent = () => {
         id="print-content "
       >
         {voucherNumber && (
-          <p className="absolute right-32 top-20 " id="voucherNumber">
-            VoucherNo:{" "}
-            {voucherNumber < 10
-              ? voucherNumber > 10 && voucherNumber < 100
-                ? voucherNumber > 100 && voucherNumber < 1000
-                  ? String(voucherNumber).padStart(3, 0)
-                  : String(voucherNumber).padStart(2, 0)
-                : String(voucherNumber).padStart(4, 0)
-              : String(voucherNumber).padStart(4, 0)}
+          <p className="absolute right-12 top-20 " id="voucherNumber">
+            VoucherNo:
+            <span className=" ml-2 font-light text-sm">{voucherType}</span>
+            <span className="font-body font-semibold">
+              {voucherNumber < 10
+                ? voucherNumber > 10 && voucherNumber < 100
+                  ? voucherNumber > 100 && voucherNumber < 1000
+                    ? String(voucherNumber).padStart(3, 0)
+                    : String(voucherNumber).padStart(2, 0)
+                  : String(voucherNumber).padStart(4, 0)
+                : String(voucherNumber).padStart(4, 0)}
+            </span>
           </p>
         )}
         <InvoiceHeaderComponent />
@@ -49,7 +52,7 @@ const InvoiceComponent = () => {
         {voucherType === "AIR CARGO" && <AC_tableComponent />}
         {voucherType === "AIR CARGO" && <ACinvoiceFooterComponent />}
 
-        {voucherType === "THAI - MYANMAR" && (
+        {/* {voucherType === "THAI - MYANMAR" && (
           <div className="w-full flex gap-5">
             <button
               id="addRowBtn"
@@ -72,15 +75,15 @@ const InvoiceComponent = () => {
               fill rows
             </button>
           </div>
-        )}
+        )} */}
 
         {voucherType === "THAI - MYANMAR" && (
           <AddressComponent marginTop="mt-24" />
         )}
         {voucherType === "MYANMAR - THAI" && (
-          <AddressComponent marginTop="mt-20" />
+          <AddressComponent marginTop="mt-6" />
         )}
-        {voucherType === "AIR CARGO" && <AddressComponent marginTop="mt-8" />}
+        {voucherType === "AIR CARGO" && <AddressComponent marginTop="mt-1" />}
       </div>
 
       <div className="w-3/4 mx-auto flex justify-end my-10">

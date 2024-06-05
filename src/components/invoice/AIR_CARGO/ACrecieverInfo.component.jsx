@@ -2,10 +2,10 @@ import React from "react";
 
 const ACrecieverInfoComponent = () => {
   return (
-    <div className="mb-3 mt-4">
+    <div id="ac-receiver-form-wrapper" className="mb-3 mt-4">
       <div className="w-full">
         <p className="font-bold text-sm capitalize mb-3">Reciver's Info</p>
-        <form action="submit" className="border  rounded-lg py-3  ">
+        <form action="submit" className="border rounded-lg py-2">
           <div className="flex  w-full mb-2">
             <span
               id="receiver-Info"

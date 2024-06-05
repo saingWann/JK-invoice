@@ -31,7 +31,7 @@ const RecordsTable = () => {
 
   return (
     <div className=" mx-auto font-body">
-      <div className="relative overflow-x-auto shadow-md p-4 ">
+      <div className="relative overflow-x-auto shadow-md p-4 mt-4">
         <div className="flex gap-3 absolute lg:right-4">
           {Array.from({ length: totalPages }, (_, i) => {
             return (
@@ -57,10 +57,6 @@ const RecordsTable = () => {
                 there is possible that there is no records in this categories.Or
                 there is a problem while fetching data.Please try to refresh the
                 page.
-                {/* If the data is only showing skeleton animation, try to refresh
-                the page and try again. After that if you still encounter the
-                same problem there is possible that there is no records in this
-                categories */}
               </p>
             )}
           </caption>
@@ -85,7 +81,7 @@ const RecordsTable = () => {
               <th scope="col" className="px-6 py-3">
                 date
               </th>
-              {localStorage.getItem("currentUsername") === "adminJK" && (
+              {localStorage.getItem("currentRole") === "admin" && (
                 <th scope="col" className="px-6 py-3">
                   issued by
                 </th>
@@ -167,7 +163,7 @@ const RecordsTable = () => {
                   <td className="px-6 py-4 whitespace-nowrap ">
                     {record.issueTime}
                   </td>
-                  {localStorage.getItem("currentUsername") === "adminJK" && (
+                  {localStorage.getItem("currentRole") === "admin" && (
                     <td scope="col" className="px-6 py-3">
                       {record.userIssued}
                     </td>

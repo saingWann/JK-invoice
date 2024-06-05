@@ -8,10 +8,12 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
+  Button,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "../state/data/usersSlice";
+import { LogOutIcon, User2Icon, UserIcon } from "lucide-react";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -34,9 +36,8 @@ export default function App() {
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className=""
     >
-      <NavbarContent className="sm:hidden" justify="start">
+      <NavbarContent className="sm:hidden " justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
@@ -65,23 +66,25 @@ export default function App() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {currentUser.userName ? (
-          <NavbarItem className="hidden lg:flex">
-            <button
-              className="px-4 py-2 font-semibold hover:text-slate-600"
+        {currentUser?.userName ? (
+          <NavbarItem className="hidden md:flex sm:flex lg:flex">
+            <Button
+              className="px-4 py-2 font-semibold hover:text-white/70 bg-red-600 text-white rounded-full hover:shadow-md flex gap-1 items-center"
               onClick={() => navigate(`/profile/${currentUser.userName}`)}
             >
+              <User2Icon size={20} />
               {currentUser.userName}
-            </button>
+            </Button>
           </NavbarItem>
         ) : null}
 
-        {currentUser.userName ? (
-          <NavbarItem className="hidden lg:flex">
+        {currentUser?.userName ? (
+          <NavbarItem className="hidden sm:flex lg:flex md:flex">
             <button
-              className="px-4 py-2 bg-slate-200 rounded-full font-semibold hover:bg-slate-100 active:bg-slate-200"
+              className="px-4 py-2 bg-slate-200 rounded-full font-semibold hover:bg-slate-100 active:bg-slate-200 flex items-center gap-2"
               onClick={handleLogout}
             >
+              <LogOutIcon size={20} />
               Logout
             </button>
           </NavbarItem>

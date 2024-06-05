@@ -11,6 +11,7 @@ import {
   calculateIndividualIncome,
   fetchRecords,
 } from "./state/data/recordsSlice";
+import UserManagementComponent from "./components/dashboard/UserManagement.component";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const App = () => {
         <Route path="invoice" element={<InvoicePageComponent />} />
 
         <Route path="profile/:currentUser" element={<DashBoradPage />} />
+        <Route
+          path="profile/:currentUser/userManagement"
+          element={<UserManagementComponent />}
+        />
       </Routes>
 
       <FooterComponent />

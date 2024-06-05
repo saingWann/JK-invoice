@@ -2,8 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategories } from "../../state/categories/CategoriesSlice";
 import { upadateCurrentUserRecords } from "../../state/data/recordsSlice";
+import { CircularProgress } from "@nextui-org/react";
 
-const IncomeCardDashboard = ({ incomeType, amount, color, percent, cate }) => {
+const IncomeCardDashboard = ({
+  incomeType,
+  amount,
+  color,
+  percent = 40,
+  cate,
+}) => {
   const gradientClasses = {
     red: "bg-gradient-to-r from-red-300 to-red-400 hover:ring-red-200 hover:ring-8",
     sky: "bg-gradient-to-r from-sky-300 to-sky-400 hover:ring-sky-200 hover:ring-8",
@@ -14,15 +21,6 @@ const IncomeCardDashboard = ({ incomeType, amount, color, percent, cate }) => {
       "bg-gradient-to-r from-orange-300 to-orange-400 hover:ring-orange-200 hover:ring-8",
   };
   const gradientClass = gradientClasses[color] || "";
-
-  const percentTextColor = {
-    red: "text-red-500",
-    sky: "text-sky-500",
-    emerald: "text-emerald-500",
-    blue: "text-blue-500",
-    orange: "text-orange-500",
-  };
-  const percentTextClass = percentTextColor[color] || "";
 
   const dispatch = useDispatch();
   const { allRecords } = useSelector((state) => state.allRecords);
@@ -61,7 +59,7 @@ const IncomeCardDashboard = ({ incomeType, amount, color, percent, cate }) => {
       <div className="size-28 bg-white/10 absolute top-0 -right-10 rounded-full"></div>
       <div className="size-44 bg-white/10 absolute -bottom-16 -right-10 rounded-full"></div>
       <p className="uppercase font-semibold text-sm">{incomeType}</p>
-      <p className="uppercase font-normal text-3xl mt-4">
+      <p className="uppercase font-normal text-2xl mt-4">
         {Number(amount).toLocaleString()} MMK
       </p>
       <div className="flex justify-between mt-10 items-center">
@@ -75,11 +73,19 @@ const IncomeCardDashboard = ({ incomeType, amount, color, percent, cate }) => {
         >
           see records
         </button>
-        <p
-          className={`text-sm font-bold bg-white px-2 ${percentTextClass} rounded-full`}
-        >
-          {percent}%
-        </p>
+
+        <CircularProgress
+          classNames={{
+            svg: "w-16 h-16 drop-shadow-md",
+            indicator: "stroke-white",
+            track: "stroke-white/20",
+            value: "text-sm font-semibold text-white",
+          }}
+          aria-label="circular progress"
+          value={percent}
+          strokeWidth={4}
+          showValueLabel={true}
+        />
       </div>
     </div>
   );

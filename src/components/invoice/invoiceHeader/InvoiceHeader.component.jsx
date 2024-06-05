@@ -11,7 +11,7 @@ const InvoiceHeaderComponent = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <p className="text-7xl font-bold text-center text-red-600">JK</p>
+      <p className="logo text-7xl font-bold text-center text-red-600">JK</p>
 
       <div
         id="invoiceHeader"

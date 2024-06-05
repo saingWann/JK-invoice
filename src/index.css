@@ -33,9 +33,9 @@
  }
 
  #voucherNumber {
-    top: 40px;
-    right: 95px;
-    font-size: 14px;
+    top: 80px;
+    right: 30px;
+    font-size: 12px;
     
  }
  #print-content{
@@ -72,13 +72,13 @@
     #tabel-head th{
         /* border: 1px black solid; */
         font-size: 12px;
-        padding: 8px;
+        padding: 6px;
 
     }
 
   
     #tr td{
-        font-size: 12px;
+        font-size: 11px;
         color: black;
         /* border: 1px black solid; */
         padding-block: 1px;
@@ -87,7 +87,7 @@
 
     #tr td input {
         padding: 0;
-        font-size: 12px;
+        font-size: 11px;
     }
 
 
@@ -104,7 +104,7 @@
     }
 
      label{
-        font-size:12px;
+        font-size:11px;
     }
     .grip{
         display: none;
@@ -149,7 +149,17 @@
 #receiver-Info label,
 #receiver-Info > input , 
 #receiver-Info > textarea {
-    font-size: 12px;
+    font-size: 10px;
+}
+#mm-th-receiver-form-wrapper,
+#ac-receiver-form-wrapper{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.logo{
+    font-size: 4em;
 }
 
 

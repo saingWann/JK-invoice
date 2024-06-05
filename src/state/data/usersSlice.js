@@ -6,6 +6,22 @@ export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () =>
     return response.data;
   });
 
+export const updateUserInfo = createAsyncThunk('users/updateUserInfo', async (action) => {
+  // console.log(action)
+    const response = await api.put(`/users/${action.id}`,{...action});
+    return response.data;
+  });
+export const addNewUser = createAsyncThunk('users/addNewUser', async (action) => {
+  // console.log(action)
+    const response = await api.post(`/users`,{...action});
+    return response.data;
+  });
+export const deleteUser = createAsyncThunk('users/deleteUser', async (action) => {
+  // console.log(action)
+    const response = await api.delete(`/users/${action.idToDelete}`,);
+    return response.data;
+  });
+
 
   const userSlice = createSlice({
     name: 'users',
@@ -32,10 +48,50 @@ export const fetchAllUsers = createAsyncThunk('users/fetchAllUsers', async () =>
             }
           
           })
+
+          .addCase(addNewUser.pending, (state) => {
+            state.loading = true;
+          })
+          .addCase(addNewUser.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.loading = false;
+            state.allUsers = [...state.allUsers,{...action.payload, id: 'jk' + action.payload.id}]
+
+          })
+
+
           .addCase(fetchAllUsers.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
           })
+          .addCase(updateUserInfo.pending, (state) => {
+            state.loading = true;
+          })
+          .addCase(updateUserInfo.fulfilled, (state, action) => { 
+        
+            const userToUpdate = state.allUsers.map((user) => {
+              if(user.id === action.payload.id) {
+                return user = {...user,userName: action.payload.userName, passWord: action.payload.passWord}
+              }
+              return user;
+            })
+            // console.log(userToUpdate)
+             state = {...state, allUsers: [
+              ...userToUpdate
+            ]}
+          })
+          .addCase(deleteUser.pending, (state) => {
+            state.loading = true;
+          })
+          .addCase(deleteUser.fulfilled, (state, action) => { 
+        
+            const userToUpdate = state.allUsers.filter((user) => user.id !== action.idToDelete )
+            // console.log(userToUpdate)
+             state = {...state, allUsers: [
+              ...userToUpdate
+            ]}
+          })
+          
         }
 
   })

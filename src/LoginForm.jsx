@@ -21,12 +21,12 @@ const LoginForm = ({ setIsToast }) => {
   }, []);
 
   const handleSubmit = (value) => {
-    console.log(allUsers);
+    // console.log(allUsers);
     const userNow = allUsers.filter(
       (user) =>
         user.passWord === value.password && user.userName === value.username
     )[0];
-    console.log(userNow);
+    // console.log(userNow);
 
     // console.log(allUsers);
     if (userNow) {
@@ -35,6 +35,7 @@ const LoginForm = ({ setIsToast }) => {
       navigate("/invoice");
       localStorage.setItem("currentUserId", userNow.id);
       localStorage.setItem("currentUsername", userNow.userName);
+      localStorage.setItem("currentRole", userNow.role);
       setIsToast(false);
       // console.log(currentUser);
     } else {
@@ -85,11 +86,11 @@ const LoginForm = ({ setIsToast }) => {
             Show Password
           </Checkbox>
 
-          <div className="text-xs flex gap-1 font-bold mb-3 ">
+          {/* <div className="text-xs flex gap-1 font-bold mb-3 ">
             <p>demo account:</p>
             <p>adminJK - </p>
             <p>adminJK11</p>
-          </div>
+          </div> */}
           <button
             type="submit"
             className="bg-red-600 text-white  px-4 py-2 rounded-lg hover:bg-red-500 active:bg-red-600 mt-4"

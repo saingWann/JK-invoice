@@ -8,6 +8,7 @@ import usersSlice from './data/usersSlice'
 import CategoriesSlice from './categories/CategoriesSlice'
 import recordsSlice from './data/recordsSlice'
 import customerInfoSlice from './customerInfo/customerInfoSlice'
+import editUserSlice from './data/editUserSlice'
 
 export const store = configureStore({
     reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
         allUsers: usersSlice,
         categories: CategoriesSlice,
         allRecords: recordsSlice,
+        editUser: editUserSlice,
     }
 })

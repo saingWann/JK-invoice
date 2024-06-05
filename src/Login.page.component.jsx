@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox } from "@nextui-org/react";
 import LoginForm from "./LoginForm";
 import { useDispatch } from "react-redux";
 import { fetchAllUsers } from "./state/data/usersSlice";
@@ -20,12 +19,6 @@ const LoginPageComponent = () => {
         <h1 className="font-bold lg:text-3xl uppercase lg:mb-2">
           Login to continue
         </h1>
-        <p className="text-slate-500 lg:w-1/3 w-full p-3 text-center lg:mb-5 text-xs">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis quia,
-          perspiciatis nemo quas sunt tempora. Quis officia, itaque, laboriosam
-          blanditiis debitis obcaecati eos iusto commodi voluptate ipsam
-          doloremque numquam dicta?
-        </p>
 
         <div
           id="toast-warning"

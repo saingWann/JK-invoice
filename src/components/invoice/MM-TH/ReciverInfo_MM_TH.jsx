@@ -1,8 +1,8 @@
 import React from "react";
 
-const ReciverInfo_MM_TH = ({ rowId, rowNo }) => {
+const ReciverInfo_MM_TH = () => {
   return (
-    <div className="mb-3 mt-4">
+    <div id="mm-th-receiver-form-wrapper" className=" my-2">
       <div className="w-full">
         <p className="font-bold text-sm capitalize mb-3">Reciver's Info</p>
         <form action="submit" className="border  rounded-lg py-3  ">

@@ -14,7 +14,7 @@ const IncomeDashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(calculateIndividualIncome());
+    if (allRecords) dispatch(calculateIndividualIncome());
   }, [allRecords]);
 
   return (
@@ -25,7 +25,7 @@ const IncomeDashboard = () => {
           {totalIncome.toLocaleString()} MMK
         </p>
       </div>
-      {individualIncome && (
+      {individualIncome.th_mm && (
         <div
           id="scroll"
           className="w-full overflow-x-auto flex  gap-5 -mt-20 translate-y-32 px-4 mb-10"

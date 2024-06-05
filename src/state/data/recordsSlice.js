@@ -1,6 +1,5 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import { api } from '../../api/constant';
-import { act } from 'react-dom/test-utils';
 
 export const fetchRecords = createAsyncThunk('records/fetchRecords', async () => {
     const response = await api.get(`/records`)
@@ -8,11 +7,14 @@ export const fetchRecords = createAsyncThunk('records/fetchRecords', async () =>
   });
 
 export const uploadRecords = createAsyncThunk('records/uploadRcords', async (data) => {
-  console.log('22')
   console.log(data)
     const response = await api.post(`/records`,{...data})
     return response.data;
   });
+
+  const parseDate = (dateString) => {
+    return new Date(dateString);
+  };
 
 
   const typeArray = ['TH-MM', 'MM-TH', "AIR CARGO",'MM-SGA','CAR RENTAL'];
@@ -35,7 +37,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
     reducers:{
 
       upadateCurrentUserRecords:(state,action) => {
-        // console.log(action.payload) x x
+        // console.log(action.payload) 
         return state = {...state,currentUserRecords:[...action.payload]}
       },
 
@@ -47,7 +49,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
         let newState = {...state.individualIncome}
         let newPercentState = {...state.individualIncomePercentage}
 
-      if(state.allRecords.length !==0) {
+      if(state.allRecords) {
         typeArray.map((type) => {
           const filteredArray = state.allRecords.filter((record) => record.type === type);
   
@@ -65,6 +67,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
             newPercentState = {...newPercentState,th_mm: percent.toFixed(2)}
             // console.log(percent.toFixed(2))
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
+            
 
           }else if( type === 'MM-TH'){
             const percent = (100 * totalIncomeByType) / state.totalIncome
@@ -97,7 +100,6 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
   
         })
       }
-      // console.log(state.individualIncome)
       return state
       }
         
@@ -110,30 +112,29 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           .addCase(fetchRecords.fulfilled, (state, action) => {
 
             state.loading = false;
-            state.allRecords = action.payload
+            state.allRecords = action.payload.sort(
+              (a, b) => parseDate(b.issueTime) - parseDate(a.issueTime)
+            );
           
-            // get the last voucher number
             if(action.payload.length !== 0) {
               state.voucherNumber = action.payload[action.payload.length - 1].voucherNumber + 1
-              // console.log(state.voucherNumber)
             }else {
               state.voucherNumber = 1
             }
 
-            if(localStorage.getItem('currentUsername')){
+            if(localStorage.getItem('currentRole')){
 
-              if(localStorage.getItem('currentUsername') === 'adminJK') {
+              if(localStorage.getItem('currentRole') === 'admin') {
 
-                // console.log('hello')
                 const fitlerWithCurrentUser = state.allRecords
-                // console.log(fitlerWithCurrentUser)
+              
                 state.currentUserRecords = fitlerWithCurrentUser
 
-                // console.log(fitlerWithCurrentUser)
+              
                 state.currentUserRecords = fitlerWithCurrentUser
               }else{
                 const fitlerWithCurrentUser = state.allRecords.filter((record) => record.userIssued === localStorage.getItem('currentUsername'))
-                // console.log(fitlerWithCurrentUser)
+              
                 state.currentUserRecords = fitlerWithCurrentUser
 
               }
@@ -146,7 +147,6 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           return prev + (isNaN(numericValue) ? 0 : numericValue);
           }, 0);
 
-          // console.log(totalIncomeFromFetchData)
           state.totalIncome = totalIncomeFromFetchData
 
           })
@@ -157,9 +157,8 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
           })
 
           .addCase(uploadRecords.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.loading = false;
-            state.allRecords = action.payload
+            state.allRecords = [...state.allRecords,action.payload]
           
           })
         }

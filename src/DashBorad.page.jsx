@@ -1,38 +1,22 @@
-import React, { useEffect } from "react";
-
-import RecordsTable from "./components/dashboard/RecordsTable.dashboard";
-import CategoriesDashboard from "./components/dashboard/Categories.dashboard";
 import Container from "./components/Container";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  calculateIndividualIncome,
-  fetchRecords,
-} from "./state/data/recordsSlice";
-import IncomeDashboard from "./components/dashboard/Income.dashboard";
+
+import AdminDashBoradPage1 from "./components/dashboard/AdminDashboard";
+import UserDashBoradPage1 from "./components/dashboard/UserDashboard";
 
 const DashBoradPage = () => {
-  const { currentUser } = useSelector((state) => state.allUsers);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // console.log("dashboard render");
-    dispatch(fetchRecords());
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchRecords());
+  // }, []);
 
   return (
     <Container>
-      <section className="min-h-[60vh]">
-        {localStorage.getItem("currentUsername") === "adminJK" && (
-          <IncomeDashboard />
-        )}
-        <div className="mt-28 border-b pb-3">
-          <p className="text-2xl font-body font-semibold uppercase max-sm:text-lg max-sm:font-bold lg:p-0 px-3">
-            {currentUser.userName}'s issued records
-          </p>
-        </div>
-        <CategoriesDashboard />
-        <RecordsTable />
-      </section>
+      {localStorage.getItem("currentRole") === "admin" && (
+        <AdminDashBoradPage1 />
+      )}
+      {localStorage.getItem("currentRole") !== "admin" && (
+        <UserDashBoradPage1 />
+      )}
     </Container>
   );
 };
