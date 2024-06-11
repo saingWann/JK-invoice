@@ -18,17 +18,17 @@ const IncomeDashboard = () => {
   }, [allRecords]);
 
   return (
-    <section className="bg-gray-100 p-10">
+    <section className="rounded-b-lg bg-gradient-to-b from-gray-50/50 to-slate-100 p-10">
       <div>
-        <p className="uppercase font-bold">this month income</p>
-        <p className="font-semibold text-4xl">
+        <p className="font-bold uppercase">this month income</p>
+        <p className="text-4xl font-semibold">
           {totalIncome.toLocaleString()} MMK
         </p>
       </div>
       {individualIncome.th_mm && (
         <div
           id="scroll"
-          className="w-full overflow-x-auto flex  gap-5 -mt-20 translate-y-32 px-4 mb-10"
+          className="-mt-20 mb-10 flex w-full translate-y-32 gap-5 overflow-x-auto px-4"
         >
           <IncomeCardDashboard
             incomeType="thai-myanmar"

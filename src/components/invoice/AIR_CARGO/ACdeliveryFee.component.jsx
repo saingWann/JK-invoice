@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AC_handleUnitOnBlur,
@@ -8,6 +8,7 @@ import {
 const ACdeliveryFeeComponent = ({ rowId, rowNo, placeholder }) => {
   const { AC_deliFee } = useSelector((state) => state.ac_cost);
   const dispatch = useDispatch();
+  const [pickOrDeli, setPickOrDeli] = useState("deli fee");
   return (
     <tr
       id="tr"
@@ -30,10 +31,9 @@ const ACdeliveryFeeComponent = ({ rowId, rowNo, placeholder }) => {
           id={`descripiton_${rowId}`}
           name={`descripiton_${rowId}`}
           placeholder={`descripiton`}
-          disabled={true}
           type="text"
-          value={placeholder}
-          readOnly
+          value={pickOrDeli}
+          onChange={(e) => setPickOrDeli(e.target.value)}
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>

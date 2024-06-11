@@ -9,6 +9,7 @@ import CategoriesSlice from './categories/CategoriesSlice'
 import recordsSlice from './data/recordsSlice'
 import customerInfoSlice from './customerInfo/customerInfoSlice'
 import editUserSlice from './data/editUserSlice'
+import receiverInfoSlice from './receriverInfo/receiverInfoSlice'
 
 export const store = configureStore({
     reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
         categories: CategoriesSlice,
         allRecords: recordsSlice,
         editUser: editUserSlice,
+        receiverInfo: receiverInfoSlice
     }
 })

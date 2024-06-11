@@ -19,6 +19,16 @@ export const ac_calculateSlice = createSlice({
                     state = {...state,AC_weight: actions.payload.value}
                     break;
                 }
+                case 'pricePerWeight' : {
+                    console.log('first')
+                    state = {...state,AC_pricePerWeight: actions.payload.value}
+                    break;
+                }
+                case 'totalTHB' : {
+                    console.log('first')
+                    state = {...state,AC_totalAmountOfWeight_THB: actions.payload.value}
+                    break;
+                }
 
                 case 'deliFee' : {
 

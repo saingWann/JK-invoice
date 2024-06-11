@@ -23,24 +23,24 @@ const UserCardComponent1 = ({ userInfo, setAddNew, setIsToast }) => {
     // console.log(idWithNoNumber);
   };
   return (
-    <div className="bg-slate-50  hover:shadow-sm hover:bg-slate-100 px-6 py-3 rounded-lg lg:min-w-[50%] w-full border shadow-inner flex justify-between items-center">
+    <div className="bg-slazte-50 flex w-full items-center justify-between rounded-lg border px-6 py-3 hover:bg-slate-50 hover:shadow-sm lg:min-w-[50%]">
       <div>
-        <p className="font-bold uppercase text-sm">{userInfo.userName}</p>
-        <p className="text-slate-600 capitalize text-xs">{userInfo.role}</p>
+        <p className="text-sm font-bold uppercase">{userInfo.userName}</p>
+        <p className="text-xs capitalize text-slate-600">{userInfo.role}</p>
       </div>
       <div className="flex gap-4">
         <Tooltip content="edit">
           <Settings
             onClick={handleClick}
             size={20}
-            className="hover:text-slate-400 active:scale-90 hover:scale-105 duration-200 transition-all cursor-pointer"
+            className="cursor-pointer transition-all duration-200 hover:scale-105 hover:text-slate-400 active:scale-90"
           />
         </Tooltip>
         <Tooltip content="delete">
           <Trash2
             onClick={() => handleDelete(userInfo)}
             size={20}
-            className="hover:text-slate-400 active:scale-90 hover:scale-105 duration-200 transition-all cursor-pointer"
+            className="cursor-pointer transition-all duration-200 hover:scale-105 hover:text-slate-400 active:scale-90"
           />
         </Tooltip>
       </div>

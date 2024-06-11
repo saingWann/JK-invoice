@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
@@ -11,6 +11,9 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
   const { AC_weight, AC_pricePerWeight, AC_totalAmountOfWeight_THB } =
     useSelector((state) => state.ac_cost);
   const dispatch = useDispatch();
+
+  const [description, setDescription] = useState("Kg Charge");
+  const [pickOrDeli, setPickOrDeli] = useState("deli fee");
   return (
     <tr
       id="tr"
@@ -33,10 +36,11 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           id={`descripiton_${rowId}`}
           name={`descripiton_${rowId}`}
           placeholder={`descripiton`}
-          disabled={true}
           type="text"
-          value={placeholder}
-          readOnly
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
           className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
         />
       </td>
@@ -60,11 +64,14 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
           value={AC_pricePerWeight}
-          readOnly
-          disabled={true}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
           placeholder="unit price"
+          onChange={(e) => {
+            dispatch(
+              AC_updateData({ type: "pricePerWeight", value: e.target.value })
+            );
+          }}
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
               text-center"
@@ -76,10 +83,13 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
       >
         <input
           value={AC_totalAmountOfWeight_THB}
-          readOnly
-          disabled={true}
           id={`amount_${rowId}`}
           name={`amount_${rowId}`}
+          onChange={(e) => {
+            dispatch(
+              AC_updateData({ type: "totalTHB", value: e.target.value })
+            );
+          }}
           placeholder="amount"
           type="text"
           className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 

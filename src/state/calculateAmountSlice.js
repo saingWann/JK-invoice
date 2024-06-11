@@ -16,6 +16,7 @@ const calculateAmountSlice = createSlice({
                 }
                 case 'pricePerKg': {
                     state = {...state,pricePerKg:actions.payload.value}
+                    console.log(actions)
                     break
                 }
                 

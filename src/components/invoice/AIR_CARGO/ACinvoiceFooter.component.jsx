@@ -23,7 +23,7 @@ const ACinvoiceFooterComponent = () => {
           id="note"
           cols="30"
           rows="3"
-          className="border-none outline-none resize-none p-0 focus:ring-red-600 rounded-lg text-sm"
+          className="border-none outline-none resize-none p-0 focus:ring-red-600 rounded-lg text-sm h-full"
         ></textarea>
       </div>
       <div className="lg:w-1/3 md:w-1/2  footer mt-1">

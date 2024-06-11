@@ -7,7 +7,7 @@ export const fetchRecords = createAsyncThunk('records/fetchRecords', async () =>
   });
 
 export const uploadRecords = createAsyncThunk('records/uploadRcords', async (data) => {
-  console.log(data)
+  // console.log(data)
     const response = await api.post(`/records`,{...data})
     return response.data;
   });
@@ -55,6 +55,7 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
         typeArray.map((type) => {
           const filteredArray = state.allRecords.filter((record) => record.type === type);
   
+          // console.log(filteredArray)
           const totalIncomeByType = filteredArray.reduce((prev, currentValue) => {
             const numericValue = parseFloat(
               currentValue.totalMMK.replace(/[^0-9.-]+/g, "")
@@ -64,42 +65,44 @@ export const uploadRecords = createAsyncThunk('records/uploadRcords', async (dat
       
   
           if(type === 'TH-MM'){
-            const percent = (100 * totalIncomeByType) / state.totalIncome
+            const percent = 100 * (totalIncomeByType / state.totalIncome)
+            
             newState = {...newState,th_mm: totalIncomeByType }
             newPercentState = {...newPercentState,th_mm: percent.toFixed(2)}
-            // console.log(percent.toFixed(2))
+     
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
             
 
           }else if( type === 'MM-TH'){
-            const percent = (100 * totalIncomeByType) / state.totalIncome
+            const percent = 100 * (totalIncomeByType / state.totalIncome)
             newState = {...newState,mm_th: totalIncomeByType }
              newPercentState = {...newPercentState,mm_th: percent.toFixed(2)}
             // console.log(percent.toFixed(2))
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
           }else if( type === 'AIR CARGO'){
-            const percent = (100 * totalIncomeByType) / state.totalIncome
+            const percent = 100 * (totalIncomeByType / state.totalIncome)
             newState = {...newState,airCargo: totalIncomeByType }
             newPercentState = {...newPercentState,airCargo: percent.toFixed(2)}
             // console.log(percent.toFixed(2))
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
           }else if( type === 'MM-SGA'){
-            const percent = (100 * totalIncomeByType) / state.totalIncome
+            const percent = 100 * (totalIncomeByType / state.totalIncome)
             newState = {...newState,mm_sga: totalIncomeByType }
             newPercentState = {...newPercentState,mm_sga: percent.toFixed(2)}
             // console.log(percent.toFixed(2))
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
 
           }else if( type === 'CAR RENTAL'){
-            const percent = (100 * totalIncomeByType) / state.totalIncome
+            const percent = 100 * (totalIncomeByType / state.totalIncome)
             newState = {...newState,carRental: totalIncomeByType }
              newPercentState = {...newPercentState,carRental: percent.toFixed(2)}
             // console.log(percent.toFixed(2))
             state = {...state,individualIncome: {...newState} , individualIncomePercentage: {...newPercentState}}
           }
   
+          // console.log(state.individualIncomePercentage)
         })
       }
       return state

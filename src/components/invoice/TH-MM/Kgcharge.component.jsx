@@ -64,8 +64,16 @@ const KgChargeRowComponent = ({ placeholder, rowId, rowNo }) => {
       <td scope="row" className=" py-4 font-medium text-black  ">
         <input
           value={pricePerKg}
-          readOnly
-          disabled={true}
+          // readOnly
+          // disabled={true}
+          onChange={(e) => {
+            console.log(e);
+            dispatch(setCost({ type: "pricePerKg", value: e.target.value }));
+          }}
+          onBlur={() => {
+            // dispatch(handleUnit("pricePerKg"));
+            dispatch(calcuteTotalTHB());
+          }}
           id={`unit_price_${rowId}`}
           name={`unit_price_${rowId}`}
           placeholder="unit price"

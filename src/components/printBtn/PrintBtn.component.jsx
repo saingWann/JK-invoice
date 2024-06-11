@@ -32,6 +32,9 @@ const PrintBtnComponent = () => {
   const { customer_name, customer_phone, customer_address } = useSelector(
     (state) => state.customerInfo
   );
+  const { receiver_name, receiver_phone, receiver_address } = useSelector(
+    (state) => state.receiverInfo
+  );
 
   const { voucherNumber } = useSelector((state) => state.allRecords);
 
@@ -43,6 +46,7 @@ const PrintBtnComponent = () => {
     const recordToUpload = {
       issueTime: date,
       customerName: customer_name,
+      customerPhone: customer_phone,
       kg: kg,
       exchangeRate: exchangeRateMMK,
       userIssued: currentUser.userName,
@@ -52,7 +56,7 @@ const PrintBtnComponent = () => {
       type: "TH-MM",
       voucherNumber: voucherNumber,
     };
-    if (customer_name && exchangeRateMMK && kg) {
+    if (customer_name && exchangeRateMMK && kg && balance) {
       dispatch(uploadRecords(recordToUpload));
       dispatch(updateVoucherNumber());
       window.print();
@@ -68,7 +72,6 @@ const PrintBtnComponent = () => {
     console.log(currentUser.id);
     const recordToUpload = {
       issueTime: date,
-      customerName: customer_name,
       kg: MM_TH_weight,
       exchangeRate: "",
       userIssued: currentUser.userName,
@@ -77,8 +80,13 @@ const PrintBtnComponent = () => {
       userId: currentUser.id,
       type: "MM-TH",
       voucherNumber: voucherNumber,
+      customerName: customer_name,
+      customerPhone: customer_phone,
+      receiverName: receiver_name,
+      receiverPhone: receiver_phone,
+      receiverAddress: receiver_address,
     };
-    if (customer_name && MM_TH_weight) {
+    if (customer_name && MM_TH_weight && MM_TH_grandBalance) {
       dispatch(uploadRecords(recordToUpload));
       dispatch(updateVoucherNumber());
       window.print();
@@ -90,7 +98,6 @@ const PrintBtnComponent = () => {
     const date = moment().format("LLL");
     const recordToUpload = {
       issueTime: date,
-      customerName: customer_name,
       kg: AC_weight,
       exchangeRate: AC_exchangeRate,
       userIssued: currentUser.userName,
@@ -99,9 +106,14 @@ const PrintBtnComponent = () => {
       userId: currentUser.id,
       type: "AIR CARGO",
       voucherNumber: voucherNumber,
+      customerName: customer_name,
+      customerPhone: customer_phone,
+      receiverName: receiver_name,
+      receiverPhone: receiver_phone,
+      receiverAddress: receiver_address,
     };
 
-    if (customer_name && AC_exchangeRate && AC_weight) {
+    if (customer_name && AC_exchangeRate && AC_weight && AC_grandBalance) {
       dispatch(uploadRecords(recordToUpload));
       dispatch(updateVoucherNumber());
       window.print();

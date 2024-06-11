@@ -1,6 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { updateReceiverInfo } from "../../../state/receriverInfo/receiverInfoSlice";
 
 const ReciverInfo_MM_TH = () => {
+  const { receiver_name, receiver_phone, receiver_address } = useSelector(
+    (state) => state.receiverInfo
+  );
+  const dispatch = useDispatch();
+
   return (
     <div id="mm-th-receiver-form-wrapper" className=" my-2">
       <div className="w-full">
@@ -16,6 +24,12 @@ const ReciverInfo_MM_TH = () => {
               </label>
               <input
                 id="receiver-name"
+                value={receiver_name}
+                onChange={(e) =>
+                  dispatch(
+                    updateReceiverInfo({ type: "name", value: e.target.value })
+                  )
+                }
                 type="text"
                 placeholder="Receiver Name"
                 className="rounded-lg bg-transparent border border-black/10 focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 font-semibold"
@@ -30,7 +44,13 @@ const ReciverInfo_MM_TH = () => {
               </label>
               <input
                 id="receiver-phone"
-                type="text"
+                value={receiver_phone}
+                onChange={(e) =>
+                  dispatch(
+                    updateReceiverInfo({ type: "phone", value: e.target.value })
+                  )
+                }
+                type="number"
                 placeholder="Receiver Phone"
                 className="rounded-lg bg-transparent border border-black/10 focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 font-semibold"
               />
@@ -43,6 +63,15 @@ const ReciverInfo_MM_TH = () => {
               </label>
               <textarea
                 id="receiver-address"
+                value={receiver_address}
+                onChange={(e) =>
+                  dispatch(
+                    updateReceiverInfo({
+                      type: "address",
+                      value: e.target.value,
+                    })
+                  )
+                }
                 type="text"
                 placeholder="Receiver address"
                 className="border border-black/10 outline-none resize-none placeholder:text-xs placeholder:text-gray-400 placeholder:font-light  focus:ring-red-600 rounded-lg text-sm w-full font-semibold"
