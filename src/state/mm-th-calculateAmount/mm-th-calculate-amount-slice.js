@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const mm_th_data = {
-    MM_TH_weight:'', MM_TH_kgPerPrice: '',
+    MM_TH_weight:'', MM_TH_kgPerPrice: '',MM_TH_exchangeRate: '',MM_TH_totalInMMK:'',
     MM_TH_totalKgPrice: '', MM_TH_pickupFee: '',MM_TH_deliveryFeeTHB: '',
     MM_TH_packageFee: '', MM_TH_receiverInfo: {
         name: '',
@@ -18,6 +18,10 @@ const mm_th_calculateAmountSlice = createSlice({
             switch (actions.payload.type){
                 case 'weight': {
                  state = {...state,MM_TH_weight:actions.payload.value}
+                 break
+                }
+                case 'exchangeRate': {
+                 state = {...state,MM_TH_exchangeRate:actions.payload.value}
                  break
                 }
 
@@ -74,6 +78,15 @@ MM_TH_
                     }else {
                                                 
                         state = {...state , MM_TH_weight: state.MM_TH_weight + ' KG'}
+                        break;
+                    }
+                }
+                case ('exchangeRate') : {
+                    if(state.MM_TH_exchangeRate === '') {
+                        return
+                    }else {
+                                                
+                        state = {...state , MM_TH_exchangeRate: state.MM_TH_exchangeRate + ' MMK'}
                         break;
                     }
                 }
@@ -135,11 +148,11 @@ MM_TH_
                     
                     const total = kg[0] * price[0]
                     
-                    return {...state,MM_TH_totalKgPrice: total.toLocaleString() + ' MMK'}
+                    return {...state,MM_TH_totalKgPrice: total.toLocaleString() + ' THB'}
                 } else {
                     
                     
-                    return {...state,MM_TH_totalKgPrice: '20,000 MMK'}
+                    return {...state,MM_TH_totalKgPrice: '200 THB'}
                 }
             }
 
@@ -157,22 +170,22 @@ MM_TH_
     
                     case (inputKgvalue <= 3 ) : {
                  
-                        state = {...state,MM_TH_kgPerPrice: '20,000 MMK'}
+                        state = {...state,MM_TH_kgPerPrice: '200 THB'}
                         break;
                     }
                    
                     case (inputKgvalue > 3 && inputKgvalue <= 10) :{
                     
-                        state = {...state,MM_TH_kgPerPrice: '6,000 MMK'}
+                        state = {...state,MM_TH_kgPerPrice: '60 THB'}
                         break;
                     }
     
                     case (inputKgvalue > 10 && inputKgvalue <= 50) : {
-                        state = {...state,MM_TH_kgPerPrice: '5,000 MMK'}
+                        state = {...state,MM_TH_kgPerPrice: '50 THB'}
                         break;
                     }
                     case (inputKgvalue > 50) : {
-                        state = {...state,MM_TH_kgPerPrice: '4,500 MMK'}
+                        state = {...state,MM_TH_kgPerPrice: '45 THB'}
                         break;
                     }
                    
@@ -188,6 +201,22 @@ MM_TH_
            
         },
 
+        calculateTotalMMK: (state) => {
+
+            if(state.MM_TH_exchangeRate && state.MM_TH_totalKgPrice) {
+                const exchangeRateNoWithNoComa = state.MM_TH_exchangeRate.replace(/,/g, '');
+                const exchangeRate = exchangeRateNoWithNoComa.match(/(\d+)/)
+
+                const totalPriceNoWithNoComa = state.MM_TH_totalKgPrice.replace(/,/g, '');
+                const totalPrice =totalPriceNoWithNoComa.match(/(\d+)/)
+
+                const totalInMMK = totalPrice[0] * exchangeRate[0]
+               return state = {...state,MM_TH_totalInMMK: totalInMMK.toLocaleString() + ' MMK'}
+
+                console.log(totalInMMK)
+            }
+        },
+
         calculateTotalAmount: (state) => {
 
          if(!state.MM_TH_pickupFee && state.MM_TH_packageFee){ 
@@ -195,7 +224,7 @@ MM_TH_
                 const packingNoWithNoComa = state.MM_TH_packageFee.replace(/,/g, '');
                 const packing = packingNoWithNoComa.match(/(\d+)/)
 
-                const totalPriceNoWithNoComa = state.MM_TH_totalKgPrice.replace(/,/g, '');
+                const totalPriceNoWithNoComa = state.MM_TH_totalInMMK.replace(/,/g, '');
                 const totalPrice =totalPriceNoWithNoComa.match(/(\d+)/)
                         
                 const totalAmountWithNoPackingFee = Number(packing[0]) + Number(totalPrice[0])
@@ -207,7 +236,7 @@ MM_TH_
                 const pickupNoWithNoComa = state.MM_TH_pickupFee.replace(/,/g, '');
                 const pickup = pickupNoWithNoComa.match(/(\d+)/)
 
-                const totalKgPriceNoWithNoComa = state.MM_TH_totalKgPrice.replace(/,/g, '');
+                const totalKgPriceNoWithNoComa = state.MM_TH_totalInMMK.replace(/,/g, '');
                 const totalPrice = totalKgPriceNoWithNoComa.match(/(\d+)/)
 
                 const totalAmountWithNoPickupFee = Number(pickup[0]) + Number(totalPrice[0])
@@ -224,7 +253,7 @@ MM_TH_
                 const packingNoWithNoComa = state.MM_TH_packageFee.replace(/,/g, '');
                 const packing = packingNoWithNoComa.match(/(\d+)/)
 
-                 const totalKgPriceNoWithNoComa = state.MM_TH_totalKgPrice.replace(/,/g, '');
+                 const totalKgPriceNoWithNoComa = state.MM_TH_totalInMMK.replace(/,/g, '');
                 const totalPrice = totalKgPriceNoWithNoComa.match(/(\d+)/)
                 
                 const Gtotal = Number(pickup[0]) + Number(packing[0]) + Number(totalPrice[0])
@@ -232,7 +261,7 @@ MM_TH_
                 return state = {...state, MM_TH_grandTotal: Gtotal.toLocaleString() + ' MMK'}
 
             }else {
-                return state = {...state,MM_TH_grandTotal: state.MM_TH_totalKgPrice}
+                return state = {...state,MM_TH_grandTotal: state.MM_TH_totalInMMK}
             }
         },
 
@@ -256,6 +285,6 @@ MM_TH_
     
 })
 
-export const {updateData,calculateKgPerPrice,calculateTotalKgPrice,addUnitOnblur,calculateTotalAmount, handleGrandBalance} = mm_th_calculateAmountSlice.actions
+export const {updateData,calculateKgPerPrice,calculateTotalKgPrice,addUnitOnblur,calculateTotalAmount, handleGrandBalance,calculateTotalMMK} = mm_th_calculateAmountSlice.actions
 
 export default mm_th_calculateAmountSlice.reducer

@@ -20,13 +20,13 @@ const InvoiceComponent = () => {
   return (
     <Container>
       <div
-        className="relative lg:w-3/4  w-full mx-auto p-5 lg:p-10 lg:mt-10 font-body"
+        className="relative mx-auto w-full p-5 font-body lg:mt-10 lg:w-3/4 lg:p-10"
         id="print-content "
       >
         {voucherNumber && (
-          <p className="absolute right-12 top-20 " id="voucherNumber">
+          <p className="absolute right-12 top-20" id="voucherNumber">
             VoucherNo:
-            <span className=" ml-2 font-light text-sm">{voucherType}</span>
+            <span className="ml-2 text-sm font-light">{voucherType}</span>
             <span className="font-body font-semibold">
               {voucherNumber < 10
                 ? voucherNumber > 10 && voucherNumber < 100
@@ -54,12 +54,12 @@ const InvoiceComponent = () => {
           <AddressComponent marginTop="mt-24" />
         )}
         {voucherType === "MYANMAR - THAI" && (
-          <AddressComponent marginTop="mt-6" />
+          <AddressComponent marginTop="mt-1" />
         )}
         {voucherType === "AIR CARGO" && <AddressComponent marginTop="mt-1" />}
       </div>
 
-      <div className="w-3/4 mx-auto flex justify-end my-10">
+      <div className="mx-auto my-10 flex w-3/4 justify-end">
         <PrintBtnComponent />
       </div>
     </Container>

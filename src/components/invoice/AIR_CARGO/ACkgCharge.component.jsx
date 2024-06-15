@@ -13,13 +13,13 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState("Kg Charge");
-  const [pickOrDeli, setPickOrDeli] = useState("deli fee");
+
   return (
     <tr
       id="tr"
-      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 active:bg-gray-100"
+      className="border-b bg-white hover:bg-gray-50 active:bg-gray-100 dark:border-gray-700 dark:bg-gray-800"
     >
-      <td scope="row" className=" py-4 font-medium text-black  ">
+      <td scope="row" className="py-4 font-medium text-black">
         <input
           id={`number_${rowId}`}
           name={`number_${rowId}`}
@@ -28,10 +28,10 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           type="text"
           value={rowNo}
           readOnly
-          className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+          className="w-full rounded-lg border-none bg-transparent text-center text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
         />
       </td>
-      <td scope="row" className=" py-4 font-medium text-black  ">
+      <td scope="row" className="py-4 font-medium text-black">
         <input
           id={`descripiton_${rowId}`}
           name={`descripiton_${rowId}`}
@@ -41,10 +41,10 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
-          className="rounded-lg uppercase bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+          className="w-full rounded-lg border-none bg-transparent text-center text-sm uppercase placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
         />
       </td>
-      <td className=" py-4 font-medium text-black  ">
+      <td className="py-4 font-medium text-black">
         <input
           value={AC_weight}
           onChange={(e) =>
@@ -58,10 +58,10 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           name={`unit_${rowId}`}
           placeholder="unit"
           type="text"
-          className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 text-center"
+          className="w-full rounded-lg border-none bg-transparent text-center text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
         />
       </td>
-      <td scope="row" className=" py-4 font-medium text-black  ">
+      <td scope="row" className="py-4 font-medium text-black">
         <input
           value={AC_pricePerWeight}
           id={`unit_price_${rowId}`}
@@ -69,17 +69,16 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           placeholder="unit price"
           onChange={(e) => {
             dispatch(
-              AC_updateData({ type: "pricePerWeight", value: e.target.value })
+              AC_updateData({ type: "pricePerWeight", value: e.target.value }),
             );
           }}
           type="text"
-          className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-              text-center"
+          className="w-full rounded-lg border-none bg-transparent text-center text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
         />
       </td>
       <td
         scope="row"
-        className=" py-4 font-medium text-black relative overflow-y-hidden"
+        className="relative overflow-y-hidden py-4 font-medium text-black"
       >
         <input
           value={AC_totalAmountOfWeight_THB}
@@ -87,13 +86,12 @@ const ACkgChargeComponent = ({ placeholder, rowId, rowNo }) => {
           name={`amount_${rowId}`}
           onChange={(e) => {
             dispatch(
-              AC_updateData({ type: "totalTHB", value: e.target.value })
+              AC_updateData({ type: "totalTHB", value: e.target.value }),
             );
           }}
           placeholder="amount"
           type="text"
-          className="rounded-lg bg-transparent border-none focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 
-              text-center"
+          className="w-full rounded-lg border-none bg-transparent text-center text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
         />
       </td>
     </tr>

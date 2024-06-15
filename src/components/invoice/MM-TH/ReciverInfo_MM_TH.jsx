@@ -5,21 +5,21 @@ import { updateReceiverInfo } from "../../../state/receriverInfo/receiverInfoSli
 
 const ReciverInfo_MM_TH = () => {
   const { receiver_name, receiver_phone, receiver_address } = useSelector(
-    (state) => state.receiverInfo
+    (state) => state.receiverInfo,
   );
   const dispatch = useDispatch();
 
   return (
-    <div id="mm-th-receiver-form-wrapper" className=" my-2">
+    <div id="mm-th-receiver-form-wrapper" className="mt-2">
       <div className="w-full">
-        <p className="font-bold text-sm capitalize mb-3">Reciver's Info</p>
-        <form action="submit" className="border  rounded-lg py-3  ">
-          <div className="flex  w-full mb-2">
+        <p className="mb-1 text-sm font-bold capitalize">Reciver's Info</p>
+        <form action="submit" className="rounded-lg border py-3">
+          <div className="mb-2 flex w-full">
             <span
               id="receiver-Info"
-              className="w-1/2 flex gap-7 items-center px-3"
+              className="flex w-1/2 items-center gap-7 px-3"
             >
-              <label htmlFor="receiver-name" className=" uppercase text-sm ">
+              <label htmlFor="receiver-name" className="text-sm uppercase">
                 Name
               </label>
               <input
@@ -27,19 +27,19 @@ const ReciverInfo_MM_TH = () => {
                 value={receiver_name}
                 onChange={(e) =>
                   dispatch(
-                    updateReceiverInfo({ type: "name", value: e.target.value })
+                    updateReceiverInfo({ type: "name", value: e.target.value }),
                   )
                 }
                 type="text"
                 placeholder="Receiver Name"
-                className="rounded-lg bg-transparent border border-black/10 focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 font-semibold"
+                className="w-full rounded-lg border border-black/10 bg-transparent text-sm font-semibold placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
               />
             </span>
             <span
               id="receiver-Info"
-              className="w-1/2 flex gap-3 items-center px-3"
+              className="flex w-1/2 items-center gap-3 px-3"
             >
-              <label htmlFor="receiver-phone" className=" uppercase text-sm">
+              <label htmlFor="receiver-phone" className="text-sm uppercase">
                 phone
               </label>
               <input
@@ -47,18 +47,21 @@ const ReciverInfo_MM_TH = () => {
                 value={receiver_phone}
                 onChange={(e) =>
                   dispatch(
-                    updateReceiverInfo({ type: "phone", value: e.target.value })
+                    updateReceiverInfo({
+                      type: "phone",
+                      value: e.target.value,
+                    }),
                   )
                 }
                 type="number"
                 placeholder="Receiver Phone"
-                className="rounded-lg bg-transparent border border-black/10 focus:ring-red-600 w-full text-sm placeholder:text-xs placeholder:font-light placeholder:text-gray-400 font-semibold"
+                className="w-full rounded-lg border border-black/10 bg-transparent text-sm font-semibold placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
               />
             </span>
           </div>
           <div>
-            <span id="receiver-Info" className="flex items-top gap-3 px-3">
-              <label htmlFor="receiver-address" className=" uppercase text-sm">
+            <span id="receiver-Info" className="items-top flex gap-3 px-3">
+              <label htmlFor="receiver-address" className="text-sm uppercase">
                 address
               </label>
               <textarea
@@ -69,12 +72,12 @@ const ReciverInfo_MM_TH = () => {
                     updateReceiverInfo({
                       type: "address",
                       value: e.target.value,
-                    })
+                    }),
                   )
                 }
                 type="text"
                 placeholder="Receiver address"
-                className="border border-black/10 outline-none resize-none placeholder:text-xs placeholder:text-gray-400 placeholder:font-light  focus:ring-red-600 rounded-lg text-sm w-full font-semibold"
+                className="w-full resize-none rounded-lg border border-black/10 text-sm font-semibold outline-none placeholder:text-xs placeholder:font-light placeholder:text-gray-400 focus:ring-red-600"
               />
             </span>
           </div>
