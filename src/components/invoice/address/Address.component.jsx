@@ -15,7 +15,8 @@ const AddressComponent = ({ marginTop }) => {
         <p className="w-1/6 text-nowrap">Chaing Mai</p>
         <p className="w-5/6">
           No. (257 / 180) , Soi Mu Ban Wiang Thong (3), Chang Khlan
-          Sub-district, Mueang Chiang Mai District, Chiang Mai 50100
+          Sub-district, Mueang Chiang Mai District, Chiang Mai 50100. +668 150
+          190 41
         </p>
       </li>
       <li className="flex gap-5 text-[10px]">
