@@ -139,21 +139,25 @@ export const ac_calculateSlice = createSlice({
 
                 if(weightInNumber <= 3 ){
 
-                    const totalTHB = weightInNumber * 200
+                    const totalTHB = weightInNumber * 300
 
-                    return state = {...state, AC_pricePerWeight: '200 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
+                    return state = {...state, AC_pricePerWeight: '300 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
                 }else if( weightInNumber > 3 && weightInNumber <= 5) {
 
-                    const totalTHB = weightInNumber * 150
-                    return state = {...state, AC_pricePerWeight: '150 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
+                    const totalTHB = weightInNumber * 250
+                    return state = {...state, AC_pricePerWeight: '250 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
                 }else if( weightInNumber > 5 && weightInNumber <= 10 ) {
 
-                    const totalTHB = weightInNumber * 140
-                    return state = {...state, AC_pricePerWeight: '140 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
+                    const totalTHB = weightInNumber * 240
+                    return state = {...state, AC_pricePerWeight: '240 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
+                }else if( weightInNumber > 10 && weightInNumber <= 30 ) {
+
+                    const totalTHB = weightInNumber * 230
+                    return state = {...state, AC_pricePerWeight: '230 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
                 }else {
 
-                    const totalTHB = weightInNumber * 120
-                    return state = {...state, AC_pricePerWeight: '120 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
+                    const totalTHB = weightInNumber * 200
+                    return state = {...state, AC_pricePerWeight: '200 THB', AC_totalAmountOfWeight_THB: totalTHB.toLocaleString() + ' THB'}
                 }
 
 
