@@ -152,7 +152,7 @@ MM_TH_
                 } else {
                     
                     
-                    return {...state,MM_TH_totalKgPrice: '200 THB'}
+                    return {...state,MM_TH_totalKgPrice: '250 THB'}
                 }
             }
 
@@ -168,24 +168,24 @@ MM_TH_
                 
                 switch (true){
     
-                    case (inputKgvalue <= 3 ) : {
+                    case (inputKgvalue < 3 ) : {
                  
-                        state = {...state,MM_TH_kgPerPrice: '200 THB'}
+                        state = {...state,MM_TH_kgPerPrice: '250 THB'}
                         break;
                     }
                    
                     case (inputKgvalue > 3 && inputKgvalue <= 10) :{
                     
-                        state = {...state,MM_TH_kgPerPrice: '60 THB'}
+                        state = {...state,MM_TH_kgPerPrice: '80 THB'}
                         break;
                     }
     
                     case (inputKgvalue > 10 && inputKgvalue <= 50) : {
-                        state = {...state,MM_TH_kgPerPrice: '50 THB'}
+                        state = {...state,MM_TH_kgPerPrice: '70 THB'}
                         break;
                     }
                     case (inputKgvalue > 50) : {
-                        state = {...state,MM_TH_kgPerPrice: '45 THB'}
+                        state = {...state,MM_TH_kgPerPrice: '60 THB'}
                         break;
                     }
                    
